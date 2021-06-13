@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/ramp.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/PlayerMovement.cs" type="Script" id=2]
 [ext_resource path="res://Assets/beefcake.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/PlayerMovementAllDirections.cs" type="Script" id=4]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 13.9466, 46.9145 )
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -12,7 +13,7 @@ extents = Vector2( 13.9466, 46.9145 )
 [node name="Node2D" type="Node2D"]
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
-position = Vector2( 100, 535 )
+position = Vector2( 79.3638, 531.825 )
 script = ExtResource( 2 )
 
 [node name="PlayerSprite" type="Sprite" parent="KinematicBody2D"]
@@ -22,7 +23,7 @@ texture = ExtResource( 3 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 7.57365, 1.89447 )
 scale = Vector2( -2.27595, 1.32286 )
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="ramp" type="StaticBody2D" parent="."]
 position = Vector2( 469.552, 543.718 )
@@ -41,3 +42,17 @@ polygon = PoolVector2Array( -520.726, 111.427, -475.311, 95.8667, -395.672, 53.2
 position = Vector2( 514, 610 )
 scale = Vector2( 51.28, 1 )
 shape = SubResource( 2 )
+disabled = true
+
+[node name="KinematicBody2D2" type="KinematicBody2D" parent="."]
+position = Vector2( 825.442, 523.888 )
+script = ExtResource( 4 )
+
+[node name="PlayerSprite" type="Sprite" parent="KinematicBody2D2"]
+scale = Vector2( 0.309735, 0.309735 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D2"]
+position = Vector2( 7.57365, 1.89447 )
+scale = Vector2( -2.27595, 1.32286 )
+shape = SubResource( 1 )
