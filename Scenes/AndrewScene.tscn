@@ -1,3 +1,48 @@
-[gd_scene format=2]
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Andrew Test/Crossfader.cs" type="Script" id=1]
+[ext_resource path="res://Art/Placeholder/Boat.png" type="Texture" id=2]
+[ext_resource path="res://Audio/Music/Journey North/Journey North 02.mp3" type="AudioStream" id=3]
+[ext_resource path="res://Art/Placeholder/Sub.png" type="Texture" id=4]
+[ext_resource path="res://Art/Placeholder/Water.png" type="Texture" id=5]
+[ext_resource path="res://Audio/Music/Descent/Descent 03.mp3" type="AudioStream" id=6]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="Down" type="Button" parent="."]
+margin_right = 12.0
+margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Up" type="Button" parent="."]
+margin_right = 12.0
+margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 512, 300 )
+
+[node name="Ship" type="Sprite" parent="."]
+scale = Vector2( 0.64, 0.64 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Water" type="Sprite" parent="."]
+position = Vector2( 0, 576 )
+scale = Vector2( 0.64, 0.64 )
+texture = ExtResource( 5 )
+centered = false
+
+[node name="XFade" type="Node" parent="."]
+script = ExtResource( 1 )
+FadeTime = 1.0
+StreamA = ExtResource( 3 )
+StreamB = ExtResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 322, 447 )
+texture = ExtResource( 4 )
