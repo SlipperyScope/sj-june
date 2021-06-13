@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Journey North.mp3-df8380f98076d4c9802b2065083dfc09.mp3str"
+
+[deps]
+
+source_file="res://Audio/Music/Journey North/Journey North.mp3"
+dest_files=[ "res://.import/Journey North.mp3-df8380f98076d4c9802b2065083dfc09.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

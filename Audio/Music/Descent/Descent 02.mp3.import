@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Descent 02.mp3-7b2113ba78ff1cd764efd197345fdda6.mp3str"
+
+[deps]
+
+source_file="res://Audio/Music/Descent/Descent 02.mp3"
+dest_files=[ "res://.import/Descent 02.mp3-7b2113ba78ff1cd764efd197345fdda6.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
