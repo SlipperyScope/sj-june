@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Bubbles_Unsplit.mp3-ff12343f3cf6d6a3c35c1830eee8bcc4.mp3str"
+
+[deps]
+
+source_file="res://Audio/Sfx/Bubbles_Unsplit.mp3"
+dest_files=[ "res://.import/Bubbles_Unsplit.mp3-ff12343f3cf6d6a3c35c1830eee8bcc4.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

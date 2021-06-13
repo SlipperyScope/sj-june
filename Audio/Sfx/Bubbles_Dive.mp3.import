@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Bubbles_Dive.mp3-d07abc41ae8af3ebb447d8facd914f69.mp3str"
+
+[deps]
+
+source_file="res://Audio/Sfx/Bubbles_Dive.mp3"
+dest_files=[ "res://.import/Bubbles_Dive.mp3-d07abc41ae8af3ebb447d8facd914f69.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

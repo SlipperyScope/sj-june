@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Andrew Test/Crossfader.cs" type="Script" id=1]
 [ext_resource path="res://Art/Placeholder/Boat.png" type="Texture" id=2]
@@ -6,25 +6,163 @@
 [ext_resource path="res://Art/Placeholder/Sub.png" type="Texture" id=4]
 [ext_resource path="res://Art/Placeholder/Water.png" type="Texture" id=5]
 [ext_resource path="res://Audio/Music/Descent/Descent 03.mp3" type="AudioStream" id=6]
+[ext_resource path="res://Audio/Sfx/Bubbles_Dive.mp3" type="AudioStream" id=7]
+[ext_resource path="res://Audio/Sfx/Splash.mp3" type="AudioStream" id=8]
+[ext_resource path="res://Scripts/Andrew Test/Animator.cs" type="Script" id=9]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Down"
+length = 5.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sub:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.247059, 0.282353, 0.8, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("Sub/AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 8 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 7 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": null
+} ],
+"times": PoolRealArray( 0, 1.81, 3 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sub:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1, 5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 322, 447 ), Vector2( 322, 886 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Camera2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 5.5 ),
+"transitions": PoolRealArray( 1.51572, 1.1487 ),
+"update": 0,
+"values": [ Vector2( 512, 300 ), Vector2( 512, 850 ) ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath("XFade")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 1 ],
+"method": "BeginFade"
+} ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Up"
+length = 5.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sub:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.5, 4.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 322, 886 ), Vector2( 322, 447 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sub:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 4.5, 5.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.247059, 0.282353, 0.8, 0 ) ]
+}
+tracks/2/type = "audio"
+tracks/2/path = NodePath("Sub/AudioStreamPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.03,
+"start_offset": 0.48,
+"stream": ExtResource( 7 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": null
+}, {
+"end_offset": 2.05,
+"start_offset": 1.04,
+"stream": ExtResource( 8 )
+} ],
+"times": PoolRealArray( 0, 0.9, 4 )
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("XFade")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 3.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0 ],
+"method": "BeginFade"
+} ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Camera2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 5.5 ),
+"transitions": PoolRealArray( 1.62451, 1 ),
+"update": 0,
+"values": [ Vector2( 512, 850 ), Vector2( 512, 300 ) ]
+}
 
 [node name="Node2D" type="Node2D"]
-
-[node name="Down" type="Button" parent="."]
-margin_right = 12.0
-margin_bottom = 20.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Up" type="Button" parent="."]
-margin_right = 12.0
-margin_bottom = 20.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 512, 300 )
 
 [node name="Ship" type="Sprite" parent="."]
 scale = Vector2( 0.64, 0.64 )
@@ -39,10 +177,48 @@ centered = false
 
 [node name="XFade" type="Node" parent="."]
 script = ExtResource( 1 )
-FadeTime = 1.0
+FadeTime = 4.0
 StreamA = ExtResource( 3 )
 StreamB = ExtResource( 6 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sub" type="Sprite" parent="."]
+modulate = Color( 0.247059, 0.282353, 0.8, 0 )
 position = Vector2( 322, 447 )
 texture = ExtResource( 4 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Sub"]
+stream = ExtResource( 8 )
+
+[node name="Down" type="Button" parent="."]
+margin_left = 16.0
+margin_top = 16.9897
+margin_right = 64.9897
+margin_bottom = 36.9897
+text = "Down"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Up" type="Button" parent="."]
+margin_left = 16.0
+margin_top = 614.496
+margin_right = 47.0606
+margin_bottom = 634.496
+text = "Up"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Down = SubResource( 1 )
+anims/Up = SubResource( 2 )
+script = ExtResource( 9 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 512, 300 )
+current = true
+smoothing_enabled = true
+smoothing_speed = 4.0
+
+[connection signal="button_down" from="Down" to="AnimationPlayer" method="OnDiveButtonDown"]
+[connection signal="button_down" from="Up" to="AnimationPlayer" method="OnRiseButtonDown"]
