@@ -37,6 +37,7 @@ public class Obstacle : StaticBody2D
 
     private void completeTask()
     {
+        steve.removeItem(itemNeeded);
         completeSprite.Visible = true;
         startSprite.Visible = false;
         completed = true;
@@ -57,11 +58,8 @@ public class Obstacle : StaticBody2D
 
     private void _onMouseEntered()
     {
-        if (steve.Position.DistanceTo(Position) < activationDistance) {
-
-            ((ShaderMaterial)startSprite.Material).SetShaderParam("outlined", true);
-            ((ShaderMaterial)completeSprite.Material).SetShaderParam("outlined", true);
-        }
+        ((ShaderMaterial)startSprite.Material).SetShaderParam("outlined", true);
+        ((ShaderMaterial)completeSprite.Material).SetShaderParam("outlined", true);
     }
     private void _onMouseExited()
     {

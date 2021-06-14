@@ -9,7 +9,7 @@ public class Player : KinematicBody2D
 	Vector2 target;
 	int speed = 300;
     List<String> itemNames = new List<String>();
-    Hashtable itemSprites = new Hashtable();
+    Hashtable itemTextures = new Hashtable();
 	
 	public override void _Ready()
 	{
@@ -37,10 +37,17 @@ public class Player : KinematicBody2D
 		}
 	}
 
-    public void grabItem(String itemName, Sprite itemSprite)
+    public void grabItem(String itemName, Texture itemTexture)
     {
         GD.Print("got item: " + itemName);
         itemNames.Add(itemName);
-        itemSprites[itemName] = itemSprite;
+        itemTextures[itemName] = itemTexture;
+    }
+
+    public void removeItem(String itemName)
+    {
+        itemTextures.Remove(itemName);
+        itemNames.Remove(itemName);
+        GD.Print("removed item: " + itemName);
     }
 }

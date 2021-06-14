@@ -21,8 +21,7 @@ public class Item : StaticBody2D
     {
 		if (@event.IsActionPressed("click") && steve.Position.DistanceTo(Position) < 300)
 		{
-            //probably don't want to actually pass the sprite, but it's a placeholder for now
-            steve.grabItem(itemName,  itemSprite);
+            steve.grabItem(itemName,  itemSprite.Texture);
             InputPickable = false;
             itemSprite.Visible = false;
             GetNode<CollisionShape2D>("ItemCollider").Disabled = true;
@@ -30,11 +29,10 @@ public class Item : StaticBody2D
     }
   private void _onMouseEntered()
     {
-        if (steve.Position.DistanceTo(Position) < activationDistance)
         ((ShaderMaterial)itemSprite.Material).SetShaderParam("outlined", true);
     }
     private void _onMouseExited()
     {
-        ((ShaderMaterial)itemSprite.Material).SetShaderParam("outliend", true);
+        ((ShaderMaterial)itemSprite.Material).SetShaderParam("outliend", false);
     }
 }

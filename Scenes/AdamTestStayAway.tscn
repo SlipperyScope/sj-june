@@ -17,21 +17,21 @@ extents = Vector2( 38.7371, 856.012 )
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 8 )
-shader_param/outLineSize = 0.0
 shader_param/outLineColor = Plane( 1, 1, 1, 1 )
+shader_param/outlined = false
 
 [sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 8 )
-shader_param/outLineSize = 0.0
 shader_param/outLineColor = Plane( 1, 1, 1, 1 )
+shader_param/outlined = false
 
 [sub_resource type="CircleShape2D" id=5]
 radius = 123.393
 
 [sub_resource type="ShaderMaterial" id=6]
 shader = ExtResource( 8 )
-shader_param/outLineSize = 0.0
 shader_param/outLineColor = Plane( 1, 1, 1, 1 )
+shader_param/outlined = false
 
 [node name="Node2D" type="Node2D"]
 
@@ -72,12 +72,14 @@ alreadyCompletedText = "It's for beating, not smoking"
 
 [node name="StartSprite" type="Sprite" parent="CrabGuy"]
 material = SubResource( 3 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 3 )
 
 [node name="CompleteSprite" type="Sprite" parent="CrabGuy"]
 visible = false
 material = SubResource( 4 )
 position = Vector2( -23, 0 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 4 )
 
 [node name="ObstacleCollider" type="CollisionShape2D" parent="CrabGuy"]
@@ -93,6 +95,7 @@ itemName = "pipe"
 
 [node name="ItemSprite" type="Sprite" parent="PipeItem"]
 material = SubResource( 6 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 6 )
 
 [node name="ItemCollider" type="CollisionShape2D" parent="PipeItem"]
