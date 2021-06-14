@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class Obstacle : StaticBody2D
 {
     [Export] String itemNeeded;
-    [Export] String completionText = "Nice";  
+    [Export] String completionText = "Nice";
     [Export] String failureText = "Nope";
     [Export] String alreadyCompletedText = "Nice Again";
     Sprite startSprite;
@@ -55,15 +55,17 @@ public class Obstacle : StaticBody2D
         return failureText;
     }
 
-    private void _onMouseEntered() 
+    private void _onMouseEntered()
     {
-        if (steve.Position.DistanceTo(Position) < activationDistance)
-        ((ShaderMaterial)startSprite.Material).SetShaderParam("outLineSize", .02);
-        ((ShaderMaterial)completeSprite.Material).SetShaderParam("outLineSize", .02);
+        if (steve.Position.DistanceTo(Position) < activationDistance) {
+
+            ((ShaderMaterial)startSprite.Material).SetShaderParam("outlined", true);
+            ((ShaderMaterial)completeSprite.Material).SetShaderParam("outlined", true);
+        }
     }
-    private void _onMouseExited() 
+    private void _onMouseExited()
     {
-        ((ShaderMaterial)startSprite.Material).SetShaderParam("outLineSize", .00);
-        ((ShaderMaterial)completeSprite.Material).SetShaderParam("outLineSize", .00);
+        ((ShaderMaterial)startSprite.Material).SetShaderParam("outlined", false);
+        ((ShaderMaterial)completeSprite.Material).SetShaderParam("outlined", false);
     }
 }

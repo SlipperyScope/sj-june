@@ -28,13 +28,13 @@ public class Item : StaticBody2D
             GetNode<CollisionShape2D>("ItemCollider").Disabled = true;
         }
     }
-  private void _onMouseEntered() 
+  private void _onMouseEntered()
     {
         if (steve.Position.DistanceTo(Position) < activationDistance)
-        ((ShaderMaterial)itemSprite.Material).SetShaderParam("outLineSize", .02);
+        ((ShaderMaterial)itemSprite.Material).SetShaderParam("outlined", true);
     }
-    private void _onMouseExited() 
+    private void _onMouseExited()
     {
-        ((ShaderMaterial)itemSprite.Material).SetShaderParam("outLineSize", .00);
+        ((ShaderMaterial)itemSprite.Material).SetShaderParam("outliend", true);
     }
 }
