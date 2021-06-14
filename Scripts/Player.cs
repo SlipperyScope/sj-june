@@ -10,11 +10,13 @@ public class Player : KinematicBody2D
 	int speed = 300;
     List<String> itemNames = new List<String>();
     Hashtable itemTextures = new Hashtable();
+    RichTextLabel textbox;
     public Clickable interactWhenClose = null;
 	
 	public override void _Ready()
 	{
 		target = Position;
+        textbox = GetNode<RichTextLabel>("HUD/TextboxContainer/Textbox");
 	}
 
     public List<String> GetItemNames() {
@@ -41,7 +43,7 @@ public class Player : KinematicBody2D
 
     public void grabItem(String itemName, Texture itemTexture)
     {
-        GD.Print("got item: " + itemName);
+        printMessage("got item: " + itemName);
         itemNames.Add(itemName);
         itemTextures[itemName] = itemTexture;
     }
@@ -50,6 +52,11 @@ public class Player : KinematicBody2D
     {
         itemTextures.Remove(itemName);
         itemNames.Remove(itemName);
-        GD.Print("removed item: " + itemName);
+        printMessage("removed item: " + itemName);
+    }
+
+    public void printMessage(String msg)
+    {
+        textbox.Text = msg + "\n" + textbox.Text;
     }
 }

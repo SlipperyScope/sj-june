@@ -32,14 +32,14 @@ public class Obstacle : Clickable
     public override void interact() {
         List<String> items = getSteve().GetItemNames();
         if (completed) {
-            GD.Print(alreadyCompletedText);
+            getSteve().printMessage(alreadyCompletedText);
         } else if (items.Contains(itemNeeded))
         {
             completeTask();
-            GD.Print(completionText);
+            getSteve().printMessage(completionText);
         } else
         {
-            GD.Print(failureText);
+            getSteve().printMessage(failureText);
         }
     }
 
