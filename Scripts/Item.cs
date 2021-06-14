@@ -1,37 +1,41 @@
 using Godot;
 using System;
 
-public class Item : StaticBody2D
+public class Item : Clickable
 {
     [Export] String itemName;
     Sprite itemSprite;
-    Player steve;
-    int activationDistance = 300;
 
     public override void _Ready()
     {
-        InputPickable = true;
+        base._Ready();
         itemSprite = GetNode<Sprite>("ItemSprite");
-        steve = GetParent().GetNode<Player>("ScubaSteve");
-        this.Connect("mouse_entered", this, nameof(_onMouseEntered));
-        this.Connect("mouse_exited", this, nameof(_onMouseExited));
     }
 
-    public override void _InputEvent(Godot.Object viewport, InputEvent @event, int shapeIdx)
+    // public override void _InputEvent(Godot.Object viewport, InputEvent @event, int shapeIdx)
+    // {
+	// 	if (@event.IsActionPressed("click") && steve.Position.DistanceTo(Position) < 300)
+	// 	{
+    //         steve.grabItem(itemName,  itemSprite.Texture);
+    //         InputPickable = false;
+    //         itemSprite.Visible = false;
+    //         GetNode<CollisionShape2D>("ItemCollider").Disabled = true;
+    //     }
+    // }
+
+    public override void interact()
     {
-		if (@event.IsActionPressed("click") && steve.Position.DistanceTo(Position) < 300)
-		{
-            steve.grabItem(itemName,  itemSprite.Texture);
-            InputPickable = false;
-            itemSprite.Visible = false;
-            GetNode<CollisionShape2D>("ItemCollider").Disabled = true;
-        }
+        getSteve().grabItem(itemName,  itemSprite.Texture);
+        InputPickable = false;
+        itemSprite.Visible = false;
+        GetNode<CollisionShape2D>("ItemCollider").Disabled = true;
     }
-  private void _onMouseEntered()
+    public override void _onMouseEntered()
     {
         ((ShaderMaterial)itemSprite.Material).SetShaderParam("outlined", true);
     }
-    private void _onMouseExited()
+
+    public override void _onMouseExited()
     {
         ((ShaderMaterial)itemSprite.Material).SetShaderParam("outliend", false);
     }

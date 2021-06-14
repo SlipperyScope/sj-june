@@ -66,9 +66,6 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 5 )
 itemNeeded = "pipe"
-completionText = "Thanks for the pipe"
-failureText = "FUCK OFF"
-alreadyCompletedText = "It's for beating, not smoking"
 
 [node name="StartSprite" type="Sprite" parent="CrabGuy"]
 material = SubResource( 3 )

@@ -10,6 +10,7 @@ public class Player : KinematicBody2D
 	int speed = 300;
     List<String> itemNames = new List<String>();
     Hashtable itemTextures = new Hashtable();
+    public Clickable interactWhenClose = null;
 	
 	public override void _Ready()
 	{
@@ -24,6 +25,7 @@ public class Player : KinematicBody2D
 	{
 		if (ie.IsActionPressed("click"))
 		{
+            interactWhenClose = null;
 			target = GetGlobalMousePosition();
 			GetNode<Sprite>("PlayerSprite").FlipH = target.x < Position.x;
 		}
