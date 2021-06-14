@@ -11,12 +11,14 @@ public class Player : KinematicBody2D
     List<String> itemNames = new List<String>();
     Hashtable itemTextures = new Hashtable();
     RichTextLabel textbox;
+    RichTextLabel clickableName;
     public Clickable interactWhenClose = null;
 	
 	public override void _Ready()
 	{
 		target = Position;
         textbox = GetNode<RichTextLabel>("HUD/TextboxContainer/Textbox");
+        clickableName = GetNode<RichTextLabel>("HUD/ClickableName");
 	}
 
     public List<String> GetItemNames() {
@@ -58,5 +60,10 @@ public class Player : KinematicBody2D
     public void printMessage(String msg)
     {
         textbox.Text = msg + "\n" + textbox.Text;
+    }
+
+    public void setClickableName(String name)
+    {
+        clickableName.Text = name;
     }
 }

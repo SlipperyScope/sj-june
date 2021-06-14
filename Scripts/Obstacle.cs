@@ -47,10 +47,12 @@ public class Obstacle : Clickable
     {
         ((ShaderMaterial)startSprite.Material).SetShaderParam("outlined", true);
         ((ShaderMaterial)completeSprite.Material).SetShaderParam("outlined", true);
+        base._onMouseEntered();
     }
     public override void _onMouseExited()
     {
         ((ShaderMaterial)startSprite.Material).SetShaderParam("outlined", false);
         ((ShaderMaterial)completeSprite.Material).SetShaderParam("outlined", false);
+        base._onMouseExited();
     }
 }

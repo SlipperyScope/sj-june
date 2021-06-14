@@ -41,6 +41,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ClickableName" type="RichTextLabel" parent="HUD"]
+margin_left = 264.0
+margin_top = 749.0
+margin_right = 666.0
+margin_bottom = 816.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="TextboxContainer" type="MarginContainer" parent="HUD"]
 margin_left = 196.0
 margin_top = 893.0

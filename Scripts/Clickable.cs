@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Clickable : StaticBody2D
 {
+    [Export] String name = "Something you can click on";
     Player steve;
     Boolean completed = false;
     int activationDistance = 300;
@@ -41,6 +42,12 @@ public class Clickable : StaticBody2D
 
     public virtual void interact() {}
 
-    public virtual void _onMouseEntered() {}
-    public virtual void _onMouseExited() {}
+    public virtual void _onMouseEntered() 
+    {
+        steve.setClickableName(name);
+    }
+    public virtual void _onMouseExited()
+    {
+        steve.setClickableName("");
+    }
 }

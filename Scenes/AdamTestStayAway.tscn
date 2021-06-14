@@ -65,6 +65,7 @@ position = Vector2( 1276.8, 920.622 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 5 )
+name = "Crabby Guy"
 itemNeeded = "pipe"
 
 [node name="StartSprite" type="Sprite" parent="CrabGuy"]
@@ -88,6 +89,7 @@ input_pickable = true
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
+name = "A pipe"
 itemName = "pipe"
 
 [node name="ItemSprite" type="Sprite" parent="PipeItem"]
