@@ -12,6 +12,7 @@ public class Player : KinematicBody2D
     Hashtable itemTextures = new Hashtable();
     RichTextLabel textbox;
     RichTextLabel clickableName;
+    GridContainer inventoryButtons;
     public Clickable interactWhenClose = null;
 	
 	public override void _Ready()
@@ -19,6 +20,7 @@ public class Player : KinematicBody2D
 		target = Position;
         textbox = GetNode<RichTextLabel>("HUD/TextboxContainer/Textbox");
         clickableName = GetNode<RichTextLabel>("HUD/ClickableName");
+        inventoryButtons = GetNode<GridContainer>("HUD/InventoryButtons");
 	}
 
     public List<String> GetItemNames() {
@@ -48,12 +50,21 @@ public class Player : KinematicBody2D
         printMessage("got item: " + itemName);
         itemNames.Add(itemName);
         itemTextures[itemName] = itemTexture;
+
+        var itemButton = ((PackedScene)GD.Load("res://Game/ItemButton.tscn")).Instance();
+        itemButton.Name = itemName + "Button";
+        Button button = itemButton.GetNode<Button>("Button");
+        Sprite buttonSprite = button.GetNode<Sprite>("ButtonSprite");
+        buttonSprite.Texture = itemTexture;
+        buttonSprite.Scale = new Vector2(button.RectSize.x / itemTexture.GetWidth(), button.RectSize.y / itemTexture.GetHeight());
+        inventoryButtons.AddChild(itemButton);
     }
 
     public void removeItem(String itemName)
     {
         itemTextures.Remove(itemName);
         itemNames.Remove(itemName);
+        inventoryButtons.RemoveChild(inventoryButtons.GetNode(itemName + "Button"));
         printMessage("removed item: " + itemName);
     }
 

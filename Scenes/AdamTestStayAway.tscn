@@ -84,7 +84,7 @@ texture = ExtResource( 4 )
 shape = SubResource( 5 )
 
 [node name="PipeItem" type="StaticBody2D" parent="."]
-position = Vector2( 3214.29, 1479 )
+position = Vector2( 3185.74, 1493.59 )
 input_pickable = true
 collision_layer = 2
 collision_mask = 2
