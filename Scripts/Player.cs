@@ -8,6 +8,7 @@ public class Player : KinematicBody2D
 
 	Vector2 target;
 	int speed = 300;
+    String selectedItem;
     List<String> itemNames = new List<String>();
     Hashtable itemTextures = new Hashtable();
     RichTextLabel textbox;
@@ -21,6 +22,8 @@ public class Player : KinematicBody2D
         textbox = GetNode<RichTextLabel>("HUD/TextboxContainer/Textbox");
         clickableName = GetNode<RichTextLabel>("HUD/ClickableName");
         inventoryButtons = GetNode<GridContainer>("HUD/InventoryButtons");
+        Button button = inventoryButtons.GetNode<Button>("ItemButton/Button");
+        button.Connect("pressed", this, nameof(itemButtonPressed), new Godot.Collections.Array {""});
 	}
 
     public List<String> GetItemNames() {
@@ -45,6 +48,16 @@ public class Player : KinematicBody2D
 		}
 	}
 
+    public String getSelectedItem() 
+    {
+        return selectedItem;
+    }
+
+    private void itemButtonPressed(String itemName)
+    {
+        selectedItem = itemName;
+    }
+
     public void grabItem(String itemName, Texture itemTexture)
     {
         printMessage("got item: " + itemName);
@@ -54,6 +67,8 @@ public class Player : KinematicBody2D
         var itemButton = ((PackedScene)GD.Load("res://Game/ItemButton.tscn")).Instance();
         itemButton.Name = itemName + "Button";
         Button button = itemButton.GetNode<Button>("Button");
+        button.Connect("pressed", this, nameof(itemButtonPressed), new Godot.Collections.Array {itemName});
+
         Sprite buttonSprite = button.GetNode<Sprite>("ButtonSprite");
         buttonSprite.Texture = itemTexture;
         buttonSprite.Scale = new Vector2(button.RectSize.x / itemTexture.GetWidth(), button.RectSize.y / itemTexture.GetHeight());
@@ -65,6 +80,7 @@ public class Player : KinematicBody2D
         itemTextures.Remove(itemName);
         itemNames.Remove(itemName);
         inventoryButtons.RemoveChild(inventoryButtons.GetNode(itemName + "Button"));
+        selectedItem = "";
         printMessage("removed item: " + itemName);
     }
 

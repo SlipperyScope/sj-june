@@ -30,10 +30,10 @@ public class Obstacle : Clickable
     }
 
     public override void interact() {
-        List<String> items = getSteve().GetItemNames();
+        String selectedItem = getSteve().getSelectedItem();
         if (completed) {
             getSteve().printMessage(alreadyCompletedText);
-        } else if (items.Contains(itemNeeded))
+        } else if (selectedItem == itemNeeded)
         {
             completeTask();
             getSteve().printMessage(completionText);
