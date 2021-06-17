@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Obstacle : Clickable
 {
+    [Export] Boolean consumeItem;
     [Export] String itemNeeded;
     [Export] String completionText = "Thanks for the pipe";
     [Export] String failureText = "I need something to beat off.....all these barnacles";
@@ -23,7 +24,10 @@ public class Obstacle : Clickable
 
     private void completeTask()
     {
-        getSteve().removeItem(itemNeeded);
+        if (consumeItem)
+        {
+            getSteve().removeItem(itemNeeded);
+        }
         completeSprite.Visible = true;
         startSprite.Visible = false;
         completed = true;
