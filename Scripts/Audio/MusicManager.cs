@@ -68,8 +68,6 @@ namespace Audio
             Fade = new AudioStreamPlayer();
             AddChild(Main);
             AddChild(Fade);
-            Play(Songs[SongID.JourneyNorth]);
-            GD.Print("playing");
         }
 
         /// <summary>
@@ -97,7 +95,7 @@ namespace Audio
             {
                 var ran = new Random();
                 var next = ran.Next(0, 3);
-                FadeTo(Songs[(SongID)next]);
+                FadeTo((SongID)next);
             }
         }
 
@@ -105,8 +103,9 @@ namespace Audio
         /// Plays a song from the beginning with no fade
         /// </summary>
         /// <param name="song">Song to play</param>
-        public void Play(Song song)
+        public void Play(SongID id)
         {
+            var song = Songs[id];
             CurrentSong = song;
             var stream = GD.Load<AudioStreamMP3>(song.Path);
             stream.Loop = true;
@@ -119,8 +118,9 @@ namespace Audio
         /// Fades from the current song to another
         /// </summary>
         /// <param name="song">Song to fade to</param>
-        public void FadeTo(Song song)
+        public void FadeTo(SongID id)
         {
+            var song = Songs[id];
             FadeToSong = song;
             var stream = GD.Load<AudioStreamMP3>(song.Path);
             stream.Loop = true;

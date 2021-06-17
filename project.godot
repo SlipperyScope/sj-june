@@ -17,6 +17,7 @@ config/icon="res://icon.png"
 [autoload]
 
 MusicManager="*res://Scripts/Audio/MusicManager.cs"
+LevelManager="*res://Scripts/Game/LevelManager.cs"
 
 [display]
 
