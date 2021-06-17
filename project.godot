@@ -23,6 +23,8 @@ MusicManager="*res://Scripts/Audio/MusicManager.cs"
 window/size/width=1920
 window/size/height=1080
 window/size/resizable=false
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [input]
 
