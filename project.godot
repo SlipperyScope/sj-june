@@ -14,6 +14,10 @@ config/name="SJ-June2021"
 run/main_scene="res://Scenes/MainScene.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+MusicManager="*res://Scripts/Audio/MusicManager.cs"
+
 [display]
 
 window/size/width=1920
