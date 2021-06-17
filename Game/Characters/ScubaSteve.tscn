@@ -21,13 +21,17 @@ scale = Vector2( -2.27595, 1.32286 )
 shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 0, -4.48981 )
 current = true
+zoom = Vector2( 1.5, 1.5 )
 limit_left = 0
 limit_top = 0
 limit_right = 3840
-limit_bottom = 1925
+limit_bottom = 2020
 
 [node name="HUD" type="CanvasLayer" parent="."]
+offset = Vector2( 0, 63.507 )
+transform = Transform2D( 1, 0, 0, 1, 0, 63.507 )
 
 [node name="TextureRect" type="TextureRect" parent="HUD"]
 anchor_right = 1.0
@@ -52,22 +56,22 @@ __meta__ = {
 
 [node name="TextboxContainer" type="MarginContainer" parent="HUD"]
 margin_left = 196.0
-margin_top = 893.0
+margin_top = 886.0
 margin_right = 1312.0
-margin_bottom = 1046.0
+margin_bottom = 1001.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Textbox" type="RichTextLabel" parent="HUD/TextboxContainer"]
 margin_right = 1116.0
-margin_bottom = 153.0
+margin_bottom = 115.0
 
 [node name="InventoryButtons" type="GridContainer" parent="HUD"]
-margin_left = 1443.0
-margin_top = 818.0
-margin_right = 1893.0
-margin_bottom = 1048.0
+margin_left = 1438.51
+margin_top = 811.265
+margin_right = 1888.51
+margin_bottom = 994.265
 mouse_filter = 0
 input_pass_on_modal_close_click = false
 custom_constants/vseparation = 10
