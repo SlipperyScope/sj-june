@@ -11,7 +11,7 @@ namespace Audio
             {
                 SongID.JourneyNorth, new Song()
                 {
-                    Path = "res://Audio/Music/Journey North/Journey North 02.mp3",
+                    Path = "res://Audio/Music/Journey North/Journey North 03.mp3",
                     UseLoopPoints = false,
                     PlaybackVolume = -10f
                 }
@@ -94,8 +94,9 @@ namespace Audio
             if (Input.IsActionJustPressed("ui_select"))
             {
                 var ran = new Random();
-                var next = ran.Next(0, 3);
+                var next = ran.Next(0, 4);
                 FadeTo((SongID)next);
+                GD.Print($"{next} {(SongID)next}");
             }
         }
 

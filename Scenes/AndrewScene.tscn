@@ -1,11 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Scripts/Andrew Test/Crossfader.cs" type="Script" id=1]
+[ext_resource path="res://Audio/Music/Testing the Loop.mp3" type="AudioStream" id=1]
 [ext_resource path="res://Art/Placeholder/Boat.png" type="Texture" id=2]
-[ext_resource path="res://Audio/Music/Journey North/Journey North 02.mp3" type="AudioStream" id=3]
 [ext_resource path="res://Art/Placeholder/Sub.png" type="Texture" id=4]
 [ext_resource path="res://Art/Placeholder/Water.png" type="Texture" id=5]
-[ext_resource path="res://Audio/Music/Descent/Descent 03.mp3" type="AudioStream" id=6]
 [ext_resource path="res://Audio/Sfx/Bubbles_Dive.mp3" type="AudioStream" id=7]
 [ext_resource path="res://Audio/Sfx/Splash.mp3" type="AudioStream" id=8]
 [ext_resource path="res://Scripts/Andrew Test/Animator.cs" type="Script" id=9]
@@ -176,10 +174,6 @@ texture = ExtResource( 5 )
 centered = false
 
 [node name="XFade" type="Node" parent="."]
-script = ExtResource( 1 )
-FadeTime = 4.0
-StreamA = ExtResource( 3 )
-StreamB = ExtResource( 6 )
 
 [node name="Sub" type="Sprite" parent="."]
 modulate = Color( 0.247059, 0.282353, 0.8, 0 )
@@ -187,7 +181,9 @@ position = Vector2( 322, 447 )
 texture = ExtResource( 4 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Sub"]
-stream = ExtResource( 8 )
+stream = ExtResource( 1 )
+volume_db = -10.0
+autoplay = true
 
 [node name="Down" type="Button" parent="."]
 margin_left = 16.0
