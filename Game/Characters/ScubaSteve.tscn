@@ -6,7 +6,7 @@
 [ext_resource path="res://Game/ItemButton.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 34.2278, 31.7049 )
+extents = Vector2( 109.418, 99.6372 )
 
 [node name="ScubaSteve" type="KinematicBody2D"]
 z_index = 5

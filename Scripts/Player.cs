@@ -30,15 +30,15 @@ public class Player : KinematicBody2D
         return itemNames;
     }
 
-	public override void _Input(InputEvent ie)
-	{
-		if (ie.IsActionPressed("click"))
-		{
+    public void _onMovementZoneInputEvent(Node viewport, InputEvent ie, int shapeIdx)
+    {
+        if (ie.IsActionPressed("click"))
+        {
             interactWhenClose = null;
-			target = GetGlobalMousePosition();
-			GetNode<Sprite>("PlayerSprite").FlipH = target.x < Position.x;
-		}
-	}
+            target = GetGlobalMousePosition();
+            GetNode<Sprite>("PlayerSprite").FlipH = target.x < Position.x;
+        }
+    }
 
 	public override void _PhysicsProcess(float delta)
 	{
