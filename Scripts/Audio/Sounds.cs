@@ -11,13 +11,19 @@ namespace Audio
         DarkPassages
     }
 
+    public enum TimeSignature
+    {
+        FourFour,
+        ThreeFour,
+        NineEight
+    }
+
     public struct Song
     {
         public String Path;
 
-        public Boolean UseLoopPoints;
-        public Single LoopAt;
-        public Single LoopTo;
+        public Single BPM;
+        public TimeSignature TimeSignature;
 
         public Single PlaybackVolume;
     }

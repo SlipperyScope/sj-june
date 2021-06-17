@@ -6,13 +6,17 @@ namespace Audio
 {
     public class MusicManager : Node2D
     {
+        public delegate void OnBeatHandler(object sender, EventArgs e);
+        public event OnBeatHandler Beat;
+
         private Dictionary<SongID, Song> Songs = new Dictionary<SongID, Song>
         {
             {
                 SongID.JourneyNorth, new Song()
                 {
                     Path = "res://Audio/Music/Journey North/Journey North 03.mp3",
-                    UseLoopPoints = false,
+                    BPM = 130,
+                    TimeSignature = TimeSignature.FourFour,
                     PlaybackVolume = -10f
                 }
             },
@@ -20,9 +24,8 @@ namespace Audio
                 SongID.Descent, new Song()
                 {
                     Path = "res://Audio/Music/Descent/Descent 03.mp3",
-                    UseLoopPoints = true,
-                    LoopAt = 0f,
-                    LoopTo = 0f,
+                    BPM = 120,
+                    TimeSignature = TimeSignature.FourFour,
                     PlaybackVolume = -5f
                 }
             },
@@ -30,9 +33,8 @@ namespace Audio
                 SongID.Depths, new Song()
                 {
                     Path = "res://Audio/Music/Depths/Depths.mp3",
-                    UseLoopPoints = true,
-                    LoopAt = 0f,
-                    LoopTo = 0f,
+                    BPM = 120,
+                    TimeSignature = TimeSignature.FourFour,
                     PlaybackVolume = 0f
                 }
             },
@@ -40,14 +42,14 @@ namespace Audio
                 SongID.DarkPassages, new Song()
                 {
                     Path = "res://Audio/Music/Dark Passages/Dark Passages.mp3",
-                    UseLoopPoints = true,
-                    LoopAt = 0f,
-                    LoopTo = 0f,
+                    BPM = 120,
+                    TimeSignature = TimeSignature.FourFour,
                     PlaybackVolume = -10f
                 }
             }
         };
 
+        public Int32 BeatCount { get; private set; } = -1;
         const Single FadeTime = 1f;
         const Single InterpMinVolume = -40f;
         
@@ -59,6 +61,8 @@ namespace Audio
 
         private Boolean Fading = false;
 
+        private Timer BeatTimer;
+
         /// <summary>
         /// Ready
         /// </summary>
@@ -68,6 +72,12 @@ namespace Audio
             Fade = new AudioStreamPlayer();
             AddChild(Main);
             AddChild(Fade);
+
+            GD.Print("Adding timer");
+            BeatTimer = new Timer();
+            BeatTimer.Connect("timeout", this, nameof(OnBeat));
+            AddChild(BeatTimer);
+            BeatTimer.Stop();
         }
 
         /// <summary>
@@ -113,6 +123,9 @@ namespace Audio
             Main.Stream = stream;
             Main.VolumeDb = song.PlaybackVolume;
             Main.Play();
+            BeatCount = -1;
+            OnBeat();
+            BeatTimer.Start(60f / CurrentSong.BPM);
         }
 
         /// <summary>
@@ -128,7 +141,20 @@ namespace Audio
             Fade.Stream = stream;
             Fade.VolumeDb = InterpMinVolume;
             Fade.Play();
+            BeatCount = -1;
+            OnBeat();
+            BeatTimer.WaitTime = 60f / FadeToSong.BPM;
+            BeatTimer.Start();
             Fading = true;
+        }
+
+        /// <summary>
+        /// Dispatches beat event
+        /// </summary>
+        public void OnBeat()
+        {
+            BeatCount++;
+            Beat?.Invoke(this, new EventArgs());
         }
 
         /// <summary>
