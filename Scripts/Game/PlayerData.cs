@@ -13,14 +13,35 @@ public class PlayerData : Node
     {
         { SteveID.Scuba, "res://Game/Characters/ScubaSteve.tscn" }
     };
+    String textHistory;
+    List<String> itemNames = new List<String>();
     public override void _Ready()
     {
-        
+        textHistory = "";
     }
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+    public String getTextHistory()
+    {
+        return textHistory;
+    }
+
+    public void prependTextHistory(String newText)
+    {
+        textHistory = newText + "\n" + textHistory;
+    }
+
+    public List<String> getItemNames()
+    {
+        return itemNames;
+    }
+
+    public void addItem(String item)
+    {
+        itemNames.Add(item);
+    }
+
+    public void removeItem(String item)
+    {
+        itemNames.Remove(item);
+    }
 }

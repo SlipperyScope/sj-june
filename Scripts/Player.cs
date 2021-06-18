@@ -9,22 +9,29 @@ public class Player : KinematicBody2D
 	Vector2 target;
 	int speed = 300;
     String selectedItem;
-    List<String> itemNames = new List<String>();
     Hashtable itemCursors = new Hashtable();
     RichTextLabel textbox;
     RichTextLabel clickableName;
     GridContainer inventoryButtons;
     Camera2D camera;
+    PlayerData playerData;
     public Clickable interactWhenClose = null;
 	
 	public override void _Ready()
 	{
+        playerData = GetNode<PlayerData>("/root/PlayerData");
+
 		target = Position;
+
         textbox = GetNode<RichTextLabel>("HUD/TextboxContainer/Textbox");
+        textbox.Text = playerData.getTextHistory();
+
         clickableName = GetNode<RichTextLabel>("HUD/ClickableName");
+
         inventoryButtons = GetNode<GridContainer>("HUD/InventoryButtons");
         Button button = inventoryButtons.GetNode<Button>("ItemButton/Button");
         button.Connect("pressed", this, nameof(itemButtonPressed), new Godot.Collections.Array {"", null});
+
         camera = GetNode<Camera2D>("Camera2D");
         Sprite background = GetParent().GetNode<Sprite>("TheBackground/background");
         setCameraLimit(background);
@@ -33,7 +40,7 @@ public class Player : KinematicBody2D
 	}
 
     public List<String> GetItemNames() {
-        return itemNames;
+        return playerData.getItemNames();
     }
 
     public void _onMovementZoneInputEvent(Node viewport, InputEvent ie, int shapeIdx)
@@ -78,7 +85,7 @@ public class Player : KinematicBody2D
     public void grabItem(String itemName, Texture itemTexture)
     {
         printMessage("got item: " + itemName);
-        itemNames.Add(itemName);
+        playerData.addItem(itemName);
 
         var itemButton = ((PackedScene)GD.Load("res://Game/ItemButton.tscn")).Instance();
         itemButton.Name = itemName + "Button";
@@ -93,7 +100,7 @@ public class Player : KinematicBody2D
 
     public void removeItem(String itemName)
     {
-        itemNames.Remove(itemName);
+        playerData.removeItem(itemName);
         inventoryButtons.RemoveChild(inventoryButtons.GetNode(itemName + "Button"));
         selectedItem = "";
         Input.SetCustomMouseCursor(null);
@@ -102,7 +109,8 @@ public class Player : KinematicBody2D
 
     public void printMessage(String msg)
     {
-        textbox.Text = msg + "\n" + textbox.Text;
+        playerData.prependTextHistory(msg);
+        textbox.Text = playerData.getTextHistory();
     }
 
     public void setClickableName(String name)
