@@ -12,16 +12,21 @@ public class Clickable : StaticBody2D
     public override void _Ready()
     {
         InputPickable = true;
-        steve = GetParent().GetNode<Player>("ScubaSteve");
         this.Connect("mouse_entered", this, nameof(_onMouseEntered));
         this.Connect("mouse_exited", this, nameof(_onMouseExited));
     }
 
+    public void setSteve(Player theSteve)
+    {
+        steve = theSteve;
+    }
     public override void _InputEvent(Godot.Object viewport, InputEvent @event, int shapeIdx)
     {
 		if (@event.IsActionPressed("click"))
 		{
+            GD.Print("Clicked clickable");
             steve.interactWhenClose = this;
+            GetTree().SetInputAsHandled();
         }
     }
 

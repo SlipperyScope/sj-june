@@ -37,6 +37,15 @@ public class Player : KinematicBody2D
         setCameraLimit(background);
 
         GetParent().GetNode("MovementZone").Connect("input_event", this, nameof(_onMovementZoneInputEvent));
+
+        foreach(var child in GetParent().GetChildren())
+        {
+            if (child is Clickable)
+            {
+                ((Clickable)child).setSteve(this);
+
+            }
+        }
 	}
 
     public List<String> GetItemNames() {
@@ -47,7 +56,10 @@ public class Player : KinematicBody2D
     {
         if (ie.IsActionPressed("click"))
         {
-            interactWhenClose = null;
+            if (!GetTree().IsInputHandled())
+            {
+                interactWhenClose = null;
+            }
             target = GetGlobalMousePosition();
             GetNode<Sprite>("PlayerSprite").FlipH = target.x < Position.x;
         }

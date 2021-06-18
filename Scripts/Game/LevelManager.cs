@@ -19,7 +19,7 @@ public class LevelManager : Node
         {
             SceneID.Bottom, new Scene
             {
-                Path = "",
+                Path = "res://Scenes/Levels/ShipEntrance.tscn",
                 Song = SongID.Depths
             }
         },
