@@ -18,6 +18,9 @@ public class Bubble : Node2D
     private Single Direction = 1f;
     private Boolean DoRise = false;
 
+    /// <summary>
+    /// Ready 
+    /// </summary>
     public override void _Ready()
     {
         MusicManager = GetNode<MusicManager>("/root/MusicManager");
@@ -30,17 +33,12 @@ public class Bubble : Node2D
         ShiftSpeed += Rand.Next(-5, 6);
         ChangeDirectionBeat = Rand.Next(0, MusicManager.NowPlaying.MeasureLength);
 
-        UpdatePlaybackSpeed(MusicManager.NowPlaying.BPM);
+        CallDeferred(nameof(SetAnimationSpeed), args: MusicManager.NowPlaying.BPM);
     }
 
-    private void MusicManager_SongChanged(object sender, SongChangedEventArgs e)
-    {
-        if (e.Song.BPM != e.LastSong.BPM)
-        {
-            UpdatePlaybackSpeed(e.Song.BPM);
-        }
-    }
-
+    /// <summary>
+    /// Process
+    /// </summary>
     public override void _Process(Single delta)
     {
         if (DoRise is true)
@@ -58,9 +56,20 @@ public class Bubble : Node2D
     }
 
     /// <summary>
+    /// Song changed
+    /// </summary>
+    private void MusicManager_SongChanged(object sender, SongChangedEventArgs e)
+    {
+        if (e.Song.BPM != e.LastSong.BPM)
+        {
+            SetAnimationSpeed(e.Song.BPM);
+        }
+    }
+
+    /// <summary>
     /// Updates animation speed to match BPM
     /// </summary>
-    private void UpdatePlaybackSpeed(Single BPM)
+    private void SetAnimationSpeed(Single BPM)
     {
         Animator.PlaybackSpeed = BPM / 10f;
     }

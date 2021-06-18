@@ -5,38 +5,59 @@ using System.Collections.Generic;
 
 public class DancingGuage : Node2D
 {
-    private enum Animation
-    {
-        Wobble,
-        Pulse
-    }
-
-    private Dictionary<Animation, String> Animations = new Dictionary<Animation, string>()
-    {
-        { Animation.Wobble, "Wobble" },
-        { Animation.Pulse, "Pulse" }
-    };
+    private Random Rand = new Random();
 
     private MusicManager MusicManager;
     private Sprite Needle;
+    private AnimationPlayer Animator;
 
+    private List<String> Animations = new List<string>()
+    {
+        "Wobble", "Pulse"
+    };
+
+    /// <summary>
+    /// Ready
+    /// </summary>
     public override void _Ready()
     {
         Needle = GetNode<Sprite>("Needle");
         MusicManager = GetNode<MusicManager>("/root/MusicManager");
-        MusicManager.Beat += MusicManager_Beat;
+        Animator = FindNode("Animator") as AnimationPlayer;
+
+        MusicManager.Beat += OnBeat;
+        MusicManager.SongChanged += OnSongChanged;
+        CallDeferred(nameof(SetAnimationSpeed), args: MusicManager.NowPlaying.BPM);
     }
 
-    private void MusicManager_Beat(object sender, EventArgs e)
+    /// <summary>
+    /// On Beat
+    /// </summary>
+    private void OnBeat(object sender, BeatEventArgs e)
     {
-        if (MusicManager.BeatCount % 16 == 0)
+        if (e.BeatInMeasure == 0 && e.CurrentBeat % MusicManager.NowPlaying.MeasureLength * 2 == 0)
         {
-
+            Animator.CurrentAnimation = Animations[Rand.Next(0,25) == 0 ? 0 : 1];
         }
     }
 
-    private void PlayRandomAnimation()
+    /// <summary>
+    /// On Song Changed
+    /// </summary>
+    private void OnSongChanged(object sender, SongChangedEventArgs e)
     {
+        if (e.Song.BPM != e.LastSong.BPM)
+        {
+            SetAnimationSpeed(e.Song.BPM);
+        }
+    }
 
+    /// <summary>
+    /// Sets the playback speed of the animations
+    /// </summary>
+    /// <param name="BPM">Song BPM</param>
+    private void SetAnimationSpeed(Single BPM)
+    {
+        Animator.PlaybackSpeed = BPM / 10f;
     }
 }

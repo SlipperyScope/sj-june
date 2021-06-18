@@ -12,20 +12,12 @@ namespace Audio
         DarkPassages
     }
 
-    public enum TimeSignature
-    {
-        FourFour,
-        ThreeFour,
-        NineEight
-    }
-
     public struct Song
     {
         public String Name;
         public String Path;
         public Single BPM;
         public Int32 MeasureLength;
-        public TimeSignature TimeSignature;
 
         public Single PlaybackVolume;
 
@@ -35,7 +27,6 @@ namespace Audio
             Path = "",
             BPM = 60,
             MeasureLength = 1,
-            TimeSignature = TimeSignature.FourFour,
             PlaybackVolume = -10
         };
 

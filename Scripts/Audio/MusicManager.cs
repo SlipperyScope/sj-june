@@ -22,9 +22,8 @@ namespace Audio
                 {
                     Name = "Journey North",
                     Path = "res://Audio/Music/Journey North/Journey North 03.mp3",
-                    BPM = 260,
+                    BPM = 130,
                     MeasureLength = 4,
-                    TimeSignature = TimeSignature.FourFour,
                     PlaybackVolume = -10f
                 }
             },
@@ -35,7 +34,6 @@ namespace Audio
                     Path = "res://Audio/Music/Descent/Descent 03.mp3",
                     BPM = 120,
                     MeasureLength = 4,
-                    TimeSignature = TimeSignature.FourFour,
                     PlaybackVolume = -5f
                 }
             },
@@ -44,9 +42,8 @@ namespace Audio
                 {
                     Name = "Depths",
                     Path = "res://Audio/Music/Depths/Depths.mp3",
-                    BPM = 120,
+                    BPM = 60,
                     MeasureLength = 4,
-                    TimeSignature = TimeSignature.FourFour,
                     PlaybackVolume = 0f
                 }
             },
@@ -55,9 +52,8 @@ namespace Audio
                 {
                     Name = "Dark Passages",
                     Path = "res://Audio/Music/Dark Passages/Dark Passages.mp3",
-                    BPM = 120,
+                    BPM = 60,
                     MeasureLength = 4,
-                    TimeSignature = TimeSignature.FourFour,
                     PlaybackVolume = -10f
                 }
             }
@@ -161,7 +157,7 @@ namespace Audio
                     OnBeat();
                 }
 
-                SongChanged?.Invoke(this, new SongChangedEventArgs(LastPlayed, NowPlaying));
+                SongChanged?.Invoke(this, new SongChangedEventArgs(NowPlaying, LastPlayed));
             }
         }
 
