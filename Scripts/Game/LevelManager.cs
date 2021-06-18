@@ -39,7 +39,8 @@ public class LevelManager : Node
 
     public void LoadScene(SceneID id)
     {
-        GetTree().ChangeScene(Scenes[id].Path);
-        MusicManager.FadeTo(Scenes[id].Song);
+        var scene = Scenes[id];
+        GetTree().ChangeScene(scene.Path);
+        MusicManager.ChangeSong(scene.Song);
     }
 }

@@ -5,7 +5,7 @@
 
 [sub_resource type="Animation" id=1]
 resource_name = "Expand"
-length = 0.23
+length = 6.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Bubble:scale")
 tracks/0/interp = 1
@@ -13,8 +13,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.23 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 6 ),
+"transitions": PoolRealArray( 0.594601, 0.00656946 ),
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( 1, 1 ) ]
 }

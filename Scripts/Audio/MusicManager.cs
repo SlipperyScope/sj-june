@@ -6,16 +6,24 @@ namespace Audio
 {
     public class MusicManager : Node2D
     {
-        public delegate void OnBeatHandler(object sender, EventArgs e);
+        public delegate void OnBeatHandler(object sender, BeatEventArgs e);
         public event OnBeatHandler Beat;
+
+        public delegate void OnSongChangedHandler(object sender, SongChangedEventArgs e);
+        public event OnSongChangedHandler SongChanged;
 
         private Dictionary<SongID, Song> Songs = new Dictionary<SongID, Song>
         {
             {
+                SongID.None, Song.None
+            },
+            {
                 SongID.JourneyNorth, new Song()
                 {
+                    Name = "Journey North",
                     Path = "res://Audio/Music/Journey North/Journey North 03.mp3",
-                    BPM = 130,
+                    BPM = 260,
+                    MeasureLength = 4,
                     TimeSignature = TimeSignature.FourFour,
                     PlaybackVolume = -10f
                 }
@@ -23,8 +31,10 @@ namespace Audio
             {
                 SongID.Descent, new Song()
                 {
+                    Name = "Descent",
                     Path = "res://Audio/Music/Descent/Descent 03.mp3",
                     BPM = 120,
+                    MeasureLength = 4,
                     TimeSignature = TimeSignature.FourFour,
                     PlaybackVolume = -5f
                 }
@@ -32,8 +42,10 @@ namespace Audio
             {
                 SongID.Depths, new Song()
                 {
+                    Name = "Depths",
                     Path = "res://Audio/Music/Depths/Depths.mp3",
                     BPM = 120,
+                    MeasureLength = 4,
                     TimeSignature = TimeSignature.FourFour,
                     PlaybackVolume = 0f
                 }
@@ -41,8 +53,10 @@ namespace Audio
             {
                 SongID.DarkPassages, new Song()
                 {
+                    Name = "Dark Passages",
                     Path = "res://Audio/Music/Dark Passages/Dark Passages.mp3",
                     BPM = 120,
+                    MeasureLength = 4,
                     TimeSignature = TimeSignature.FourFour,
                     PlaybackVolume = -10f
                 }
@@ -56,10 +70,8 @@ namespace Audio
         private AudioStreamPlayer Main;
         private AudioStreamPlayer Fade;
 
-        private Song CurrentSong;
-        private Song FadeToSong;
-
-        private Boolean Fading = false;
+        public Song NowPlaying { get; private set; } = Song.None;
+        public Song LastPlayed { get; private set; } = Song.None;
 
         private Timer BeatTimer;
 
@@ -73,7 +85,6 @@ namespace Audio
             AddChild(Main);
             AddChild(Fade);
 
-            GD.Print("Adding timer");
             BeatTimer = new Timer();
             BeatTimer.Connect("timeout", this, nameof(OnBeat));
             AddChild(BeatTimer);
@@ -85,67 +96,73 @@ namespace Audio
         /// </summary>
         public override void _Process(Single delta)
         {
-            if (Fading is true)
+            // Fade in main if it's not at volume
+            if (Main.VolumeDb < NowPlaying.PlaybackVolume)
             {
-                Main.VolumeDb = Interpolate(CurrentSong.PlaybackVolume, InterpMinVolume, FindAlpha(CurrentSong.PlaybackVolume, InterpMinVolume, Main.VolumeDb) + delta / FadeTime);
-                Fade.VolumeDb = Interpolate(InterpMinVolume, FadeToSong.PlaybackVolume, FindAlpha(InterpMinVolume, FadeToSong.PlaybackVolume, Fade.VolumeDb) + delta / FadeTime);
-                if (Fade.VolumeDb >= FadeToSong.PlaybackVolume)
+                Main.VolumeDb = Interpolate(InterpMinVolume, NowPlaying.PlaybackVolume, FindAlpha(InterpMinVolume, NowPlaying.PlaybackVolume, Main.VolumeDb) + delta / FadeTime);
+                if (Main.VolumeDb > NowPlaying.PlaybackVolume)
                 {
-                    Fade.VolumeDb = FadeToSong.PlaybackVolume;
-                    var main = Main;
-                    var fade = Fade;
-                    Main = fade;
-                    Fade = main;
-                    Fade.Stop();
-                    Fading = false;
+                    Main.VolumeDb = NowPlaying.PlaybackVolume;
                 }
             }
 
+            // Fade out fade if it's not at min
+            if (Fade.VolumeDb > InterpMinVolume)
+            {
+                Fade.VolumeDb = Interpolate(LastPlayed.PlaybackVolume, InterpMinVolume, FindAlpha(LastPlayed.PlaybackVolume, InterpMinVolume, Fade.VolumeDb) + delta / FadeTime);
+                if (Fade.VolumeDb <= InterpMinVolume)
+                {
+                    Fade.Stop();
+                }
+            }
+
+            // Debug manual music change
             if (Input.IsActionJustPressed("ui_select"))
             {
                 var ran = new Random();
-                var next = ran.Next(0, 4);
-                FadeTo((SongID)next);
+                var next = ran.Next(1, 5);
+                ChangeSong((SongID)next);
                 GD.Print($"{next} {(SongID)next}");
             }
         }
 
         /// <summary>
-        /// Plays a song from the beginning with no fade
+        /// Changes the playing song
         /// </summary>
-        /// <param name="song">Song to play</param>
-        public void Play(SongID id)
+        /// <param name="id">Song ID</param>
+        /// <param name="fade">Crossfade the songs</param>
+        public void ChangeSong(SongID id, Boolean fade = true)
         {
-            var song = Songs[id];
-            CurrentSong = song;
-            var stream = GD.Load<AudioStreamMP3>(song.Path);
-            stream.Loop = true;
-            Main.Stream = stream;
-            Main.VolumeDb = song.PlaybackVolume;
-            Main.Play();
-            BeatCount = -1;
-            OnBeat();
-            BeatTimer.Start(60f / CurrentSong.BPM);
-        }
+            var nextSong = Songs[id];
+            if (NowPlaying.Name != nextSong.Name)
+            {
+                LastPlayed = NowPlaying;
+                NowPlaying = nextSong;
+                BeatCount = -1;
 
-        /// <summary>
-        /// Fades from the current song to another
-        /// </summary>
-        /// <param name="song">Song to fade to</param>
-        public void FadeTo(SongID id)
-        {
-            var song = Songs[id];
-            FadeToSong = song;
-            var stream = GD.Load<AudioStreamMP3>(song.Path);
-            stream.Loop = true;
-            Fade.Stream = stream;
-            Fade.VolumeDb = InterpMinVolume;
-            Fade.Play();
-            BeatCount = -1;
-            OnBeat();
-            BeatTimer.WaitTime = 60f / FadeToSong.BPM;
-            BeatTimer.Start();
-            Fading = true;
+                if (fade is true)
+                {
+                    var oldfade = Fade;
+                    Fade = Main;
+                    Main = oldfade;
+                }
+
+                if (id == SongID.None)
+                {
+                    Main.Stop();
+                    BeatTimer.Stop();
+                }
+                else
+                {
+                    Main.Stream = GD.Load<AudioStreamMP3>(nextSong.Path);
+                    BeatTimer.Start(60f / nextSong.BPM);
+                    Main.VolumeDb = fade ? InterpMinVolume : nextSong.PlaybackVolume;
+                    Main.Play();
+                    OnBeat();
+                }
+
+                SongChanged?.Invoke(this, new SongChangedEventArgs(LastPlayed, NowPlaying));
+            }
         }
 
         /// <summary>
@@ -154,7 +171,9 @@ namespace Audio
         public void OnBeat()
         {
             BeatCount++;
-            Beat?.Invoke(this, new EventArgs());
+            //GD.Print($"ref: {ReferenceSong.Path}");
+            var args = new BeatEventArgs(BeatCount, BeatCount % NowPlaying.MeasureLength);
+            Beat?.Invoke(this, args);
         }
 
         /// <summary>

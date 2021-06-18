@@ -22,11 +22,23 @@ public class Bubble : Node2D
     {
         MusicManager = GetNode<MusicManager>("/root/MusicManager");
         Animator = (AnimationPlayer)FindNode("AnimationPlayer");
-        MusicManager.Beat += MusicManager_Beat;
+
+        MusicManager.Beat += AnimateIn;
+        MusicManager.SongChanged += MusicManager_SongChanged;
+
         FloatSpeed += Rand.Next(-5, 6);
         ShiftSpeed += Rand.Next(-5, 6);
-        ChangeDirectionBeat = Rand.Next(0, 4);
-        //GD.Print($"beat: {ChangeDirectionBeat}");
+        ChangeDirectionBeat = Rand.Next(0, MusicManager.NowPlaying.MeasureLength);
+
+        UpdatePlaybackSpeed(MusicManager.NowPlaying.BPM);
+    }
+
+    private void MusicManager_SongChanged(object sender, SongChangedEventArgs e)
+    {
+        if (e.Song.BPM != e.LastSong.BPM)
+        {
+            UpdatePlaybackSpeed(e.Song.BPM);
+        }
     }
 
     public override void _Process(Single delta)
@@ -45,30 +57,42 @@ public class Bubble : Node2D
         }
     }
 
-    private void MusicManager_Beat(object sender, EventArgs e)
+    /// <summary>
+    /// Updates animation speed to match BPM
+    /// </summary>
+    private void UpdatePlaybackSpeed(Single BPM)
     {
-        Animator.Play("Expand");
-        Animator.Connect("animation_finished", this, nameof(OnAnimationFinished));
-        MusicManager.Beat -= MusicManager_Beat;
-        DoRise = true;
+        Animator.PlaybackSpeed = BPM / 10f;
     }
 
-    private void OnAnimationFinished(String animationName)
+    /// <summary>
+    /// Animates bubble in
+    /// </summary>
+    private void AnimateIn(object sender, BeatEventArgs e)
+    {
+        Animator.Play("Expand");
+        Animator.Connect("animation_finished", this, nameof(StartFloating));
+        MusicManager.Beat -= AnimateIn;
+    }
+
+    /// <summary>
+    /// Starts floating when animation is finished
+    /// </summary>
+    private void StartFloating(String animationName)
     {
         //GD.Print("Animation finished");
         MusicManager.Beat += ChangeDirection;
+        DoRise = true;
     }
 
-    private void ChangeDirection(object sender, EventArgs e)
+    /// <summary>
+    /// Syncronizes direction change with beat
+    /// </summary>
+    private void ChangeDirection(object sender, BeatEventArgs e)
     {
-        if (MusicManager.BeatCount % 4 == ChangeDirectionBeat)
+        if (e.BeatInMeasure == ChangeDirectionBeat)
         {
             Direction *= -1;
         }
-    }
-
-    private void Rise()
-    {
-        
     }
 }
