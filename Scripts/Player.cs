@@ -14,6 +14,7 @@ public class Player : KinematicBody2D
     RichTextLabel textbox;
     RichTextLabel clickableName;
     GridContainer inventoryButtons;
+    Camera2D camera;
     public Clickable interactWhenClose = null;
 	
 	public override void _Ready()
@@ -24,6 +25,9 @@ public class Player : KinematicBody2D
         inventoryButtons = GetNode<GridContainer>("HUD/InventoryButtons");
         Button button = inventoryButtons.GetNode<Button>("ItemButton/Button");
         button.Connect("pressed", this, nameof(itemButtonPressed), new Godot.Collections.Array {"", null});
+        camera = GetNode<Camera2D>("Camera2D");
+        Sprite background = GetParent().GetNode<Sprite>("TheBackground/background");
+        setCameraLimit(background);
 	}
 
     public List<String> GetItemNames() {
@@ -102,5 +106,13 @@ public class Player : KinematicBody2D
     public void setClickableName(String name)
     {
         clickableName.Text = name;
+    }
+
+    public void setCameraLimit(Sprite background)
+    {
+        camera.LimitLeft = 0;
+        camera.LimitTop = 0;
+        camera.LimitRight = (int)background.GetRect().Size.x;
+        camera.LimitBottom = (int)background.GetRect().Size.y + 420;
     }
 }
