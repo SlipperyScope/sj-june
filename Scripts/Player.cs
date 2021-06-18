@@ -10,7 +10,7 @@ public class Player : KinematicBody2D
 	int speed = 300;
     String selectedItem;
     List<String> itemNames = new List<String>();
-    Hashtable itemTextures = new Hashtable();
+    Hashtable itemCursors = new Hashtable();
     RichTextLabel textbox;
     RichTextLabel clickableName;
     GridContainer inventoryButtons;
@@ -23,7 +23,7 @@ public class Player : KinematicBody2D
         clickableName = GetNode<RichTextLabel>("HUD/ClickableName");
         inventoryButtons = GetNode<GridContainer>("HUD/InventoryButtons");
         Button button = inventoryButtons.GetNode<Button>("ItemButton/Button");
-        button.Connect("pressed", this, nameof(itemButtonPressed), new Godot.Collections.Array {""});
+        button.Connect("pressed", this, nameof(itemButtonPressed), new Godot.Collections.Array {"", null});
 	}
 
     public List<String> GetItemNames() {
@@ -53,21 +53,31 @@ public class Player : KinematicBody2D
         return selectedItem;
     }
 
-    private void itemButtonPressed(String itemName)
+    private void itemButtonPressed(String itemName, Texture itemTexture)
     {
         selectedItem = itemName;
+        if (itemName == "") {
+            Input.SetCustomMouseCursor(null);
+            return;
+        }
+        Texture cursorTexture = (Texture)itemCursors[itemName];
+        if (cursorTexture == null)
+        {
+            cursorTexture = ResourceLoader.Load<Texture>("res://Assets/cursors/" + itemName + ".png");
+            itemCursors[itemName] = cursorTexture;
+        }
+        Input.SetCustomMouseCursor(cursorTexture);
     }
 
     public void grabItem(String itemName, Texture itemTexture)
     {
         printMessage("got item: " + itemName);
         itemNames.Add(itemName);
-        itemTextures[itemName] = itemTexture;
 
         var itemButton = ((PackedScene)GD.Load("res://Game/ItemButton.tscn")).Instance();
         itemButton.Name = itemName + "Button";
         Button button = itemButton.GetNode<Button>("Button");
-        button.Connect("pressed", this, nameof(itemButtonPressed), new Godot.Collections.Array {itemName});
+        button.Connect("pressed", this, nameof(itemButtonPressed), new Godot.Collections.Array {itemName, itemTexture});
 
         Sprite buttonSprite = button.GetNode<Sprite>("ButtonSprite");
         buttonSprite.Texture = itemTexture;
@@ -77,10 +87,10 @@ public class Player : KinematicBody2D
 
     public void removeItem(String itemName)
     {
-        itemTextures.Remove(itemName);
         itemNames.Remove(itemName);
         inventoryButtons.RemoveChild(inventoryButtons.GetNode(itemName + "Button"));
         selectedItem = "";
+        Input.SetCustomMouseCursor(null);
         printMessage("removed item: " + itemName);
     }
 
