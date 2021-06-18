@@ -33,7 +33,7 @@ public class Player : KinematicBody2D
         button.Connect("pressed", this, nameof(itemButtonPressed), new Godot.Collections.Array {"", null});
 
         camera = GetNode<Camera2D>("Camera2D");
-        Sprite background = GetParent().GetNode<Sprite>("TheBackground/background");
+        Sprite background = GetParent().GetNode<Sprite>("TheBackground");
         setCameraLimit(background);
 
         GetParent().GetNode("MovementZone").Connect("input_event", this, nameof(_onMovementZoneInputEvent));
