@@ -30,5 +30,3 @@ itemName = "pipe"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MovementZone"]
 position = Vector2( 1908.82, 819.592 )
 shape = SubResource( 3 )
-
-[connection signal="input_event" from="MovementZone" to="ScubaSteve" method="_onMovementZoneInputEvent"]

@@ -124,6 +124,5 @@ public class Player : KinematicBody2D
         camera.LimitTop = 0;
         camera.LimitRight = (int)(background.GetRect().Size.x * background.Scale.x);
         camera.LimitBottom = (int)(background.GetRect().Size.y * background.Scale.y) + 420;
-        GD.Print(camera.LimitRight + " :: " + camera.LimitBottom);
     }
 }
