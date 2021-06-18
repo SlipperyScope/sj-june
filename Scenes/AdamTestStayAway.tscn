@@ -42,8 +42,10 @@ position = Vector2( -33.9029, 805.192 )
 shape = SubResource( 2 )
 
 [node name="CrabGuy" parent="." instance=ExtResource( 3 )]
+visible = false
 
 [node name="PipeItem" parent="." instance=ExtResource( 4 )]
+visible = false
 name = "A Pipe"
 itemName = "pipe"
 

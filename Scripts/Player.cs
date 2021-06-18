@@ -28,6 +28,8 @@ public class Player : KinematicBody2D
         camera = GetNode<Camera2D>("Camera2D");
         Sprite background = GetParent().GetNode<Sprite>("TheBackground/background");
         setCameraLimit(background);
+
+        GetParent().GetNode("MovementZone").Connect("input_event", this, nameof(_onMovementZoneInputEvent));
 	}
 
     public List<String> GetItemNames() {
@@ -112,7 +114,8 @@ public class Player : KinematicBody2D
     {
         camera.LimitLeft = 0;
         camera.LimitTop = 0;
-        camera.LimitRight = (int)background.GetRect().Size.x;
-        camera.LimitBottom = (int)background.GetRect().Size.y + 420;
+        camera.LimitRight = (int)(background.GetRect().Size.x * background.Scale.x);
+        camera.LimitBottom = (int)(background.GetRect().Size.y * background.Scale.y) + 420;
+        GD.Print(camera.LimitRight + " :: " + camera.LimitBottom);
     }
 }
