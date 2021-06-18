@@ -40,7 +40,7 @@ tracks/0/keys = {
 script = ExtResource( 2 )
 
 [node name="Needle" type="Sprite" parent="."]
-rotation = 0.0832953
+rotation = 0.0156151
 texture = ExtResource( 1 )
 offset = Vector2( -34.56, -41.123 )
 

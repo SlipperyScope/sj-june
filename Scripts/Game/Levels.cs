@@ -16,4 +16,5 @@ public struct Scene
 {
     public String Path;
     public SongID Song;
+    public SteveID Steve;
 }

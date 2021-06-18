@@ -1,13 +1,18 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+
+public enum SteveID
+{
+    Scuba
+}
 
 public class PlayerData : Node
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
-
-    // Called when the node enters the scene tree for the first time.
+    public Dictionary<SteveID, String> StevePaths = new Dictionary<SteveID, string>()
+    {
+        { SteveID.Scuba, "res://Game/Characters/ScubaSteve.tscn" }
+    };
     public override void _Ready()
     {
         
