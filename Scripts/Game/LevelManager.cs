@@ -138,7 +138,7 @@ public class LevelManager : Node
         foreach (var child in scene.GetChildren())
         {
             var spawnPoint = child as SpawnPoint;
-            if (spawnPoint != null && spawnPoint.PreviousScene == SceneID.MainMenu)
+            if (spawnPoint != null && spawnPoint.PreviousScene == LastScene)
             {
                 spawn = spawnPoint;
                 break;

@@ -30,7 +30,7 @@ name = "A Pipe"
 itemName = "pipe"
 
 [node name="SpawnPoint" type="Node2D" parent="."]
-position = Vector2( 214.874, 162.739 )
+position = Vector2( 383.704, 281.172 )
 script = ExtResource( 4 )
 PreviousScene = 1
 

@@ -32,7 +32,7 @@ position = Vector2( 951.12, 1080.36 )
 shape = SubResource( 1 )
 
 [node name="SpawnPoint" type="Node2D" parent="."]
-position = Vector2( 952.628, 1918.62 )
+position = Vector2( 963.307, 1875.91 )
 script = ExtResource( 2 )
 PreviousScene = 3
 
