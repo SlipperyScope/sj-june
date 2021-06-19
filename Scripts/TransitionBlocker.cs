@@ -2,9 +2,9 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class CrabGuy : Obstacle
+public class TransitionBlocker : Obstacle
 {
-    // [Export] String itemNeeded;
+    [Export] String transitionName;
     // [Export] String completionText = "";  
     // [Export] String failureText = "";
     // [Export] String alreadyCompletedText = "";
@@ -14,10 +14,9 @@ public class CrabGuy : Obstacle
 
     //Boolean completed = false;
 
-    // private void completeTask()
-    // {
-    //     completeSprite.Visible = true;
-    //     startSprite.Visible = false;
-    //     completed = true;
-    // }
+     protected override void completeTask()
+     {
+         GetParent().GetNode<TransitionTrigger>(transitionName).Open();
+         base.completeTask();
+     }
 }

@@ -72,7 +72,7 @@ public class TransitionTrigger : Clickable
     /// <summary>
     /// Opens the transition point
     /// </summary>
-    protected virtual void Open()
+    public virtual void Open()
     {
         InputPickable = true;
         Connect("mouse_entered", this, nameof(_onMouseEntered));
@@ -82,7 +82,7 @@ public class TransitionTrigger : Clickable
     /// <summary>
     /// Closes the transition point
     /// </summary>
-    protected virtual void Close()
+    public virtual void Close()
     {
         InputPickable = false;
         Disconnect("mouse_entered", this, nameof(_onMouseEntered));
