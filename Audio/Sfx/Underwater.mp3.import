@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Underwater.mp3-87578108d53cf39c781c787b4fe1a238.mp3str"
+
+[deps]
+
+source_file="res://Audio/Sfx/Underwater.mp3"
+dest_files=[ "res://.import/Underwater.mp3-87578108d53cf39c781c787b4fe1a238.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

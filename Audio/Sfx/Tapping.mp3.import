@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Tapping.mp3-87c9da8608e639e43e1f393c6afda4d9.mp3str"
+
+[deps]
+
+source_file="res://Audio/Sfx/Tapping.mp3"
+dest_files=[ "res://.import/Tapping.mp3-87c9da8608e639e43e1f393c6afda4d9.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
