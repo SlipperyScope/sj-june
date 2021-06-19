@@ -54,6 +54,7 @@ public class LevelManager : Node
         MusicManager = GetNode<MusicManager>("/root/MusicManager");
         PlayerData = GetNode<PlayerData>("/root/PlayerData");
         PlayerScene = GD.Load<PackedScene>(SteveScenePath);
+        MusicManager.ChangeSong(SongID.JourneyNorth);
     }
 
     /// <summary>
