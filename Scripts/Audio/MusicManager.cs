@@ -22,7 +22,7 @@ namespace Audio
                 {
                     Name = "Journey North",
                     Path = "res://Audio/Music/Journey North/Journey North 03.mp3",
-                    BPM = 130,
+                    BPM = 130f,
                     MeasureLength = 4,
                     PlaybackVolume = -10f
                 }
@@ -32,7 +32,7 @@ namespace Audio
                 {
                     Name = "Descent",
                     Path = "res://Audio/Music/Descent/Descent 03.mp3",
-                    BPM = 120,
+                    BPM = 120f,
                     MeasureLength = 4,
                     PlaybackVolume = -5f
                 }
@@ -42,7 +42,7 @@ namespace Audio
                 {
                     Name = "Depths",
                     Path = "res://Audio/Music/Depths/Depths.mp3",
-                    BPM = 60,
+                    BPM = 60f,
                     MeasureLength = 4,
                     PlaybackVolume = 0f
                 }
@@ -52,7 +52,17 @@ namespace Audio
                 {
                     Name = "Dark Passages",
                     Path = "res://Audio/Music/Dark Passages/Dark Passages.mp3",
-                    BPM = 60,
+                    BPM = 60f,
+                    MeasureLength = 4,
+                    PlaybackVolume = -10f
+                }
+            },
+            {
+                SongID.JustPressPlay, new Song()
+                {
+                    Name = "Just Press Play",
+                    Path = "res://Audio/Music/Just Press Play/Just Press Play.mp3",
+                    BPM = 108f,
                     MeasureLength = 4,
                     PlaybackVolume = -10f
                 }

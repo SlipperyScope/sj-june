@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Just Press Play.mp3-a5234ced31195de8433547368e1787ad.mp3str"
+
+[deps]
+
+source_file="res://Audio/Music/Just Press Play/Just Press Play.mp3"
+dest_files=[ "res://.import/Just Press Play.mp3-a5234ced31195de8433547368e1787ad.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=8.88

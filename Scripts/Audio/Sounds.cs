@@ -9,7 +9,8 @@ namespace Audio
         JourneyNorth,
         Descent,
         Depths,
-        DarkPassages
+        DarkPassages,
+        JustPressPlay
     }
 
     public struct Song

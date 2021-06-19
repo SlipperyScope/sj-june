@@ -13,7 +13,7 @@ public class LevelManager : Node
             SceneID.MainMenu, new Scene
             {
                 Path = "res://Scenes/MainScene.tscn",
-                Song = SongID.JourneyNorth
+                Song = SongID.JustPressPlay
             }
         },
         {
@@ -54,7 +54,7 @@ public class LevelManager : Node
         MusicManager = GetNode<MusicManager>("/root/MusicManager");
         PlayerData = GetNode<PlayerData>("/root/PlayerData");
         PlayerScene = GD.Load<PackedScene>(SteveScenePath);
-        MusicManager.ChangeSong(SongID.JourneyNorth);
+        MusicManager.ChangeSong(Scenes[SceneID.MainMenu].Song);
     }
 
     /// <summary>
