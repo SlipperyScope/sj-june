@@ -46,7 +46,7 @@ public class Bubble : Node2D
 
             position.y -= FloatSpeed * delta;
             
-            position.x = StartX + Amplitude * (Single)Math.Sin(Period * Time * Math.PI);
+            position.x = StartX + Amplitude * (Single)Math.Sin(Period * Time * TwoPi);
             Time += delta;
 
             Position = position;
