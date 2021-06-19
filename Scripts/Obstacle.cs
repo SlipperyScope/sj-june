@@ -22,7 +22,7 @@ public class Obstacle : Clickable
         completeSprite.Visible = false;
     }
 
-    private void completeTask()
+    protected virtual void completeTask()
     {
         if (consumeItem)
         {
