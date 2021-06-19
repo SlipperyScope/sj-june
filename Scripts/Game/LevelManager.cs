@@ -19,7 +19,7 @@ public class LevelManager : Node
         {
             SceneID.Submarine, new Scene
             {
-                Path = "res://Scenes/SteveGetsHisFins.tscn",
+                Path = "res://Scenes/Levels/Submarine.tscn",
                 Song = SongID.JourneyNorth
             }
         },
@@ -33,7 +33,56 @@ public class LevelManager : Node
         {
             SceneID.Hatch, new Scene
             {
-                Path = "",
+                Path = "res://Scenes/Levels/Hatch.tscn",
+                Song = SongID.Depths
+            }
+        },
+        {
+            SceneID.UpperHatch, new Scene
+            {
+                Path = "res://Scenes/Levels/UpperHatch.tscn",
+                Song = SongID.Depths
+            }
+        },
+        {
+            SceneID.LowerHatch, new Scene
+            {
+                Path = "res://Scenes/Levels/LowerHatch.tscn",
+                Song = SongID.Depths
+            }
+        },
+        {
+            SceneID.CargoBay, new Scene
+            {
+                Path = "res://Scenes/Levels/CargoBay.tscn",
+                Song = SongID.Depths
+            }
+        },
+        {
+            SceneID.LivingQuarters, new Scene
+            {
+                Path = "res://Scenes/Levels/LivingQuarters.tscn",
+                Song = SongID.Depths
+            }
+        },
+        {
+            SceneID.ShipSurface, new Scene
+            {
+                Path = "res://Scenes/Levels/ShipSurface.tscn",
+                Song = SongID.Depths
+            }
+        },
+        {
+            SceneID.MoreSurface, new Scene
+            {
+                Path = "res://Scenes/Levels/MoreSurface.tscn",
+                Song = SongID.Depths
+            }
+        },
+        {
+            SceneID.Hose, new Scene
+            {
+                Path = "res://Scenes/Levels/Hose.tscn",
                 Song = SongID.Depths
             }
         }

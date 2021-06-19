@@ -9,7 +9,14 @@ public enum SceneID
     MainMenu,
     Submarine,
     ShipEntrance,
-    Hatch
+    Hatch,
+    UpperHatch,
+    LowerHatch,
+    CargoBay,
+    LivingQuarters,
+    ShipSurface,
+    MoreSurface,
+    Hose
 }
 
 public struct Scene

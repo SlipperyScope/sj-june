@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Art/s7-living-quarters.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Game/SpawnPoint.cs" type="Script" id=2]
+[ext_resource path="res://Game/Transition.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/Shaders/Outline.shader" type="Shader" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1912.79, 3040.52 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 208.223
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 4 )
+shader_param/outLineColor = Plane( 1, 1, 1, 1 )
+shader_param/outlined = false
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TheBackground" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+offset = Vector2( 1910, 3000 )
+
+[node name="MovementZone" type="Area2D" parent="."]
+priority = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovementZone"]
+position = Vector2( 1899.45, 2972.58 )
+shape = SubResource( 1 )
+
+[node name="SpawnPoint" type="Node2D" parent="."]
+position = Vector2( 408.992, 833.826 )
+script = ExtResource( 2 )
+
+[node name="ExitTransition" parent="." instance=ExtResource( 3 )]
+position = Vector2( 3513.51, 5472.61 )
+name = "Exit Ship"
+TransitionTo = 8
+IsOpen = true
+
+[node name="CollisionShape2D" parent="ExitTransition" index="0"]
+shape = SubResource( 2 )
+
+[node name="Sprite" parent="ExitTransition" index="1"]
+material = SubResource( 3 )
+flip_v = true
+
+[editable path="ExitTransition"]
