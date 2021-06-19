@@ -1,14 +1,26 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Art/s2-entrance.png" type="Texture" id=1]
 [ext_resource path="res://Game/Obstacle.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Game/Item.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Game/SpawnPoint.cs" type="Script" id=4]
+[ext_resource path="res://Scripts/Game/TransitionTrigger.cs" type="Script" id=5]
+[ext_resource path="res://Scripts/Shaders/Outline.shader" type="Shader" id=6]
+[ext_resource path="res://Art/s2-entrance-transition.png" type="Texture" id=7]
+[ext_resource path="res://Scenes/BubbleSpawner.cs" type="Script" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3768.38, 1104.94 )
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="CircleShape2D" id=2]
+radius = 208.223
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 6 )
+shader_param/outLineColor = Plane( 1, 1, 1, 1 )
+shader_param/outlined = false
+
+[node name="ShipEntrance" type="Node2D"]
 
 [node name="TheBackground" type="Sprite" parent="."]
 position = Vector2( 3750, 1080 )
@@ -32,3 +44,28 @@ priority = 5.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MovementZone"]
 position = Vector2( 3744.96, 1062.19 )
 shape = SubResource( 1 )
+
+[node name="HatchTransition" type="StaticBody2D" parent="."]
+position = Vector2( 2057.44, 1016.75 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 5 )
+name = "Hull hole"
+IsOpen = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HatchTransition"]
+position = Vector2( 573, 0 )
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="HatchTransition"]
+material = SubResource( 3 )
+position = Vector2( 591, -14 )
+texture = ExtResource( 7 )
+
+[node name="BubbleSpawner" type="Node2D" parent="."]
+position = Vector2( 6797.52, 1934.58 )
+script = ExtResource( 8 )
+
+[node name="BubbleSpawner2" type="Node2D" parent="."]
+position = Vector2( 6263.55, 1949.41 )
+script = ExtResource( 8 )

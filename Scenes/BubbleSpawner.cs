@@ -17,6 +17,11 @@ public class BubbleSpawner : Node2D
         Bubble = GD.Load<PackedScene>(BubblePath);
     }
 
+    public override void _ExitTree()
+    {
+        MusicManager.Beat -= MusicManager_Beat;
+    }
+
     private void MusicManager_Beat(object sender, EventArgs e)
     {
         if (MusicManager.BeatCount % 6 == Rand.Next(0,6))

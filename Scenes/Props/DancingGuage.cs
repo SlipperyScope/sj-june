@@ -30,6 +30,12 @@ public class DancingGuage : Node2D
         CallDeferred(nameof(SetAnimationSpeed), args: MusicManager.NowPlaying.BPM);
     }
 
+    public override void _ExitTree()
+    {
+        MusicManager.Beat -= OnBeat;
+        MusicManager.SongChanged -= OnSongChanged;
+    }
+
     /// <summary>
     /// On Beat
     /// </summary>

@@ -55,6 +55,12 @@ public class Bubble : Node2D
         }
     }
 
+    public override void _ExitTree()
+    {
+        MusicManager.Beat -= AnimateIn;
+        MusicManager.SongChanged -= MusicManager_SongChanged;
+    }
+
     /// <summary>
     /// Song changed
     /// </summary>

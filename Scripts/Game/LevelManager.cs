@@ -10,24 +10,31 @@ public class LevelManager : Node
     private Dictionary<SceneID, Scene> Scenes = new Dictionary<SceneID, Scene>()
     {
         {
-            SceneID.Surface, new Scene
+            SceneID.MainMenu, new Scene
+            {
+                Path = "res://Scenes/MainScene.tscn",
+                Song = SongID.JourneyNorth
+            }
+        },
+        {
+            SceneID.Submarine, new Scene
             {
                 Path = "res://Scenes/SteveGetsHisFins.tscn",
                 Song = SongID.JourneyNorth
             }
         },
         {
-            SceneID.Bottom, new Scene
+            SceneID.ShipEntrance, new Scene
             {
                 Path = "res://Scenes/Levels/ShipEntrance.tscn",
-                Song = SongID.Depths
+                Song = SongID.Descent
             }
         },
         {
-            SceneID.Inside, new Scene
+            SceneID.Hatch, new Scene
             {
                 Path = "",
-                Song = SongID.DarkPassages
+                Song = SongID.Depths
             }
         }
     };
@@ -39,6 +46,9 @@ public class LevelManager : Node
     public SceneID CurrentScene = SceneID.MainMenu;
     public SceneID LastScene = SceneID.MainMenu;
 
+    /// <summary>
+    /// Ready
+    /// </summary>
     public override void _Ready()
     {
         MusicManager = GetNode<MusicManager>("/root/MusicManager");
@@ -46,12 +56,24 @@ public class LevelManager : Node
         PlayerScene = GD.Load<PackedScene>(SteveScenePath);
     }
 
+    /// <summary>
+    /// Loads a scene
+    /// </summary>
+    /// <param name="id">Scene ID</param>
     public void LoadScene(SceneID id)
     {
+        LastScene = CurrentScene;
+        CurrentScene = id;
+
         var scene = Scenes[id];
+
         GetTree().ChangeScene(scene.Path);
         MusicManager.ChangeSong(scene.Song);
-        CallDeferred(nameof(SpawnPlayer));
+
+        if (id != SceneID.MainMenu)
+        {
+            CallDeferred(nameof(SpawnPlayer));
+        }
     }
 
     /// <summary>

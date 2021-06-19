@@ -7,9 +7,9 @@ using System.Collections.Generic;
 public enum SceneID
 {
     MainMenu,
-    Surface,
-    Bottom,
-    Inside
+    Submarine,
+    ShipEntrance,
+    Hatch
 }
 
 public struct Scene

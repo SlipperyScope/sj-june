@@ -24,8 +24,9 @@ public class Clickable : StaticBody2D
     {
 		if (@event.IsActionPressed("click"))
 		{
-            GD.Print("Clicked clickable");
+            GD.Print($"Clicked {this}");
             steve.interactWhenClose = this;
+            //GD.Print(steve.interactWhenClose);
             GetTree().SetInputAsHandled();
         }
     }
@@ -35,6 +36,7 @@ public class Clickable : StaticBody2D
 		if (steve.interactWhenClose == this && steve.Position.DistanceTo(Position) < activationDistance)
         {
             steve.interactWhenClose = null;
+            //GD.Print("interact");
             interact();
         }
     }
