@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/HornSound.mp3-5fb95be1da79b78a2f8845e60a3b32ba.mp3str"
+
+[deps]
+
+source_file="res://Audio/Sfx/HornSound.mp3"
+dest_files=[ "res://.import/HornSound.mp3-5fb95be1da79b78a2f8845e60a3b32ba.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
