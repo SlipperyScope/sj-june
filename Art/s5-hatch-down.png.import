@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/item-s3-c4.png-ec7ed9539d9ffe717cc52da724a3094f.stex"
+path="res://.import/s5-hatch-down.png-a46a54351fb5e41cc5a3a4b3006f8112.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/item-s3-c4.png"
-dest_files=[ "res://.import/item-s3-c4.png-ec7ed9539d9ffe717cc52da724a3094f.stex" ]
+source_file="res://Art/s5-hatch-down.png"
+dest_files=[ "res://.import/s5-hatch-down.png-a46a54351fb5e41cc5a3a4b3006f8112.stex" ]
 
 [params]
 
