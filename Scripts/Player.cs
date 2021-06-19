@@ -60,7 +60,7 @@ public class Player : KinematicBody2D
             {
                 interactWhenClose = null;
             }
-            target = GetGlobalMousePosition();
+            target = GetGlobalMousePosition() + new Vector2(0f, 200f);
             GetNode<Sprite>("PlayerSprite").FlipH = target.x < Position.x;
         }
     }

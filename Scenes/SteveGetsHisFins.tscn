@@ -64,7 +64,7 @@ anims/Waves = SubResource( 1 )
 
 [node name="Boat" type="Sprite" parent="."]
 position = Vector2( 1796.44, 834.704 )
-rotation = 0.08507
+rotation = 0.0872665
 texture = ExtResource( 4 )
 offset = Vector2( -123, 0 )
 

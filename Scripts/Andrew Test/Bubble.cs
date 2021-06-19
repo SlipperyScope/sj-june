@@ -10,10 +10,10 @@ public class Bubble : Node2D
     private Int32 ChangeDirectionBeat;
 
     [Export]
-    public Single FloatSpeed { get; private set; } = 30f;
+    public Single FloatSpeed { get; private set; } = 100f;
 
     [Export]
-    public Single ShiftSpeed { get; private set; } = 15f;
+    public Single ShiftSpeed { get; private set; } = 30f;
 
     private Single Direction = 1f;
     private Boolean DoRise = false;

@@ -19,10 +19,10 @@ public class BubbleSpawner : Node2D
 
     private void MusicManager_Beat(object sender, EventArgs e)
     {
-        if (MusicManager.BeatCount % 8 == Rand.Next(0,8))
+        if (MusicManager.BeatCount % 6 == Rand.Next(0,6))
         {
             var bubble = Bubble.Instance() as Node2D;
-            bubble.Position = new Vector2(Rand.Next(-10, 11), Rand.Next(-10, 11));
+            bubble.Position = new Vector2(Rand.Next(-100, 101), Rand.Next(-100, 101));
             AddChild(bubble);
         }
     }

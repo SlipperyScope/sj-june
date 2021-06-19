@@ -23,7 +23,7 @@ name = "A Pipe"
 itemName = "pipe"
 
 [node name="SpawnPoint" type="Node2D" parent="."]
-position = Vector2( 749.162, 328.902 )
+position = Vector2( -178.838, 1500.9 )
 script = ExtResource( 4 )
 
 [node name="MovementZone" type="Area2D" parent="."]
