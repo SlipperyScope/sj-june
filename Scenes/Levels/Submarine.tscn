@@ -6,8 +6,8 @@
 [ext_resource path="res://Scripts/Shaders/Outline.shader" type="Shader" id=4]
 [ext_resource path="res://Assets/down.png" type="Texture" id=5]
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 1912.79, 2148.27 )
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 963.312, 1148.74 )
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 208.223
@@ -20,6 +20,7 @@ shader_param/outlined = false
 [node name="Node2D" type="Node2D"]
 
 [node name="TheBackground" type="Sprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 offset = Vector2( 1910, 2160 )
 
@@ -27,15 +28,15 @@ offset = Vector2( 1910, 2160 )
 priority = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MovementZone"]
-position = Vector2( 1913.7, 2160.08 )
-shape = SubResource( 4 )
+position = Vector2( 955.946, 1109.09 )
+shape = SubResource( 1 )
 
 [node name="SpawnPoint" type="Node2D" parent="."]
-position = Vector2( 355.369, 1379.95 )
+position = Vector2( 372.32, 490.001 )
 script = ExtResource( 2 )
 
 [node name="DownTransition" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1094.59, 3912.91 )
+position = Vector2( 857.27, 1827.89 )
 name = "Continue Deeper"
 TransitionTo = 2
 IsOpen = true

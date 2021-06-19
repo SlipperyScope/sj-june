@@ -53,10 +53,6 @@ public class Player : KinematicBody2D
         }
 	}
 
-    // public List<String> GetItemNames() {
-    //     return playerData.getItemNames();
-    // }
-
     public void _onMovementZoneInputEvent(Node viewport, InputEvent ie, int shapeIdx)
     {
         if (ie.IsActionPressed("click"))
@@ -144,6 +140,6 @@ public class Player : KinematicBody2D
         camera.LimitLeft = 0;
         camera.LimitTop = 0;
         camera.LimitRight = (int)(background.GetRect().Size.x * background.Scale.x);
-        camera.LimitBottom = (int)(background.GetRect().Size.y * background.Scale.y) + 420;
+        camera.LimitBottom = (int)(background.GetRect().Size.y * background.Scale.y) + 280;
     }
 }

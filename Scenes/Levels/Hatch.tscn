@@ -9,8 +9,8 @@
 [ext_resource path="res://Scripts/TransitionBlocker.cs" type="Script" id=7]
 [ext_resource path="res://Game/Obstacle.tscn" type="PackedScene" id=8]
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 1912.79, 2148.27 )
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 996.763, 1143.76 )
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 208.223
@@ -20,7 +20,7 @@ shader = ExtResource( 4 )
 shader_param/outLineColor = Plane( 1, 1, 1, 1 )
 shader_param/outlined = false
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 158.803, 234.568 )
 
 [sub_resource type="ShaderMaterial" id=5]
@@ -39,6 +39,7 @@ extents = Vector2( 155.047, 239.228 )
 [node name="Node2D" type="Node2D"]
 
 [node name="TheBackground" type="Sprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 offset = Vector2( 1910, 2160 )
 
@@ -46,15 +47,27 @@ offset = Vector2( 1910, 2160 )
 priority = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MovementZone"]
-position = Vector2( 1913.7, 2160.08 )
-shape = SubResource( 4 )
+position = Vector2( 966.77, 1099.28 )
+shape = SubResource( 1 )
 
 [node name="SpawnPoint" type="Node2D" parent="."]
-position = Vector2( 338.418, 1875.78 )
+position = Vector2( 191.584, 931.847 )
 script = ExtResource( 2 )
+PreviousScene = 2
+
+[node name="SpawnPoint2" type="Node2D" parent="."]
+position = Vector2( 919.761, 227.642 )
+script = ExtResource( 2 )
+PreviousScene = 4
+
+[node name="SpawnPoint3" type="Node2D" parent="."]
+position = Vector2( 919.761, 1881.77 )
+script = ExtResource( 2 )
+PreviousScene = 5
 
 [node name="DownTransition" parent="." instance=ExtResource( 3 )]
-position = Vector2( 2022.31, 4054.33 )
+position = Vector2( 919.556, 1974.68 )
+scale = Vector2( 0.5, 0.5 )
 name = "Go Down"
 TransitionTo = 5
 IsOpen = true
@@ -67,7 +80,8 @@ material = SubResource( 3 )
 texture = ExtResource( 5 )
 
 [node name="UpTransition" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1971.4, 400.003 )
+position = Vector2( 928.578, 178.253 )
+scale = Vector2( 0.5, 0.5 )
 name = "Go up"
 TransitionTo = 4
 IsOpen = true
@@ -81,19 +95,19 @@ texture = ExtResource( 5 )
 flip_v = true
 
 [node name="HatchTransition" parent="." instance=ExtResource( 3 )]
-position = Vector2( 3475.9, 2109.44 )
+position = Vector2( 1719.88, 1060.63 )
 name = "Go Through Hatch"
 TransitionTo = 6
 
 [node name="CollisionShape2D" parent="HatchTransition" index="0"]
-shape = SubResource( 8 )
+shape = SubResource( 4 )
 
 [node name="Sprite" parent="HatchTransition" index="1"]
 position = Vector2( 0.891113, 1.78159 )
 scale = Vector2( 0.57726, 1.3354 )
 
 [node name="LockedHatch" parent="." instance=ExtResource( 8 )]
-position = Vector2( 3473.14, 2123.24 )
+position = Vector2( 1713.14, 1059.44 )
 script = ExtResource( 7 )
 name = "Locked Hatch"
 itemNeeded = "c4"

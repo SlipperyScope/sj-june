@@ -9,7 +9,7 @@
 [ext_resource path="res://Art/item-s5-c4.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 1912.79, 2148.27 )
+extents = Vector2( 1003.85, 1124.51 )
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 208.223
@@ -22,6 +22,7 @@ shader_param/outlined = false
 [node name="Node2D" type="Node2D"]
 
 [node name="TheBackground" type="Sprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 offset = Vector2( 1910, 2160 )
 
@@ -29,15 +30,17 @@ offset = Vector2( 1910, 2160 )
 priority = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MovementZone"]
-position = Vector2( 1913.7, 2160.08 )
+position = Vector2( 939.623, 1087.84 )
 shape = SubResource( 1 )
 
 [node name="SpawnPoint" type="Node2D" parent="."]
-position = Vector2( 1957.99, 407.29 )
+position = Vector2( 915.954, 294.025 )
 script = ExtResource( 2 )
+PreviousScene = 3
 
 [node name="UpTransition" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1976.53, 264.176 )
+position = Vector2( 914.673, 166.529 )
+scale = Vector2( 0.5, 0.5 )
 name = "Go Back Up"
 TransitionTo = 3
 IsOpen = true
@@ -51,7 +54,7 @@ texture = ExtResource( 5 )
 flip_v = true
 
 [node name="Item" parent="." instance=ExtResource( 6 )]
-position = Vector2( 667.733, 3626.08 )
+position = Vector2( 323.323, 1817.83 )
 name = "C4"
 itemName = "c4"
 

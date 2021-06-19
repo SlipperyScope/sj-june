@@ -6,7 +6,7 @@
 [ext_resource path="res://Scripts/Shaders/Outline.shader" type="Shader" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 1912.79, 3040.52 )
+extents = Vector2( 967.288, 1556.97 )
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 208.223
@@ -19,6 +19,7 @@ shader_param/outlined = false
 [node name="Node2D" type="Node2D"]
 
 [node name="TheBackground" type="Sprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 offset = Vector2( 1910, 3000 )
 
@@ -26,15 +27,17 @@ offset = Vector2( 1910, 3000 )
 priority = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MovementZone"]
-position = Vector2( 1899.45, 2972.58 )
+position = Vector2( 944.408, 1497.25 )
 shape = SubResource( 1 )
 
 [node name="SpawnPoint" type="Node2D" parent="."]
-position = Vector2( 408.992, 833.826 )
+position = Vector2( 189.931, 421.102 )
 script = ExtResource( 2 )
+PreviousScene = 6
 
 [node name="ExitTransition" parent="." instance=ExtResource( 3 )]
-position = Vector2( 3513.51, 5472.61 )
+position = Vector2( 1713.07, 2725.7 )
+scale = Vector2( 0.5, 0.5 )
 name = "Exit Ship"
 TransitionTo = 8
 IsOpen = true

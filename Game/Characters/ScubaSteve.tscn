@@ -42,7 +42,6 @@ shape = SubResource( 1 )
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 0, -4.48981 )
 current = true
-zoom = Vector2( 1.5, 1.5 )
 
 [node name="HUD" type="CanvasLayer" parent="."]
 offset = Vector2( 0, 63.507 )

@@ -9,36 +9,41 @@
 [ext_resource path="res://Scripts/TransitionBlocker.cs" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 3768.38, 1104.94 )
+extents = Vector2( 1900.11, 560.468 )
 
 [node name="ShipEntrance" type="Node2D"]
 
 [node name="TheBackground" type="Sprite" parent="."]
-position = Vector2( 3750, 1080 )
+position = Vector2( 1880.57, 547.235 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 
 [node name="CrabGuy" parent="." instance=ExtResource( 2 )]
-position = Vector2( 2054.83, 1014.96 )
+position = Vector2( 1038.08, 519.04 )
+scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 9 )
 transitionName = "HatchTransition"
 
 [node name="Item" parent="." instance=ExtResource( 3 )]
-position = Vector2( 6548.6, 1892.54 )
+position = Vector2( 3266.39, 950.688 )
 name = "A Pipe"
 itemName = "pipe"
 
 [node name="SpawnPoint" type="Node2D" parent="."]
-position = Vector2( -178.838, 1500.9 )
+position = Vector2( 214.874, 162.739 )
 script = ExtResource( 4 )
+PreviousScene = 1
 
 [node name="MovementZone" type="Area2D" parent="."]
 priority = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MovementZone"]
-position = Vector2( 3744.96, 1062.19 )
+position = Vector2( 1894.55, 553.209 )
 shape = SubResource( 1 )
 
 [node name="HatchTransition" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1382.63, 512.282 )
+scale = Vector2( 0.5, 0.5 )
 name = "Enter Ship"
 TransitionTo = 3
 

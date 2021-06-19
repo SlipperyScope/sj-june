@@ -6,27 +6,30 @@
 [ext_resource path="res://Game/Transition.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 3028.94, 1104.94 )
+extents = Vector2( 1544.24, 558.299 )
 
 [node name="Node2D" type="Node2D"]
 
 [node name="TheBackground" type="Sprite" parent="."]
-position = Vector2( 3000, 1080 )
+position = Vector2( 1500, 540 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 
 [node name="SpawnPoint" type="Node2D" parent="."]
-position = Vector2( 5640.59, 1722.65 )
+position = Vector2( 2802.32, 951.173 )
 script = ExtResource( 4 )
+PreviousScene = 8
 
 [node name="MovementZone" type="Area2D" parent="."]
 priority = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MovementZone"]
-position = Vector2( 3000, 1078.19 )
+position = Vector2( 1518.33, 523.824 )
 shape = SubResource( 1 )
 
 [node name="Transition" parent="." instance=ExtResource( 5 )]
-position = Vector2( 673.878, 357.529 )
+position = Vector2( 344.247, 148.987 )
+scale = Vector2( 0.5, 0.5 )
 name = "Follow the Hose"
 TransitionTo = 10
 IsOpen = true
