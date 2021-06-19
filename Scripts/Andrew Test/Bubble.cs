@@ -4,19 +4,20 @@ using System;
 
 public class Bubble : Node2D
 {
+    const Single TwoPi = (Single)Math.PI * 2f;
+    const Single FloatSpeed = 150f; 
+
     private MusicManager MusicManager;
     private AnimationPlayer Animator;
     private Random Rand = new Random();
     private Int32 ChangeDirectionBeat;
 
-    [Export]
-    public Single FloatSpeed { get; private set; } = 100f;
+    public Single Amplitude { get; set; } = 50f;
+    public Single Period { get; set; } = 0f;
 
-    [Export]
-    public Single ShiftSpeed { get; private set; } = 30f;
-
-    private Single Direction = 1f;
     private Boolean DoRise = false;
+    public Single Time { get; set; } = 0f;
+    private Single StartX = 0f;
 
     /// <summary>
     /// Ready 
@@ -28,12 +29,10 @@ public class Bubble : Node2D
 
         MusicManager.Beat += AnimateIn;
         MusicManager.SongChanged += MusicManager_SongChanged;
-
-        FloatSpeed += Rand.Next(-5, 6);
-        ShiftSpeed += Rand.Next(-5, 6);
-        ChangeDirectionBeat = Rand.Next(0, MusicManager.NowPlaying.MeasureLength);
+        SetPeriod(MusicManager.NowPlaying.BPM, MusicManager.NowPlaying.MeasureLength);
 
         CallDeferred(nameof(SetAnimationSpeed), args: MusicManager.NowPlaying.BPM);
+        StartX = Position.x;
     }
 
     /// <summary>
@@ -44,17 +43,24 @@ public class Bubble : Node2D
         if (DoRise is true)
         {
             var position = Position;
+
             position.y -= FloatSpeed * delta;
-            position.x += Direction * ShiftSpeed * delta;
+            
+            position.x = StartX + Amplitude * (Single)Math.Sin(Period * Time * Math.PI);
+            Time += delta;
+
             Position = position;
+
             if (GlobalPosition.y <= -50f)
             {
-                MusicManager.Beat -= ChangeDirection;
                 QueueFree();
             }
         }
     }
 
+    /// <summary>
+    /// Exit Tree
+    /// </summary>
     public override void _ExitTree()
     {
         MusicManager.Beat -= AnimateIn;
@@ -69,7 +75,14 @@ public class Bubble : Node2D
         if (e.Song.BPM != e.LastSong.BPM)
         {
             SetAnimationSpeed(e.Song.BPM);
+            SetPeriod(e.Song.BPM, e.Song.MeasureLength);
         }
+    }
+
+    private void SetPeriod(Single BPM, Int32 MeasureLength)
+    {
+        Period = BPM / MeasureLength / 60f;
+        GD.Print(Period);
     }
 
     /// <summary>
@@ -95,19 +108,6 @@ public class Bubble : Node2D
     /// </summary>
     private void StartFloating(String animationName)
     {
-        //GD.Print("Animation finished");
-        MusicManager.Beat += ChangeDirection;
         DoRise = true;
-    }
-
-    /// <summary>
-    /// Syncronizes direction change with beat
-    /// </summary>
-    private void ChangeDirection(object sender, BeatEventArgs e)
-    {
-        if (e.BeatInMeasure == ChangeDirectionBeat)
-        {
-            Direction *= -1;
-        }
     }
 }

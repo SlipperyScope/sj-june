@@ -9,10 +9,10 @@
 [ext_resource path="res://Art/s2-entrance-transition.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/BubbleSpawner.cs" type="Script" id=8]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 3768.38, 1104.94 )
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=5]
 radius = 208.223
 
 [sub_resource type="ShaderMaterial" id=3]
@@ -43,7 +43,7 @@ priority = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MovementZone"]
 position = Vector2( 3744.96, 1062.19 )
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 
 [node name="HatchTransition" type="StaticBody2D" parent="."]
 position = Vector2( 2057.44, 1016.75 )
@@ -55,7 +55,7 @@ IsOpen = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HatchTransition"]
 position = Vector2( 573, 0 )
-shape = SubResource( 2 )
+shape = SubResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="HatchTransition"]
 material = SubResource( 3 )
@@ -69,3 +69,8 @@ script = ExtResource( 8 )
 [node name="BubbleSpawner2" type="Node2D" parent="."]
 position = Vector2( 6263.55, 1949.41 )
 script = ExtResource( 8 )
+
+[node name="BubbleSpawner3" type="Node2D" parent="."]
+position = Vector2( 696.82, 1296.87 )
+script = ExtResource( 8 )
+SpawnSpeed = 0
