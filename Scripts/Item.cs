@@ -27,7 +27,7 @@ public class Item : Clickable
 
     public override void _onMouseExited()
     {
-        ((ShaderMaterial)itemSprite.Material).SetShaderParam("outliend", false);
+        ((ShaderMaterial)itemSprite.Material).SetShaderParam("outlined", false);
         base._onMouseExited();
     }
 }
