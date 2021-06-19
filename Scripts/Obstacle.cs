@@ -10,7 +10,7 @@ public class Obstacle : Clickable
     [Export] String failureText = "I need something to beat off.....all these barnacles";
     [Export] String alreadyCompletedText = "It's for beating, not smoking";
     Sprite startSprite;
-    Sprite completeSprite;
+    protected Sprite completeSprite;
     Boolean completed = false;
 
     public override void _Ready()

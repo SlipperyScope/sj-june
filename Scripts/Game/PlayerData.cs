@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 public enum SteveID
@@ -15,8 +16,9 @@ public class PlayerData : Node
     };
     String textHistory;
     List<String> itemNames = new List<String>();
-    public override void _Ready()
-    {
+    Hashtable items = new Hashtable();
+
+    public override void _Ready() {
         textHistory = "";
     }
 
@@ -35,13 +37,20 @@ public class PlayerData : Node
         return itemNames;
     }
 
-    public void addItem(String item)
+    public void addItem(String item, Texture itemTexture)
     {
+        items.Add(item, itemTexture);
         itemNames.Add(item);
     }
 
     public void removeItem(String item)
     {
+        items.Remove(item);
         itemNames.Remove(item);
+    }
+
+    public Texture getItemTexture(String item)
+    {
+        return (Texture)items[item];
     }
 }

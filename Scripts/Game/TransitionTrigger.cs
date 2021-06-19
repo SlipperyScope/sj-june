@@ -85,8 +85,10 @@ public class TransitionTrigger : Clickable
     public virtual void Close()
     {
         InputPickable = false;
-        Disconnect("mouse_entered", this, nameof(_onMouseEntered));
-        Disconnect("mouse_exited", this, nameof(_onMouseExited));
+        if (this.IsConnected("mouse_entered", this, nameof(_onMouseEntered))) {
+            Disconnect("mouse_entered", this, nameof(_onMouseEntered));
+            Disconnect("mouse_exited", this, nameof(_onMouseExited));
+        }
     }
 
     public override void interact()

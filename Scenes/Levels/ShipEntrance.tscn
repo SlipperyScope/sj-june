@@ -41,7 +41,6 @@ shape = SubResource( 1 )
 [node name="HatchTransition" parent="." instance=ExtResource( 5 )]
 name = "Enter Ship"
 TransitionTo = 3
-IsOpen = true
 
 [node name="BubbleSpawner" type="Node2D" parent="."]
 position = Vector2( 6797.52, 1934.58 )

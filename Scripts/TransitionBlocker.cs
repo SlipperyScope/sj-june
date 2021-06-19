@@ -17,6 +17,10 @@ public class TransitionBlocker : Obstacle
      protected override void completeTask()
      {
          GetParent().GetNode<TransitionTrigger>(transitionName).Open();
+         if (base.completeSprite.Texture == null) {
+             GD.Print("get rid of shit");
+             InputPickable = false;
+         }
          base.completeTask();
      }
 }

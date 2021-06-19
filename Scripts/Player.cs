@@ -32,6 +32,11 @@ public class Player : KinematicBody2D
         Button button = inventoryButtons.GetNode<Button>("ItemButton/Button");
         button.Connect("pressed", this, nameof(itemButtonPressed), new Godot.Collections.Array {"", null});
 
+        foreach (var name in playerData.getItemNames())
+        {
+            addItemButton(name, playerData.getItemTexture(name));
+        }
+
         camera = GetNode<Camera2D>("Camera2D");
         Sprite background = GetParent().GetNode<Sprite>("TheBackground");
         setCameraLimit(background);
@@ -48,9 +53,9 @@ public class Player : KinematicBody2D
         }
 	}
 
-    public List<String> GetItemNames() {
-        return playerData.getItemNames();
-    }
+    // public List<String> GetItemNames() {
+    //     return playerData.getItemNames();
+    // }
 
     public void _onMovementZoneInputEvent(Node viewport, InputEvent ie, int shapeIdx)
     {
@@ -81,24 +86,28 @@ public class Player : KinematicBody2D
     private void itemButtonPressed(String itemName, Texture itemTexture)
     {
         selectedItem = itemName;
-        if (itemName == "") {
-            Input.SetCustomMouseCursor(null);
-            return;
-        }
-        Texture cursorTexture = (Texture)itemCursors[itemName];
-        if (cursorTexture == null)
-        {
-            cursorTexture = ResourceLoader.Load<Texture>("res://Assets/cursors/" + itemName + ".png");
-            itemCursors[itemName] = cursorTexture;
-        }
-        Input.SetCustomMouseCursor(cursorTexture);
+        // if (itemName == "") {
+        //     Input.SetCustomMouseCursor(null);
+        //     return;
+        // }
+        // Texture cursorTexture = (Texture)itemCursors[itemName];
+        // if (cursorTexture == null)
+        // {
+        //     cursorTexture = ResourceLoader.Load<Texture>("res://Assets/cursors/" + itemName + ".png");
+        //     itemCursors[itemName] = cursorTexture;
+        // }
+        // Input.SetCustomMouseCursor(cursorTexture);
     }
 
     public void grabItem(String itemName, Texture itemTexture)
     {
         printMessage("got item: " + itemName);
-        playerData.addItem(itemName);
+        playerData.addItem(itemName, itemTexture);
+        addItemButton(itemName, itemTexture);
+    }
 
+    private void addItemButton(String itemName, Texture itemTexture)
+    {
         var itemButton = ((PackedScene)GD.Load("res://Game/ItemButton.tscn")).Instance();
         itemButton.Name = itemName + "Button";
         Button button = itemButton.GetNode<Button>("Button");
