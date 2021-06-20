@@ -13,11 +13,14 @@ public class Obstacle : Clickable
     protected Sprite completeSprite;
     Boolean completed = false;
 
+    AudioStreamPlayer2D SFXPlayer;
+
     public override void _Ready()
     {
         base._Ready();
         startSprite = GetNode<Sprite>("StartSprite");
         completeSprite = GetNode<Sprite>("CompleteSprite");
+        SFXPlayer = GetNode<AudioStreamPlayer2D>("SFXPlayer");
         startSprite.Visible = true;
         completeSprite.Visible = false;
     }
@@ -31,6 +34,10 @@ public class Obstacle : Clickable
         completeSprite.Visible = true;
         startSprite.Visible = false;
         completed = true;
+        if (SFXPlayer.Stream != null)
+        {
+            SFXPlayer.Play();
+        }
     }
 
     public override void interact() {
