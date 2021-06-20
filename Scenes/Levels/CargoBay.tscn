@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Art/s6-cargo-bay.png" type="Texture" id=1]
+[ext_resource path="res://Game/DialogueTrigger.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Game/SpawnPoint.cs" type="Script" id=4]
 [ext_resource path="res://Game/Transition.tscn" type="PackedScene" id=5]
 
@@ -32,3 +33,19 @@ scale = Vector2( 0.5, 0.5 )
 name = "Enter"
 TransitionTo = 7
 IsOpen = true
+
+[node name="DialogueTrigger" parent="." instance=ExtResource( 2 )]
+position = Vector2( 953.821, 783.073 )
+scale = Vector2( 0.177997, 0.328184 )
+
+[node name="DialogueTrigger2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1102.61, 320.594 )
+scale = Vector2( 0.3, 0.5 )
+name = "Drawer"
+dialogueText = "Was this opened recently?"
+
+[node name="DialogueTrigger3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2496.29, 293.356 )
+scale = Vector2( 0.3, 0.5 )
+name = "Fuse"
+dialogueText = "I'm no expert, but those parts look new...why?"
