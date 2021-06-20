@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Bubbles_Unsplit.mp3-ff12343f3cf6d6a3c35c1830eee8bcc4
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

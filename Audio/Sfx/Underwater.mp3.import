@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Underwater.mp3-87578108d53cf39c781c787b4fe1a238.mp3s
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

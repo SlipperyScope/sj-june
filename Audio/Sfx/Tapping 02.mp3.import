@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Tapping 02.mp3-8934ec8804eb7c30b8da8ba85f98ad80.mp3s
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

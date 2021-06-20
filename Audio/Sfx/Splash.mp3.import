@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Splash.mp3-adbf6c80cc5e472ebb9bd609d2e020f8.mp3str" 
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

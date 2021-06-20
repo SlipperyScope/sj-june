@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Bubbles_Dive.mp3-d07abc41ae8af3ebb447d8facd914f69.mp
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
