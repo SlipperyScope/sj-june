@@ -55,35 +55,35 @@ public class LevelManager : Node
             SceneID.CargoBay, new Scene
             {
                 Path = "res://Scenes/Levels/CargoBay.tscn",
-                Song = SongID.Depths
+                Song = SongID.DarkPassages
             }
         },
         {
             SceneID.LivingQuarters, new Scene
             {
                 Path = "res://Scenes/Levels/LivingQuarters.tscn",
-                Song = SongID.Depths
+                Song = SongID.DarkPassages
             }
         },
         {
             SceneID.ShipSurface, new Scene
             {
                 Path = "res://Scenes/Levels/ShipSurface.tscn",
-                Song = SongID.Depths
+                Song = SongID.DarkPassages
             }
         },
         {
             SceneID.MoreSurface, new Scene
             {
                 Path = "res://Scenes/Levels/MoreSurface.tscn",
-                Song = SongID.Depths
+                Song = SongID.DarkPassages
             }
         },
         {
             SceneID.Hose, new Scene
             {
                 Path = "res://Scenes/Levels/Hose.tscn",
-                Song = SongID.Depths
+                Song = SongID.DarkPassages
             }
         }
     };
