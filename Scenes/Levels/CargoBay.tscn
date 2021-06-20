@@ -8,7 +8,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2010.81, 566.938 )
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D2" type="Node2D"]
 
 [node name="TheBackground" type="Sprite" parent="."]
 position = Vector2( 2000, 540 )

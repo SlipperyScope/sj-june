@@ -6,7 +6,7 @@ public class Clickable : StaticBody2D
 {
 	[Export] String name = "Something you can click on";
 	Player steve;
-	Boolean completed = false;
+	protected Boolean completed = false;
 	int activationDistance = 300;
 
 	public override void _Ready()

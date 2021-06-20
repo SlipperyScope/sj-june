@@ -6,12 +6,11 @@ public class Obstacle : Clickable
 {
     [Export] Boolean consumeItem;
     [Export] String itemNeeded;
-    [Export] String completionText = "Thanks for the pipe";
-    [Export] String failureText = "I need something to beat off.....all these barnacles";
-    [Export] String alreadyCompletedText = "It's for beating, not smoking";
+    [Export] protected String completionText = "Thanks for the pipe";
+    [Export] protected String failureText = "I need something to beat off.....all these barnacles";
+    [Export] protected String alreadyCompletedText = "It's for beating, not smoking";
     Sprite startSprite;
     protected Sprite completeSprite;
-    Boolean completed = false;
 
     AudioStreamPlayer2D SFXPlayer;
 
