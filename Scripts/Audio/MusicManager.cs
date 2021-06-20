@@ -24,7 +24,7 @@ namespace Audio
                     Path = "res://Audio/Music/Journey North/Journey North 03.mp3",
                     BPM = 130f,
                     MeasureLength = 4,
-                    PlaybackVolume = -10f
+                    PlaybackVolume = -15f
                 }
             },
             {
@@ -34,7 +34,7 @@ namespace Audio
                     Path = "res://Audio/Music/Descent/Descent 03.mp3",
                     BPM = 120f,
                     MeasureLength = 4,
-                    PlaybackVolume = -5f
+                    PlaybackVolume = -10f
                 }
             },
             {
@@ -44,7 +44,7 @@ namespace Audio
                     Path = "res://Audio/Music/Depths/Depths.mp3",
                     BPM = 60f,
                     MeasureLength = 4,
-                    PlaybackVolume = 0f
+                    PlaybackVolume = -5f
                 }
             },
             {
@@ -54,7 +54,7 @@ namespace Audio
                     Path = "res://Audio/Music/Dark Passages/Dark Passages.mp3",
                     BPM = 60f,
                     MeasureLength = 4,
-                    PlaybackVolume = -10f
+                    PlaybackVolume = -15f
                 }
             },
             {
@@ -64,7 +64,7 @@ namespace Audio
                     Path = "res://Audio/Music/Just Press Play/Just Press Play.mp3",
                     BPM = 108f,
                     MeasureLength = 4,
-                    PlaybackVolume = -10f
+                    PlaybackVolume = -15f
                 }
             }
         };

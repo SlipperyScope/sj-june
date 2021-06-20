@@ -131,6 +131,7 @@ shape = SubResource( 7 )
 
 [node name="SFXPlayer" parent="LockedHatch" index="3"]
 stream = ExtResource( 9 )
+volume_db = 10.0
 
 [editable path="DownTransition"]
 [editable path="UpTransition"]
