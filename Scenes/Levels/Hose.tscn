@@ -7,7 +7,7 @@
 [ext_resource path="res://Scripts/Shaders/Outline.shader" type="Shader" id=5]
 [ext_resource path="res://Game/Transition.tscn" type="PackedScene" id=6]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 972.51, 1249.08 )
 
 [sub_resource type="CircleShape2D" id=2]
@@ -30,7 +30,7 @@ priority = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MovementZone"]
 position = Vector2( 962.6, 1258.53 )
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 
 [node name="SpawnPoint" type="Node2D" parent="."]
 position = Vector2( 1666.85, 2230.43 )
@@ -47,7 +47,7 @@ dialogueText = "Does this go all the way to the surface?????"
 position = Vector2( 1436.15, 242.426 )
 scale = Vector2( 2, 2 )
 name = "Return to Sub"
-TransitionTo = 1
+TransitionTo = 11
 IsOpen = true
 
 [node name="CollisionShape2D" parent="Transition" index="0"]

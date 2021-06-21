@@ -16,7 +16,8 @@ public enum SceneID
     LivingQuarters,
     ShipSurface,
     MoreSurface,
-    Hose
+    Hose,
+    EndScene
 }
 
 public struct Scene

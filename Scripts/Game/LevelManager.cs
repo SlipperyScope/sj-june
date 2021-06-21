@@ -85,6 +85,13 @@ public class LevelManager : Node
                 Path = "res://Scenes/Levels/Hose.tscn",
                 Song = SongID.DarkPassages
             }
+        },
+        {
+            SceneID.EndScene, new Scene
+            {
+                Path = "res://Scenes/Levels/EndScene.tscn",
+                Song = SongID.JustPressPlay
+            }
         }
     };
 
@@ -140,7 +147,7 @@ public class LevelManager : Node
         }
         MusicManager.ChangeSong(scene.Song);
 
-        if (id != SceneID.MainMenu)
+        if (id != SceneID.MainMenu && id != SceneID.EndScene)
         {
             CallDeferred(nameof(SpawnPlayer));
         }
