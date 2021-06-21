@@ -11,7 +11,7 @@ public class Clickable : StaticBody2D
 
 	public override void _Ready()
 	{
-		InputPickable = true;
+		// InputPickable = true;
 		this.Connect("mouse_entered", this, nameof(_onMouseEntered));
 		this.Connect("mouse_exited", this, nameof(_onMouseExited));
 	}

@@ -112,12 +112,23 @@ public class LevelManager : Node
     /// <param name="id">Scene ID</param>
     public void LoadScene(SceneID id)
     {
+        var leavingScene = Scenes[CurrentScene];
+        var packed = new PackedScene();
+        var savingError = packed.Pack(GetTree().CurrentScene);
+        if (savingError == Error.Ok) {
+            leavingScene.SavedScene = packed;
+            Scenes[CurrentScene] = leavingScene;
+        }
+
         LastScene = CurrentScene;
         CurrentScene = id;
 
         var scene = Scenes[id];
-
-        GetTree().ChangeScene(scene.Path);
+        if (scene.SavedScene != null) {
+            GetTree().ChangeSceneTo(scene.SavedScene);
+        } else {
+            GetTree().ChangeScene(scene.Path);
+        }
         MusicManager.ChangeSong(scene.Song);
 
         if (id != SceneID.MainMenu)

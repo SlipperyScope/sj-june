@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Art/s4-hatch-up.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Game/SpawnPoint.cs" type="Script" id=2]
-[ext_resource path="res://Scripts/Game/TransitionTrigger.cs" type="Script" id=3]
+[ext_resource path="res://Game/Transition.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Shaders/Outline.shader" type="Shader" id=4]
 [ext_resource path="res://Assets/down.png" type="Texture" id=5]
 
@@ -36,20 +36,18 @@ position = Vector2( 963.307, 1875.91 )
 script = ExtResource( 2 )
 PreviousScene = 3
 
-[node name="DownTransition" type="StaticBody2D" parent="."]
+[node name="DownTransition" parent="." instance=ExtResource( 3 )]
 position = Vector2( 968.035, 2020.14 )
 scale = Vector2( 0.5, 0.5 )
-collision_layer = 2
-collision_mask = 2
-script = ExtResource( 3 )
 name = "Go Back Down"
 TransitionTo = 3
 IsOpen = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DownTransition"]
-position = Vector2( -2.17261, -6.72729 )
+[node name="CollisionShape2D" parent="DownTransition" index="0"]
 shape = SubResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="DownTransition"]
+[node name="Sprite" parent="DownTransition" index="1"]
 material = SubResource( 3 )
 texture = ExtResource( 5 )
+
+[editable path="DownTransition"]

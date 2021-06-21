@@ -20,8 +20,8 @@ public class Obstacle : Clickable
         startSprite = GetNode<Sprite>("StartSprite");
         completeSprite = GetNode<Sprite>("CompleteSprite");
         SFXPlayer = GetNode<AudioStreamPlayer2D>("SFXPlayer");
-        startSprite.Visible = true;
-        completeSprite.Visible = false;
+        // startSprite.Visible = true;
+        // completeSprite.Visible = false;
     }
 
     protected virtual void completeTask()
