@@ -73,6 +73,7 @@ collision_mask = 2
 script = ExtResource( 3 )
 name = "C4"
 itemName = "c4"
+itemDescription = "Looks like C4. That will make a hole in something."
 
 [node name="ItemSprite" type="Sprite" parent="Item"]
 material = SubResource( 4 )

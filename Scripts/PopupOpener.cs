@@ -24,7 +24,7 @@ public class PopupOpener : Obstacle
     {
         if (popup.checkCombo()) {
             getSteve().printMessage(completionText);
-            getSteve().grabItem("knife", completeSprite.Texture);
+            getSteve().grabItem("knife", new ItemInfo{texture = completeSprite.Texture, description = "A knife. It doesn't look very sharp"});
             getSteve().Visible = true;
             completed = true;
             popup.Hide();

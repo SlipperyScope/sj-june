@@ -30,11 +30,11 @@ public class Player : KinematicBody2D
 
         inventoryButtons = GetNode<GridContainer>("HUD/InventoryButtons");
         Button button = inventoryButtons.GetNode<Button>("ItemButton/Button");
-        button.Connect("pressed", this, nameof(itemButtonPressed), new Godot.Collections.Array {"", null});
+        button.Connect("pressed", this, nameof(itemButtonPressed), new Godot.Collections.Array {"", null, ""});
 
         foreach (var name in playerData.getItemNames())
         {
-            addItemButton(name, playerData.getItemTexture(name));
+            addItemButton(name, playerData.getItem(name));
         }
 
         camera = GetNode<Camera2D>("Camera2D");
@@ -79,9 +79,13 @@ public class Player : KinematicBody2D
         return selectedItem;
     }
 
-    private void itemButtonPressed(String itemName, Texture itemTexture)
+    private void itemButtonPressed(String itemName, Texture itemTexture, String itemDescription = "")
     {
+        //print text
         selectedItem = itemName;
+        if (itemDescription != "") {
+            printMessage(itemDescription);
+        }
         // if (itemName == "") {
         //     Input.SetCustomMouseCursor(null);
         //     return;
@@ -95,23 +99,24 @@ public class Player : KinematicBody2D
         // Input.SetCustomMouseCursor(cursorTexture);
     }
 
-    public void grabItem(String itemName, Texture itemTexture)
+    // public void grabItem(String itemName, Texture itemTexture, String itemDescription = "")
+    public void grabItem(String itemName, ItemInfo itemInfo)
     {
         printMessage("got item: " + itemName);
-        playerData.addItem(itemName, itemTexture);
-        addItemButton(itemName, itemTexture);
+        playerData.addItem(itemName, itemInfo);
+        addItemButton(itemName, itemInfo);
     }
 
-    private void addItemButton(String itemName, Texture itemTexture)
+    private void addItemButton(String itemName, ItemInfo itemInfo)
     {
         var itemButton = ((PackedScene)GD.Load("res://Game/ItemButton.tscn")).Instance();
         itemButton.Name = itemName + "Button";
         Button button = itemButton.GetNode<Button>("Button");
-        button.Connect("pressed", this, nameof(itemButtonPressed), new Godot.Collections.Array {itemName, itemTexture});
+        button.Connect("pressed", this, nameof(itemButtonPressed), new Godot.Collections.Array {itemName, itemInfo.texture, itemInfo.description});
 
         Sprite buttonSprite = button.GetNode<Sprite>("ButtonSprite");
-        buttonSprite.Texture = itemTexture;
-        buttonSprite.Scale = new Vector2(button.RectSize.x / itemTexture.GetWidth(), button.RectSize.y / itemTexture.GetHeight());
+        buttonSprite.Texture = itemInfo.texture;
+        buttonSprite.Scale = new Vector2(button.RectSize.x / itemInfo.texture.GetWidth(), button.RectSize.y / itemInfo.texture.GetHeight());
         inventoryButtons.AddChild(itemButton);
     }
 

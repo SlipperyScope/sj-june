@@ -37,9 +37,10 @@ public class PlayerData : Node
         return itemNames;
     }
 
-    public void addItem(String item, Texture itemTexture)
+    //public void addItem(String item, Texture itemTexture)
+    public void addItem(String item, ItemInfo itemInfo)
     {
-        items.Add(item, itemTexture);
+        items.Add(item, itemInfo);
         itemNames.Add(item);
     }
 
@@ -49,8 +50,8 @@ public class PlayerData : Node
         itemNames.Remove(item);
     }
 
-    public Texture getItemTexture(String item)
+    public ItemInfo getItem(String item)
     {
-        return (Texture)items[item];
+        return (ItemInfo)items[item];
     }
 }

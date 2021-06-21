@@ -28,6 +28,7 @@ transitionName = "HatchTransition"
 position = Vector2( 3266.39, 950.688 )
 name = "A Pipe"
 itemName = "pipe"
+itemDescription = "A pipe. It looks like you could do some serious beating with this"
 
 [node name="SpawnPoint" type="Node2D" parent="."]
 position = Vector2( 383.704, 281.172 )

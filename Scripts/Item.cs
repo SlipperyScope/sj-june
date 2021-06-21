@@ -4,6 +4,7 @@ using System;
 public class Item : Clickable
 {
     [Export] String itemName;
+    [Export] String itemDescription;
     Sprite itemSprite;
 
     public override void _Ready()
@@ -14,7 +15,8 @@ public class Item : Clickable
 
     public override void interact()
     {
-        getSteve().grabItem(itemName,  itemSprite.Texture);
+        ItemInfo info = new ItemInfo{texture = itemSprite.Texture, description = itemDescription};
+        getSteve().grabItem(itemName, info);
         InputPickable = false;
         itemSprite.Visible = false;
         GetNode<CollisionShape2D>("ItemCollider").Disabled = true;
@@ -30,4 +32,11 @@ public class Item : Clickable
         ((ShaderMaterial)itemSprite.Material).SetShaderParam("outlined", false);
         base._onMouseExited();
     }
+}
+
+public struct ItemInfo
+{
+    public Texture texture;
+    public String description;
+
 }
