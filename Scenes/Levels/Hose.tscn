@@ -1,10 +1,22 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Art/s10-hose.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Game/SpawnPoint.cs" type="Script" id=2]
+[ext_resource path="res://Game/DialogueTrigger.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Art/Placeholder/Sub.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/Shaders/Outline.shader" type="Shader" id=5]
+[ext_resource path="res://Game/Transition.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 972.51, 1249.08 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 208.223
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 5 )
+shader_param/outLineColor = Plane( 1, 1, 1, 1 )
+shader_param/outlined = false
 
 [node name="Node2D" type="Node2D"]
 
@@ -24,3 +36,26 @@ shape = SubResource( 1 )
 position = Vector2( 1666.85, 2230.43 )
 script = ExtResource( 2 )
 PreviousScene = 9
+
+[node name="DialogueTrigger3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 421.225, 100.115 )
+scale = Vector2( 0.3, 0.5 )
+name = "Hose"
+dialogueText = "Does this go all the way to the surface?????"
+
+[node name="Transition" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1436.15, 242.426 )
+scale = Vector2( 2, 2 )
+name = "Return to Sub"
+TransitionTo = 1
+IsOpen = true
+
+[node name="CollisionShape2D" parent="Transition" index="0"]
+shape = SubResource( 2 )
+
+[node name="Sprite" parent="Transition" index="1"]
+material = SubResource( 3 )
+texture = ExtResource( 4 )
+flip_v = true
+
+[editable path="Transition"]
