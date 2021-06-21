@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/Game/MainMenu.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Andrew Test/DebugLevelButton.tscn" type="PackedScene" id=2]
 
 [node name="Root" type="Node2D"]
 script = ExtResource( 1 )
@@ -8,11 +9,93 @@ script = ExtResource( 1 )
 [node name="Button" type="Button" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 1917.0
-margin_bottom = 1077.0
+margin_left = 488.849
+margin_top = 146.151
+margin_right = 1395.85
+margin_bottom = 507.151
 text = "Play"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Button2" parent="." instance=ExtResource( 2 )]
+margin_left = 108.505
+margin_top = 619.749
+margin_right = 196.505
+margin_bottom = 670.749
+text = "Submarine"
+Scene = 1
+
+[node name="Button3" parent="." instance=ExtResource( 2 )]
+margin_left = 422.254
+margin_top = 690.01
+margin_right = 527.254
+margin_bottom = 735.01
+text = "Cargo Bay"
+Scene = 6
+
+[node name="Button8" parent="." instance=ExtResource( 2 )]
+margin_left = 541.37
+margin_top = 690.759
+margin_right = 646.37
+margin_bottom = 735.759
+text = "Living Quarters"
+Scene = 7
+
+[node name="Button9" parent="." instance=ExtResource( 2 )]
+margin_left = 542.119
+margin_top = 762.678
+margin_right = 651.119
+margin_bottom = 807.678
+text = "Ship Surface"
+Scene = 8
+
+[node name="Button10" parent="." instance=ExtResource( 2 )]
+margin_left = 545.115
+margin_top = 830.851
+margin_right = 654.115
+margin_bottom = 875.851
+text = "More Surface"
+Scene = 9
+
+[node name="Button11" parent="." instance=ExtResource( 2 )]
+margin_left = 673.97
+margin_top = 830.851
+margin_right = 782.97
+margin_bottom = 875.851
+text = "Hose"
+Scene = 10
+
+[node name="Button4" parent="." instance=ExtResource( 2 )]
+margin_left = 294.817
+margin_top = 758.634
+margin_right = 382.817
+margin_bottom = 808.634
+text = "LowerHatch"
+Scene = 5
+
+[node name="Button5" parent="." instance=ExtResource( 2 )]
+margin_left = 287.197
+margin_top = 689.495
+margin_right = 401.197
+margin_bottom = 736.495
+text = "Hatch"
+Scene = 3
+
+[node name="Button6" parent="." instance=ExtResource( 2 )]
+margin_left = 111.508
+margin_top = 686.0
+margin_right = 271.508
+margin_bottom = 739.0
+text = "ShipEntrance"
+Scene = 2
+
+[node name="Button7" parent="." instance=ExtResource( 2 )]
+margin_left = 296.234
+margin_top = 624.502
+margin_right = 391.234
+margin_bottom = 666.502
+text = "Upper Hatch"
+Scene = 4
 
 [connection signal="pressed" from="Button" to="." method="OnButtonPressed"]

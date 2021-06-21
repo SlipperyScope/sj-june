@@ -104,6 +104,15 @@ public class LevelManager : Node
         PlayerData = GetNode<PlayerData>("/root/PlayerData");
         PlayerScene = GD.Load<PackedScene>(SteveScenePath);
         MusicManager.ChangeSong(Scenes[SceneID.MainMenu].Song);
+
+        foreach (var child in GetTree().CurrentScene.GetChildren())
+        {
+            var button = child as DebugPlayButton;
+            if (button != null)
+            {
+                button.Connect("pressed", this, nameof(LoadScene), new Godot.Collections.Array() {button.Scene});
+            }
+        }
     }
 
     /// <summary>
