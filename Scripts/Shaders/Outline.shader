@@ -46,7 +46,7 @@ void fragment()
         avg /= float(csqsize);
 
         // Only apply effects to the edges
-        if (avgAlpha > 0.0 && avgAlpha < 1.0) {
+        if (avgAlpha > 0.0 && avgAlpha < 0.9) {
             tcol = outLineColor;
 
             // Average the colors
