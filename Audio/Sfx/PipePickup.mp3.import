@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/PipePickup.mp3-8478b06f07de468b41e2c37f769cc5d3.mp3str"
+
+[deps]
+
+source_file="res://Audio/Sfx/PipePickup.mp3"
+dest_files=[ "res://.import/PipePickup.mp3-8478b06f07de468b41e2c37f769cc5d3.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

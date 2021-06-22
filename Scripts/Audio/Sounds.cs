@@ -25,7 +25,9 @@ namespace Audio
         None,
         UIHover,
         UIUse,
-        C4
+        C4,
+        PipePickup,
+        CrabPipe
     }
 
     public enum SFXBus

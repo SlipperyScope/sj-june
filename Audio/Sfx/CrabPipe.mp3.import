@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/CrabPipe.mp3-eaaf758a903c4c2bf76aced2d3e6faa4.mp3str"
+
+[deps]
+
+source_file="res://Audio/Sfx/CrabPipe.mp3"
+dest_files=[ "res://.import/CrabPipe.mp3-eaaf758a903c4c2bf76aced2d3e6faa4.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

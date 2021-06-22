@@ -1,3 +1,4 @@
+using Audio;
 using Godot;
 using System;
 
@@ -5,6 +6,10 @@ public class Item : Clickable
 {
     [Export] String itemName;
     [Export] String itemDescription;
+
+    [Export]
+    public SFXID PickupSound { get; private set; } = SFXID.None;
+
     Sprite itemSprite;
 
     public override void _Ready()
@@ -17,6 +22,7 @@ public class Item : Clickable
     {
         ItemInfo info = new ItemInfo{texture = itemSprite.Texture, description = itemDescription};
         getSteve().grabItem(itemName, info);
+        SFXManager.PlaySFX(PickupSound, Position);
         InputPickable = false;
         itemSprite.Visible = false;
         GetNode<CollisionShape2D>("ItemCollider").Disabled = true;

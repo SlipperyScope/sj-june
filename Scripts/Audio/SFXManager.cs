@@ -36,6 +36,24 @@ namespace Audio
                     PlaybackVolume = 5f,
                     Bus = SFXBus.Effect
                 }
+            },
+            {
+                SFXID.PipePickup, new Sound()
+                {
+                    Name = "Pickup pipe",
+                    Path = "res://Audio/Sfx/PipePickup.mp3",
+                    PlaybackVolume = -5f,
+                    Bus = SFXBus.Effect
+                }
+            },
+            {
+                SFXID.CrabPipe, new Sound()
+                {
+                    Name = "Give Crab Pipe",
+                    Path = "res://Audio/Sfx/CrabPipe.mp3",
+                    PlaybackVolume = -10f,
+                    Bus = SFXBus.Effect
+                }
             }
         };
         

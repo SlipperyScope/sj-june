@@ -24,6 +24,7 @@ texture = ExtResource( 1 )
 position = Vector2( 1038.08, 519.04 )
 scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 9 )
+SuccessSFX = 5
 transitionName = "HatchTransition"
 
 [node name="StartSprite" parent="CrabGuy" index="0"]
@@ -36,6 +37,7 @@ texture = ExtResource( 7 )
 [node name="Item" parent="." instance=ExtResource( 3 )]
 position = Vector2( 3266.39, 950.688 )
 name = "A Pipe"
+PickupSound = 4
 itemName = "pipe"
 itemDescription = "A pipe. It looks like you could do some serious beating with this"
 
