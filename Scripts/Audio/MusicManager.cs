@@ -46,7 +46,7 @@ namespace Audio
                     Path = "res://Audio/Music/Depths/Depths.mp3",
                     BPM = 60f,
                     MeasureLength = 4,
-                    PlaybackVolume = 0f
+                    PlaybackVolume = -5f
                 }
             },
             {
@@ -66,7 +66,7 @@ namespace Audio
                     Path = "res://Audio/Music/Just Press Play/Just Press Play.mp3",
                     BPM = 108f,
                     MeasureLength = 4,
-                    PlaybackVolume = -15f
+                    PlaybackVolume = -10f
                 }
             }
         };

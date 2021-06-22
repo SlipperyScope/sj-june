@@ -14,8 +14,8 @@ namespace Audio
                 SFXID.UIHover, new Sound()
                 {
                     Name = "UIHover",
-                    Path = "res://Audio/Sfx/Click.mp3",
-                    PlaybackVolume = -10f,
+                    Path = "res://Audio/Sfx/UIHover.mp3",
+                    PlaybackVolume = 0f,
                     Bus = SFXBus.UI
                 }
             },
@@ -24,7 +24,7 @@ namespace Audio
                 {
                     Name = "UIUse",
                     Path = "res://Audio/Sfx/Click.mp3",
-                    PlaybackVolume = -10f,
+                    PlaybackVolume = -15f,
                     Bus = SFXBus.UI
                 }
             },

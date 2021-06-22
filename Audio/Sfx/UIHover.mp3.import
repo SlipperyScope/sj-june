@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/UIHover.mp3-48d5692803779fc6dcd322d99b237b98.mp3str"
+
+[deps]
+
+source_file="res://Audio/Sfx/UIHover.mp3"
+dest_files=[ "res://.import/UIHover.mp3-48d5692803779fc6dcd322d99b237b98.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
