@@ -54,6 +54,7 @@ flip_v = true
 [node name="Item" parent="." instance=ExtResource( 6 )]
 position = Vector2( 699.588, 2005.42 )
 name = "Dogecoin"
+PickupSound = 10
 itemName = "dogecoin"
 itemDescription = "A coin with a dog on it. It looks like someone very funny scratched some numbers into the coin \"42069\""
 

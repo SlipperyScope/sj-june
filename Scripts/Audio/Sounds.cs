@@ -31,7 +31,8 @@ namespace Audio
         Box,
         Doot,
         LockPass,
-        LockFail
+        LockFail,
+        Coin
     }
 
     public enum SFXBus

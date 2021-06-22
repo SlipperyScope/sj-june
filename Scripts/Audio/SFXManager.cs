@@ -90,6 +90,15 @@ namespace Audio
                     PlaybackVolume = -15f,
                     Bus = SFXBus.Effect
                 }
+            },
+            {
+                SFXID.Coin, new Sound()
+                {
+                    Name = "Coin pickup sound",
+                    Path = "res://Audio/Sfx/coin.mp3",
+                    PlaybackVolume = -10f,
+                    Bus = SFXBus.Effect
+                }
             }
         };
         
