@@ -17,7 +17,7 @@ public class PlayerData : Node
     String textHistory;
     List<String> itemNames = new List<String>();
     Hashtable items = new Hashtable();
-
+    public Player Reference;
     public override void _Ready() {
         textHistory = "";
     }

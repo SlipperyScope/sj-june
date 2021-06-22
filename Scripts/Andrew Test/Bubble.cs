@@ -82,7 +82,7 @@ public class Bubble : Node2D
     private void SetPeriod(Single BPM, Int32 MeasureLength)
     {
         Period = BPM / MeasureLength / 60f;
-        GD.Print(Period);
+        //GD.Print(Period);
     }
 
     /// <summary>

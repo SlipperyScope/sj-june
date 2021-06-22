@@ -133,6 +133,7 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource( 7 )
 name = "Locked Hatch"
+SuccessSFX = 3
 consumeItem = true
 itemNeeded = "c4"
 completionText = "Boom"

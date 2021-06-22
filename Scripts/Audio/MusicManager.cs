@@ -12,6 +12,8 @@ namespace Audio
         public delegate void OnSongChangedHandler(object sender, SongChangedEventArgs e);
         public event OnSongChangedHandler SongChanged;
 
+
+
         private Dictionary<SongID, Song> Songs = new Dictionary<SongID, Song>
         {
             {
@@ -24,7 +26,7 @@ namespace Audio
                     Path = "res://Audio/Music/Journey North/Journey North 03.mp3",
                     BPM = 130f,
                     MeasureLength = 4,
-                    PlaybackVolume = -15f
+                    PlaybackVolume = -10f
                 }
             },
             {
@@ -34,7 +36,7 @@ namespace Audio
                     Path = "res://Audio/Music/Descent/Descent 03.mp3",
                     BPM = 120f,
                     MeasureLength = 4,
-                    PlaybackVolume = -10f
+                    PlaybackVolume = -5f
                 }
             },
             {
@@ -44,7 +46,7 @@ namespace Audio
                     Path = "res://Audio/Music/Depths/Depths.mp3",
                     BPM = 60f,
                     MeasureLength = 4,
-                    PlaybackVolume = -5f
+                    PlaybackVolume = 0f
                 }
             },
             {
@@ -54,7 +56,7 @@ namespace Audio
                     Path = "res://Audio/Music/Dark Passages/Dark Passages.mp3",
                     BPM = 60f,
                     MeasureLength = 4,
-                    PlaybackVolume = -15f
+                    PlaybackVolume = -10f
                 }
             },
             {
@@ -75,6 +77,7 @@ namespace Audio
         
         private AudioStreamPlayer Main;
         private AudioStreamPlayer Fade;
+        public AudioStreamPlayer2D SFXPlayer;
 
         public Song NowPlaying { get; private set; } = Song.None;
         public Song LastPlayed { get; private set; } = Song.None;
@@ -88,8 +91,10 @@ namespace Audio
         {
             Main = new AudioStreamPlayer();
             Fade = new AudioStreamPlayer();
+            SFXPlayer = new AudioStreamPlayer2D();
             AddChild(Main);
             AddChild(Fade);
+            AddChild(SFXPlayer);
 
             BeatTimer = new Timer();
             BeatTimer.Connect("timeout", this, nameof(OnBeat));
@@ -128,7 +133,7 @@ namespace Audio
                 var ran = new Random();
                 var next = ran.Next(1, 5);
                 ChangeSong((SongID)next);
-                GD.Print($"{next} {(SongID)next}");
+                //GD.Print($"{next} {(SongID)next}");
             }
         }
 

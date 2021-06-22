@@ -24,6 +24,7 @@ public class Item : Clickable
     public override void _onMouseEntered()
     {
         ((ShaderMaterial)itemSprite.Material).SetShaderParam("outlined", true);
+
         base._onMouseEntered();
     }
 

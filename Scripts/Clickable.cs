@@ -1,11 +1,19 @@
+using Audio;
 using Godot;
 using System;
 using System.Collections.Generic;
 
 public class Clickable : StaticBody2D
 {
+	protected SFXManager SFXManager;
+
 	[Export] String name = "Something you can click on";
-	Player steve;
+	[Export]
+	public SFXID HoverSound { get; private set; } = SFXID.UIHover;
+	[Export]
+	public SFXID ClickSound { get; private set; } = SFXID.UIUse;
+
+    Player steve;
 	protected Boolean completed = false;
 	int activationDistance = 300;
 
@@ -14,6 +22,7 @@ public class Clickable : StaticBody2D
 		// InputPickable = true;
 		this.Connect("mouse_entered", this, nameof(_onMouseEntered));
 		this.Connect("mouse_exited", this, nameof(_onMouseExited));
+		SFXManager = this.GetManager<SFXManager>(Paths.SFXMangerPath);
 	}
 
 	public void setSteve(Player theSteve)
@@ -24,9 +33,8 @@ public class Clickable : StaticBody2D
 	{
 		if (@event.IsActionPressed("click"))
 		{
-			GD.Print($"Clicked {this}");
+			SFXManager?.PlaySFX(ClickSound, GlobalPosition);
 			steve.interactWhenClose = this;
-			//GD.Print(steve.interactWhenClose);
 			GetTree().SetInputAsHandled();
 		}
 	}
@@ -36,7 +44,6 @@ public class Clickable : StaticBody2D
 		if (steve.interactWhenClose == this && steve.Position.DistanceTo(Position) < activationDistance)
 		{
 			steve.interactWhenClose = null;
-			//GD.Print("interact");
 			interact();
 		}
 	}
@@ -49,9 +56,10 @@ public class Clickable : StaticBody2D
 
 	public virtual void interact() {}
 
-	public virtual void _onMouseEntered() 
+	public virtual void _onMouseEntered()
 	{
 		steve.setClickableName(name);
+		SFXManager?.PlaySFX(HoverSound, GlobalPosition);
 	}
 	public virtual void _onMouseExited()
 	{

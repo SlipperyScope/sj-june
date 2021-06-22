@@ -67,6 +67,7 @@ public class TransitionTrigger : Clickable
         {
             GD.PrintErr("Way to forget to put a sprite on it, ididoth");
         }
+        base._Ready();
     }
 
     /// <summary>
@@ -93,7 +94,7 @@ public class TransitionTrigger : Clickable
 
     public override void interact()
     {
-        GD.Print("hey I interacted");
+        //GD.Print("hey I interacted");
         LevelManager.LoadScene(TransitionTo);
     }
     public override void _onMouseEntered()

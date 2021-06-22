@@ -1,3 +1,4 @@
+using Audio;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -9,17 +10,18 @@ public class Obstacle : Clickable
     [Export] protected String completionText = "Thanks for the pipe";
     [Export] protected String failureText = "I need something to beat off.....all these barnacles";
     [Export] protected String alreadyCompletedText = "It's for beating, not smoking";
+
+    [Export]
+    public SFXID SuccessSFX { get; private set; } = SFXID.None;
     Sprite startSprite;
     protected Sprite completeSprite;
-
-    AudioStreamPlayer2D SFXPlayer;
 
     public override void _Ready()
     {
         base._Ready();
         startSprite = GetNode<Sprite>("StartSprite");
         completeSprite = GetNode<Sprite>("CompleteSprite");
-        SFXPlayer = GetNode<AudioStreamPlayer2D>("SFXPlayer");
+        this.GetManager<SFXManager>(Paths.SFXMangerPath);
         // startSprite.Visible = true;
         // completeSprite.Visible = false;
     }
@@ -33,10 +35,7 @@ public class Obstacle : Clickable
         completeSprite.Visible = true;
         startSprite.Visible = false;
         completed = true;
-        if (SFXPlayer.Stream != null)
-        {
-            SFXPlayer.Play();
-        }
+        SFXManager.PlaySFX(SuccessSFX, Position);
     }
 
     public override void interact() {

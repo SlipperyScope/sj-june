@@ -3,6 +3,13 @@ using System;
 
 namespace Audio
 {
+    public static class Paths
+    {
+        public const String MusicManagerPath = "/root/MusicManager";
+        public const String SFXMangerPath = "/root/SFXManager";
+
+        public static T GetManager<T>(this Node node, String path) where T: class => node.GetNode<T>(path);
+    }
     public enum SongID
     {
         None,
@@ -11,6 +18,22 @@ namespace Audio
         Depths,
         DarkPassages,
         JustPressPlay
+    }
+
+    public enum SFXID
+    {
+        None,
+        UIHover,
+        UIUse,
+        C4
+    }
+
+    public enum SFXBus
+    {
+        UI,
+        Effect,
+        Background,
+        Generic
     }
 
     public struct Song
@@ -31,6 +54,15 @@ namespace Audio
             PlaybackVolume = -10
         };
 
+        public override String ToString() => Name;
+    }
+
+    public struct Sound
+    {
+        public String Name;
+        public String Path;
+        public Single PlaybackVolume;
+        public SFXBus Bus;
         public override String ToString() => Name;
     }
 

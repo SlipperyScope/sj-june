@@ -112,6 +112,7 @@ public class LevelManager : Node
         PlayerScene = GD.Load<PackedScene>(SteveScenePath);
         MusicManager.ChangeSong(Scenes[SceneID.MainMenu].Song);
 
+        //Debug scene buttons
         foreach (var child in GetTree().CurrentScene.GetChildren())
         {
             var button = child as DebugPlayButton;

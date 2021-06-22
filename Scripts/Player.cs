@@ -20,7 +20,7 @@ public class Player : KinematicBody2D
 	public override void _Ready()
 	{
         playerData = GetNode<PlayerData>("/root/PlayerData");
-
+        playerData.Reference = this;
 		target = Position;
 
         textbox = GetNode<RichTextLabel>("HUD/TextboxContainer/Textbox");
