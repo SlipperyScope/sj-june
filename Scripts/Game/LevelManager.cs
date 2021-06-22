@@ -69,28 +69,28 @@ public class LevelManager : Node
             SceneID.ShipSurface, new Scene
             {
                 Path = "res://Scenes/Levels/ShipSurface.tscn",
-                Song = SongID.DarkPassages
+                Song = SongID.Depths
             }
         },
         {
             SceneID.MoreSurface, new Scene
             {
                 Path = "res://Scenes/Levels/MoreSurface.tscn",
-                Song = SongID.DarkPassages
+                Song = SongID.Depths
             }
         },
         {
             SceneID.Hose, new Scene
             {
                 Path = "res://Scenes/Levels/Hose.tscn",
-                Song = SongID.DarkPassages
+                Song = SongID.Descent
             }
         },
         {
             SceneID.EndScene, new Scene
             {
                 Path = "res://Scenes/Levels/EndScene.tscn",
-                Song = SongID.JustPressPlay
+                Song = SongID.JourneyNorth
             }
         }
     };
