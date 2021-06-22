@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Art/s1-submarine.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Game/SpawnPoint.cs" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Scripts/Shaders/Outline.shader" type="Shader" id=4]
 [ext_resource path="res://Assets/down.png" type="Texture" id=5]
 [ext_resource path="res://Audio/Sfx/Splash fixed.mp3" type="AudioStream" id=6]
+[ext_resource path="res://Scenes/BubbleSpawner.cs" type="Script" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 963.312, 1148.74 )
@@ -53,5 +54,19 @@ texture = ExtResource( 5 )
 stream = ExtResource( 6 )
 volume_db = -10.445
 autoplay = true
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2( 338.617, 2519.22 )
+script = ExtResource( 7 )
+SpawnSpeed = 0
+
+[node name="Node2D2" type="Node2D" parent="."]
+position = Vector2( 1360.42, 2449.21 )
+script = ExtResource( 7 )
+
+[node name="Node2D3" type="Node2D" parent="."]
+position = Vector2( 1672.88, 2388.74 )
+script = ExtResource( 7 )
+SpawnSpeed = 2
 
 [editable path="DownTransition"]
