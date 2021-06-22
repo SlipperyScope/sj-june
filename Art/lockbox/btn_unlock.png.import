@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/btn_unlock.png-5374f91cbd0ff93169c7ee8c22d2a578.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://Art/lockbox/btn_unlock.png"
+dest_files=[ "res://.import/btn_unlock.png-5374f91cbd0ff93169c7ee8c22d2a578.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0
