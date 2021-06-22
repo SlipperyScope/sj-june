@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Splash fixed.mp3-a02f279bb0394023782dd836923fe7f7.mp3str"
+
+[deps]
+
+source_file="res://Audio/Sfx/Splash fixed.mp3"
+dest_files=[ "res://.import/Splash fixed.mp3-a02f279bb0394023782dd836923fe7f7.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

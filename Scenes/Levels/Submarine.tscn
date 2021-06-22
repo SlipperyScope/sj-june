@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Art/s1-submarine.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Game/SpawnPoint.cs" type="Script" id=2]
 [ext_resource path="res://Game/Transition.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Shaders/Outline.shader" type="Shader" id=4]
 [ext_resource path="res://Assets/down.png" type="Texture" id=5]
+[ext_resource path="res://Audio/Sfx/Splash fixed.mp3" type="AudioStream" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 963.312, 1148.74 )
@@ -47,5 +48,10 @@ shape = SubResource( 2 )
 [node name="Sprite" parent="DownTransition" index="1"]
 material = SubResource( 3 )
 texture = ExtResource( 5 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -10.445
+autoplay = true
 
 [editable path="DownTransition"]
