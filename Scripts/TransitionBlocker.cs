@@ -13,8 +13,9 @@ public class TransitionBlocker : Obstacle
     //PlayerMovementAllDirections steve;
 
     //Boolean completed = false;
-
-     protected override void completeTask()
+    [Export]
+    public String AnimationName { get; private set; } = "No animation set";
+    protected override void completeTask()
      {
          TransitionTrigger trigger = GetParent().GetNode<TransitionTrigger>(transitionName);
          trigger.IsOpen = true;
@@ -24,5 +25,12 @@ public class TransitionBlocker : Obstacle
              InputPickable = false;
          }
          base.completeTask();
+        foreach (var child in GetChildren())
+        {
+            if (child is AnimationPlayer)
+            {
+                (child as AnimationPlayer).Play(AnimationName);
+            }
+        }
      }
 }

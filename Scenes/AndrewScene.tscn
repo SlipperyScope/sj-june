@@ -177,7 +177,7 @@ centered = false
 
 [node name="Sub" type="Sprite" parent="."]
 modulate = Color( 0.247059, 0.282353, 0.8, 0 )
-position = Vector2( 322, 447 )
+position = Vector2( 322, 457.975 )
 texture = ExtResource( 4 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Sub"]
