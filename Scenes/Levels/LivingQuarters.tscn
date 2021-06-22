@@ -4,7 +4,7 @@
 [ext_resource path="res://Scripts/Game/SpawnPoint.cs" type="Script" id=2]
 [ext_resource path="res://Game/Transition.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Shaders/Outline.shader" type="Shader" id=4]
-[ext_resource path="res://Assets/beefcake.png" type="Texture" id=5]
+[ext_resource path="res://Art/object-s7-doge.png" type="Texture" id=5]
 [ext_resource path="res://Game/Item.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
