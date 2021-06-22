@@ -54,6 +54,15 @@ namespace Audio
                     PlaybackVolume = -10f,
                     Bus = SFXBus.Effect
                 }
+            },
+            {
+                SFXID.Box, new Sound()
+                {
+                    Name = "Box grabbing sound",
+                    Path = "res://Audio/Sfx/Box.mp3",
+                    PlaybackVolume = 0f,
+                    Bus = SFXBus.Effect
+                }
             }
         };
         
