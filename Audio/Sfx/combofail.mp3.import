@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/combofail.mp3-9ae53c5272a207005c1180eb6f81981e.mp3str"
+
+[deps]
+
+source_file="res://Audio/Sfx/combofail.mp3"
+dest_files=[ "res://.import/combofail.mp3-9ae53c5272a207005c1180eb6f81981e.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

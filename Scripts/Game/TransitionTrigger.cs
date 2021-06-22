@@ -1,3 +1,4 @@
+using Audio;
 using Godot;
 using System;
 
@@ -67,7 +68,7 @@ public class TransitionTrigger : Clickable
         {
             GD.PrintErr("Way to forget to put a sprite on it, ididoth");
         }
-        base._Ready();
+        SFXManager = this.GetManager<SFXManager>(Paths.SFXMangerPath);
     }
 
     /// <summary>

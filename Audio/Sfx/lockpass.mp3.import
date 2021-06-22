@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/lockpass.mp3-569cdf5110dfac609963f3e8b486dd9c.mp3str"
+
+[deps]
+
+source_file="res://Audio/Sfx/lockpass.mp3"
+dest_files=[ "res://.import/lockpass.mp3-569cdf5110dfac609963f3e8b486dd9c.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

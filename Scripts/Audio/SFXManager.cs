@@ -63,6 +63,33 @@ namespace Audio
                     PlaybackVolume = 0f,
                     Bus = SFXBus.Effect
                 }
+            },
+            {
+                SFXID.Doot, new Sound()
+                {
+                    Name = "Lockbox button doot",
+                    Path = "res://Audio/Sfx/doot.mp3",
+                    PlaybackVolume = -2f,
+                    Bus = SFXBus.Effect
+                }
+            },
+            {
+                SFXID.LockPass, new Sound()
+                {
+                    Name = "Lockbox good combo",
+                    Path = "res://Audio/Sfx/lockpass.mp3",
+                    PlaybackVolume = -8f,
+                    Bus = SFXBus.Effect
+                }
+            },
+            {
+                SFXID.LockFail, new Sound()
+                {
+                    Name = "Lockbox bad combo",
+                    Path = "res://Audio/Sfx/combofail.mp3",
+                    PlaybackVolume = -15f,
+                    Bus = SFXBus.Effect
+                }
             }
         };
         

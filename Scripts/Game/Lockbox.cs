@@ -1,8 +1,10 @@
+using Audio;
 using Godot;
 using System;
 
 public class Lockbox : Popup
 {
+	private SFXManager SFXManager;
 	RichTextLabel[] combo = new RichTextLabel[5];
 	[Export] String correctCombo = "00001";
 	public override void _Ready()
@@ -12,12 +14,13 @@ public class Lockbox : Popup
 		combo[2] = GetNode<RichTextLabel>("Number3");
 		combo[3] = GetNode<RichTextLabel>("Number4");
 		combo[4] = GetNode<RichTextLabel>("Number5");
-		
+		SFXManager = this.GetManager<SFXManager>(Paths.SFXMangerPath);
 	}
 
 	public void _onButtonPressed(int buttonNum, Boolean increase)
 	{
-		GD.Print("Button pressed: " + buttonNum + " :: " + increase);
+		//GD.Print("Button pressed: " + buttonNum + " :: " + increase);
+		SFXManager.PlaySFX(SFXID.Doot, GetViewportTransform().origin + SFXManager.PlayerData.Reference.Position);
 		int digit = int.Parse(combo[buttonNum - 1].Text);
 		if (increase) {
 			if (++digit > 9)

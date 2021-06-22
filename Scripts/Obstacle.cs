@@ -13,6 +13,10 @@ public class Obstacle : Clickable
 
     [Export]
     public SFXID SuccessSFX { get; private set; } = SFXID.None;
+
+    [Export]
+    public SFXID FailureSFX { get; private set; } = SFXID.None;
+
     Sprite startSprite;
     protected Sprite completeSprite;
 

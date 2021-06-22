@@ -28,9 +28,11 @@ public class PopupOpener : Obstacle
             getSteve().Visible = true;
             completed = true;
             popup.Hide();
+            SFXManager.PlaySFX(SuccessSFX, Position);
         } else
         {
             getSteve().printMessage(failureText);
+            SFXManager.PlaySFX(FailureSFX, Position);
         }
     }
 

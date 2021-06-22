@@ -28,7 +28,10 @@ namespace Audio
         C4,
         PipePickup,
         CrabPipe,
-        Box
+        Box,
+        Doot,
+        LockPass,
+        LockFail
     }
 
     public enum SFXBus

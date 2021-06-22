@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/doot.mp3-f17f2701065c9ee4cf51e56551fde348.mp3str"
+
+[deps]
+
+source_file="res://Audio/Sfx/doot.mp3"
+dest_files=[ "res://.import/doot.mp3-f17f2701065c9ee4cf51e56551fde348.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
