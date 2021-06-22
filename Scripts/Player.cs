@@ -23,6 +23,8 @@ public class Player : KinematicBody2D
         playerData.Reference = this;
 		target = Position;
 
+        Input.SetCustomMouseCursor(null);
+
         textbox = GetNode<RichTextLabel>("HUD/TextboxContainer/Textbox");
         textbox.Text = playerData.getTextHistory();
 
@@ -48,7 +50,6 @@ public class Player : KinematicBody2D
             if (child is Clickable)
             {
                 ((Clickable)child).setSteve(this);
-
             }
         }
 	}
@@ -81,25 +82,23 @@ public class Player : KinematicBody2D
 
     private void itemButtonPressed(String itemName, Texture itemTexture, String itemDescription = "")
     {
-        //print text
         selectedItem = itemName;
         if (itemDescription != "") {
             printMessage(itemDescription);
         }
-        // if (itemName == "") {
-        //     Input.SetCustomMouseCursor(null);
-        //     return;
-        // }
-        // Texture cursorTexture = (Texture)itemCursors[itemName];
-        // if (cursorTexture == null)
-        // {
-        //     cursorTexture = ResourceLoader.Load<Texture>("res://Assets/cursors/" + itemName + ".png");
-        //     itemCursors[itemName] = cursorTexture;
-        // }
-        // Input.SetCustomMouseCursor(cursorTexture);
+        if (itemName == "") {
+            Input.SetCustomMouseCursor(null);
+            return;
+        }
+        Texture cursorTexture = (Texture)itemCursors[itemName];
+        if (cursorTexture == null)
+        {
+            cursorTexture = ResourceLoader.Load<Texture>("res://Assets/cursors/cursor-" + itemName + ".png");
+            itemCursors[itemName] = cursorTexture;
+        }
+        Input.SetCustomMouseCursor(cursorTexture);
     }
 
-    // public void grabItem(String itemName, Texture itemTexture, String itemDescription = "")
     public void grabItem(String itemName, ItemInfo itemInfo)
     {
         printMessage("got item: " + itemName);
