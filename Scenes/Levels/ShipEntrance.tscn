@@ -59,11 +59,15 @@ TransitionTo = 3
 IsOpen = true
 
 [node name="BubbleSpawner" type="Node2D" parent="."]
-position = Vector2( 6797.52, 1934.58 )
+position = Vector2( 3497.85, 982.686 )
 script = ExtResource( 8 )
 
 [node name="BubbleSpawner2" type="Node2D" parent="."]
-position = Vector2( 6263.55, 1949.41 )
+position = Vector2( 3064.78, 953.789 )
+script = ExtResource( 8 )
+
+[node name="BubbleSpawner3" type="Node2D" parent="."]
+position = Vector2( 299.917, 977.334 )
 script = ExtResource( 8 )
 
 [editable path="CrabGuy"]
