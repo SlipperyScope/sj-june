@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Remaster/Audio/SoundEffects/SoundEffect.cs" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+Name = "Horn"
+File = "res://Remaster/Assets/SoundEffects/HornSound.mp3"
+PlaybackVolume = 0.0
