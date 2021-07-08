@@ -25,5 +25,7 @@ namespace Remaster.Audio
         /// </summary>
         [Export(PropertyHint.Range, "-50,20,0.5")]
         public Single PlaybackVolume { get; private set; } = 0f;
+
+        public override String ToString() => Name;
     } 
 }

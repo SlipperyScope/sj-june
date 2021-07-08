@@ -5,8 +5,15 @@ namespace Remaster.Audio
 {
     public class SoundEffectPlayer : Node
     {
+        /// <summary>
+        /// Player reference
+        /// </summary>
         public AudioStreamPlayer Player { get; private set; } = new AudioStreamPlayer();
-        public Boolean Playing => Player.Playing;
+
+        /// <summary>
+        /// True if player is playing
+        /// </summary>
+        public Boolean Playing => Player?.Playing ?? false;
 
         /// <summary>
         /// Ready
@@ -31,6 +38,6 @@ namespace Remaster.Audio
         /// <summary>
         /// Stops a sound effect
         /// </summary>
-        public void Stop() => Player.Stop();
+        public void Stop() => Player?.Stop();
     }
 }
