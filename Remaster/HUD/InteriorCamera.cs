@@ -7,71 +7,121 @@ using Godot;
 
 namespace Remaster.HUD
 {
+    /// <summary>
+    /// Interior camera for the submarine
+    /// 
+    /// <para/>Assumes the default position is at coordinates (0,0)
+    /// <para/>Compensates for camera's zoom level
+    /// </summary>
     public class InteriorCamera : Camera2D
     {
-        //TODO: Account for when camera is not centered on HUD
-        [Export]
-        private NodePath HUDSpritePath;
-        private Sprite HUD;
-        private Vector2 CameraLimits;
-
-        private Single UpDistance;
-        private Single DownDistance;
-        private Single LeftDistance;
-        private Single RightDistance;
-
-        private Vector2 ViewportSize => GetViewportRect().Size;
-        private Vector2 StartingPosition;
-
-        public override void _Ready()
+        /// <summary>
+        /// Camera views
+        /// </summary>
+        private enum CameraView
         {
-            HUD = GetNode<Sprite>(HUDSpritePath);
-            var halfSize = HUD.GetRect().Size / 2f;
-            var upperleft = HUD.Position - halfSize;
-            var camHalfSize = ViewportSize * Zoom / 2f;
-            StartingPosition = Position;
-
-            var hudRect = HUD.GetRect();
-
-            UpDistance = (Position.y - camHalfSize.y) - hudRect.Position.y;
-            DownDistance = hudRect.End.y - (Position.y + camHalfSize.y);
-            LeftDistance = (Position.x - camHalfSize.x) - hudRect.Position.x;
-            RightDistance = hudRect.End.x - (Position.x + camHalfSize.x);
-
-            CameraLimits = (HUD.GetRect().Size - ViewportSize * Zoom) / 2f;
+            Window,
+            Console
         }
 
+        /// <summary>
+        /// How far down the screen to shift to cockpit view
+        /// </summary>
+        [Export(PropertyHint.Range, "0,1,0.05")]
+        private Single CockpitViewShiftPercent = 0.75f;
+
+        /// <summary>
+        /// Position of camera in console view
+        /// </summary>
+        [Export]
+        private Vector2 ConsoleCameraPosition;
+
+        /// <summary>
+        /// How far the camera can extend past centered view in window mode
+        /// </summary>
+        [Export]
+        private Rect2 WindowCameraRange;
+
+        /// <summary>
+        /// How far the camera can extend past centered view in console mode
+        /// </summary>
+        [Export]
+        private Rect2 ConsoleCameraRange;
+
+        /// <summary>
+        /// Size of the viewport
+        /// </summary>
+        private Vector2 ViewportSize;
+
+        /// <summary>
+        /// Tween used to animate elements
+        /// </summary>
+        private Tween Animator;
+
+        /// <summary>
+        /// Current camera view
+        /// </summary>
+        private CameraView View = CameraView.Window;
+
+        /// <summary>
+        /// Ready
+        /// </summary>
+        public override void _Ready()
+        {
+            ViewportSize = GetViewportRect().Size * Zoom;
+            GD.Print(ConsoleCameraRange);
+            Animator = new Tween();
+            AddChild(Animator);
+            Animator.Start();
+        }
+
+        /// <summary>
+        /// Changes camera position based on mouse screen position
+        /// </summary>
         public override void _Input(InputEvent e)
         {
             if (e is InputEventMouseMotion mouseMotion)
             {
-                var mousePosition = 2f * (mouseMotion.Position / ViewportSize - new Vector2(0.5f, 0.5f));
-                var offset = Vector2.Zero;
-                offset.x = (mousePosition.x > 0f ? RightDistance : -LeftDistance) * CameraInterp(Math.Abs(mousePosition.x));
-                offset.y = (mousePosition.y > 0f ? DownDistance : -UpDistance) * CameraInterp(Math.Abs(mousePosition.y));
-                Position = StartingPosition + offset;
+                var mouse = ScreenPercent(mouseMotion.Position);
+
+                if (View == CameraView.Window && mouse.y > CockpitViewShiftPercent)
+                {
+                    View = CameraView.Console;
+                }
+                else if (View == CameraView.Console && mouse.y < 1f - CockpitViewShiftPercent)
+                {
+                    View = CameraView.Window;
+                }
+
+                var position = View switch { CameraView.Console => ConsoleCameraPosition, _ => Vector2.Zero };
+                position += (new Vector2(CameraInterp(mouse.x), CameraInterp(mouse.y)) * 2f - Vector2.One) * ShiftFactor(mouse);
+                Position = position;
             }
+        }
+
+        public Vector2 ShiftFactor(Vector2 position)
+        {
+            var range = View switch { CameraView.Console => ConsoleCameraRange, _ => WindowCameraRange };
+            var x = position.x == 0.5f ? 1f : (position.x < 0.5f ? range.Position.x : range.Size.x);
+            var y = position.y == 0.5f ? 1f : (position.y < 0.5f ? range.Position.y : range.Size.y);
+            return new Vector2(x, y);
         }
 
         /// <summary>
-        /// Interpolates alpha (0..1) on an inout cubic easing curve
+        /// Remaps viewport coordinates to [-1..1]
+        /// </summary>
+        /// <param name="coordinates">viewport coordinates</param>
+        /// <returns>[-1..1] where 0 is screen center</returns>
+        private Vector2 ScreenPercent(Vector2 coordinates) => coordinates / ViewportSize;
+
+        /// <summary>
+        /// Interpolates alpha (0..1) on an inout sin easing curve
         /// </summary>
         /// <param name="alpha">Position along curve, 0 to 1</param>
         /// <returns>Interpolated value</returns>
-        public static Single CameraInterp(Single alpha) => (Single)(-(Math.Cos(Math.PI * alpha) - 1d) / 2d);
-        /*alpha < 0.5f
-        //    ? 4f * (Single)Math.Pow(alpha, 3d)
-        //    : (1f - (Single)Math.Pow(-2d * alpha + 2d, 3d) / 2f);
-        {
-            if (alpha == 0 || alpha == 1)
-            {
-                return alpha;
-            }
-
-            return alpha < 0.5f
-                            ? (Single)Math.Pow(2d, 80d * alpha - 40d) / 2f
-                            : (Single)(2d - Math.Pow(2d, -80d * alpha + 40d)) / 2f;
-        }
-        */
+        //public static Single CameraInterp(Single alpha) => alpha < 0.5f
+        //                                                 ? 4f * (Single)Math.Pow(alpha, 3d)
+        //                                                 : 1f - (Single)Math.Pow(-2d * alpha + 2d, 3d) / 2f;
+        public static Single CameraInterp(Single alpha) => (Single)(Math.Cos(Math.PI * alpha) - 1) / -2f;
     }
 }

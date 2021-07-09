@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Remaster
 {
     /// <summary>
-    /// States a button can be in
+    /// Button states
     /// </summary>
     public enum ButtonState
     {
@@ -29,7 +29,7 @@ namespace Remaster
     }
 
     /// <summary>
-    /// State of mouse click
+    /// Mouse button states
     /// </summary>
     public enum MouseButtonState
     {
@@ -38,7 +38,7 @@ namespace Remaster
     }
 
     /// <summary>
-    /// State of mouse hover
+    /// Mouse hover states
     /// </summary>
     public enum MouseHoverState
     {
