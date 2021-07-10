@@ -13,8 +13,13 @@ namespace Remaster.HUD
         private List<NodePath> ItemButtonPaths = new List<NodePath>();
         private List<SubInteriorItemButton> ItemButtons = new List<SubInteriorItemButton>();
 
-        protected List<HUDButton> ToolButtons = new List<HUDButton>();
+        [Export]
+        private List<NodePath> ToolButtonPaths = new List<NodePath>();
+        private List<SubInteriorItemButton> ToolButtons = new List<SubInteriorItemButton>();
 
+        /// <summary>
+        /// Ready
+        /// </summary>
         public override void _Ready()
         {
             foreach (var path in ItemButtonPaths)
@@ -26,6 +31,16 @@ namespace Remaster.HUD
                     button.ButtonPress += ItemButtonPressed;
                 }
             }
+
+            foreach (var path in ToolButtonPaths)
+            {
+                var button = GetNodeOrNull<SubInteriorItemButton>(path);
+                if (button != null)
+                {
+                    ToolButtons.Add(button);
+                    button.ButtonPress += ToolButtonPressed;
+                }
+            }
         }
 
         public override void _Input(InputEvent @event)
@@ -33,12 +48,20 @@ namespace Remaster.HUD
             
         }
 
+        /// <summary>
+        /// Equips item
+        /// </summary>
         private void ItemButtonPressed(object sender, ButtonEventArgs e)
         {
-            //throw new NotImplementedException();
+
         }
 
-        
-        //
+        /// <summary>
+        /// Equips tool
+        /// </summary>
+        private void ToolButtonPressed(object sender, ButtonEventArgs e)
+        {
+
+        }
     }
 }

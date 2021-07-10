@@ -82,23 +82,28 @@ namespace Remaster.HUD
         {
             if (e is InputEventMouseMotion mouseMotion)
             {
-                var mouse = ScreenPercent(mouseMotion.Position);
+                var mouseNormal = ScreenPercent(mouseMotion.Position);
 
-                if (View == CameraView.Window && mouse.y > CockpitViewShiftPercent)
+                if (View == CameraView.Window && mouseNormal.y > CockpitViewShiftPercent)
                 {
                     View = CameraView.Console;
                 }
-                else if (View == CameraView.Console && mouse.y < 1f - CockpitViewShiftPercent)
+                else if (View == CameraView.Console && mouseNormal.y < 1f - CockpitViewShiftPercent)
                 {
                     View = CameraView.Window;
                 }
 
                 var position = View switch { CameraView.Console => ConsoleCameraPosition, _ => Vector2.Zero };
-                position += (new Vector2(CameraInterp(mouse.x), CameraInterp(mouse.y)) * 2f - Vector2.One) * ShiftFactor(mouse);
+                position += (new Vector2(CameraInterp(mouseNormal.x), CameraInterp(mouseNormal.y)) * 2f - Vector2.One) * ShiftFactor(mouseNormal);
                 Position = position;
             }
         }
 
+        /// <summary>
+        /// Gets the position offset factor based on configured values
+        /// </summary>
+        /// <param name="position">normalized camera offset</param>
+        /// <returns>Camera position</returns>
         public Vector2 ShiftFactor(Vector2 position)
         {
             var range = View switch { CameraView.Console => ConsoleCameraRange, _ => WindowCameraRange };
