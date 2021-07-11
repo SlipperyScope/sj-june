@@ -68,6 +68,8 @@ namespace Remaster
         /// </summary>
         public sealed override void _Ready()
         {
+            //Listeners?.ForEach(path => GD.Print($"{this}={Name} {GetNodeOrNull<IRegisterClickables>(path)}"));
+
             Listeners?.ForEach(path => GetNodeOrNull<IRegisterClickables>(path)?.Register(this));
             OnReady();
         }

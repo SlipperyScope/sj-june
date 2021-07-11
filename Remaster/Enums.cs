@@ -62,4 +62,19 @@ namespace Remaster
         Item,
         Tool
     }
+
+    public enum PrintMethod
+    {
+        All,
+        Section,
+        Word,
+        Character
+    }
+
+    public enum PrintToken
+    {
+        Text,
+        Pause,
+        Image
+    }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Remaster.HUD;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,8 +14,8 @@ namespace Remaster.Items
 
         public override ItemDescription Description(String querier) => querier switch
         {
-            "SubConsole" => new ItemDescription { Text = SubConDesc},
-            _ => new ItemDescription { Text = Name }
+            nameof(SubConsole) => SubConsole_Description,
+            _ => Default_Description
         };
 
         public override ItemAnimationData Animation(string querier)
@@ -23,7 +24,12 @@ namespace Remaster.Items
         }
 
         #region Descriptions
-        private String SubConDesc => $"Seaweed:\n{Ps}It's like lettuce, but salty.";
+        private ItemDescription SubConsole_Description => new ItemDescription
+        (
+            new PrintBlock("Seaweed:\n"),
+            new PrintBlock("1", PrintToken.Pause),
+            new PrintBlock("It's like lettuce, but salty.")
+        );
         #endregion
     }
 }

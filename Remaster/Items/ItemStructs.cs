@@ -13,7 +13,32 @@ namespace Remaster.Items
     /// </summary>
     public struct ItemDescription
     {
+        [Obsolete]
         public String Text;
+        public List<PrintBlock> Blocks;
+
+        /// <summary>
+        /// Creates a description from a printblock list
+        /// </summary>
+        public ItemDescription(List<PrintBlock> blocks)
+        {
+            Text = String.Empty;
+            Blocks = blocks ?? new List<PrintBlock>();
+        }
+
+        /// <summary>
+        /// Creates a description from printblocks
+        /// </summary>
+        public ItemDescription(PrintBlock block, params PrintBlock[] args)
+        {
+            Text = String.Empty;
+            Blocks = new List<PrintBlock>();
+            Blocks.Add(block);
+            foreach (var printblock in args)
+            {
+                Blocks.Add(printblock);
+            }
+        }
     }
 
     public struct ItemAnimationData
@@ -24,5 +49,29 @@ namespace Remaster.Items
         public String SoundEffectPath;
         public Int32 AnimationRow;
         public (Int32 start, Int32 end) AnimationFrames;
+    }
+
+    /// <summary>
+    /// Block of printable data
+    /// </summary>
+    public struct PrintBlock
+    {
+        public PrintToken Token;
+        public String Text;
+
+        /// <summary>
+        /// Creates a block of printable data
+        /// </summary>
+        /// <param name="text">
+        /// <para>Text: String of text
+        /// <br />Pause: Length of pause
+        /// <br />Image: Path to texture resource
+        /// </para></param>
+        /// <param name="token">Block type</param>
+        public PrintBlock(String text, PrintToken token = PrintToken.Text)
+        {
+            Token = token;
+            Text = text;
+        }
     }
 }

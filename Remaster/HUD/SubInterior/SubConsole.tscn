@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Remaster/Assets/SubHUD/Console.png" type="Texture" id=1]
 [ext_resource path="res://Remaster/Assets/SubHUD/Console_Bezel.png" type="Texture" id=2]
 [ext_resource path="res://Remaster/HUD/SubInterior/SubConsole.cs" type="Script" id=3]
+[ext_resource path="res://Remaster/Utilities/TextboxPrinter.cs" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 111.946, 344.519 )
@@ -15,10 +16,10 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 1 )
 
 [node name="Textbox" type="RichTextLabel" parent="."]
-margin_left = -325.0
-margin_top = -86.0
-margin_right = 326.0
-margin_bottom = 98.0
+margin_left = -315.0
+margin_top = -88.0
+margin_right = 319.0
+margin_bottom = 89.0
 mouse_filter = 2
 meta_underlined = false
 text = "
@@ -28,9 +29,11 @@ Dolor amet
 Sloppy 'n' wet"
 scroll_active = false
 scroll_following = true
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+PrintSpeed = 0.05
 
 [node name="Bezel" type="Sprite" parent="."]
 scale = Vector2( 3, 3 )

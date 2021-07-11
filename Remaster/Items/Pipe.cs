@@ -13,8 +13,8 @@ namespace Remaster.Items
         public override string Name => "Pipe";
         public override ItemDescription Description(String querier) => querier switch
         {
-            nameof(SubConsole) => new ItemDescription { Text = SubConsole_desc},
-            _                  => new ItemDescription { Text = Name }
+            nameof(SubConsole) => SubConsole_Description,
+            _                  => Default_Description
         };
 
         public override ItemAnimationData Animation(string querier)
@@ -23,7 +23,20 @@ namespace Remaster.Items
         }
 
         #region Descriptions
-        private String SubConsole_desc => $"A pipe:\n{Ps}Good for beating off{Ps}.{Ps}.{Ps}.{Pl} barnicles."; 
+        private ItemDescription SubConsole_Description => new ItemDescription
+        (
+            new PrintBlock("A pipe:\n"),
+            new PrintBlock("1", PrintToken.Pause),
+            new PrintBlock("Good for beating off"),
+            new PrintBlock("0.5", PrintToken.Pause),
+            new PrintBlock("."),
+            new PrintBlock("0.5", PrintToken.Pause),
+            new PrintBlock("."),
+            new PrintBlock("0.5", PrintToken.Pause),
+            new PrintBlock("."),
+            new PrintBlock("2", PrintToken.Pause),
+            new PrintBlock("barnicles.")
+        );
         #endregion
     }
 }

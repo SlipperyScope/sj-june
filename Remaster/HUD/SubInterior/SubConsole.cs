@@ -1,4 +1,7 @@
 using Godot;
+using Remaster.Items;
+using Remaster.Utilities;
+using System.Collections.Generic;
 using System;
 
 namespace Remaster.HUD
@@ -6,19 +9,21 @@ namespace Remaster.HUD
     public class SubConsole : Clickable, IRegisterClickables
     {
         private const String TextBoxPath = "Textbox";
-        private RichTextLabel TextBox;
+        private TextboxPrinter TextBox;
 
         public void Register(Clickable clickable)
         {
-            switch (clickable)
-            {
-                case ItemWindow window:
-                    window.MouseEvent += OnRegisteredMouseEvent;
-                    break;
-                case SubConsole console:
-                    console.MouseEvent += OnRegisteredMouseEvent;
-                    break;
-            }
+            //GD.Print($"{this}={Name} registering {clickable.Name}");
+            clickable.MouseEvent += OnRegisteredMouseEvent;
+            //switch (clickable)
+            //{
+                //case ItemWindow window:
+                //    window.MouseEvent += OnRegisteredMouseEvent;
+                //    break;
+                //case SubConsole console:
+                //    console.MouseEvent += OnRegisteredMouseEvent;
+                //    break;
+            //}
         }
 
         private void OnRegisteredMouseEvent(object sender, ClickableMouseEventArgs e)
@@ -26,10 +31,10 @@ namespace Remaster.HUD
             switch (sender)
             {
                 case ItemWindow window when e.MouseState == MouseEventType.Down:
-                    TextBox.Text += $"{window.Item.Description(nameof(SubConsole)).Text}\n";
+                    TextBox.GoBrrr(window.Item?.Description(nameof(SubConsole)).Blocks ?? new List<PrintBlock> { new PrintBlock(window.Description) });
                     break;
                 case Clickable clickable when e.MouseState == MouseEventType.Down:
-                    TextBox.Text += $"{clickable.Description}\n";
+                    TextBox.GoBrrr(new PrintBlock(clickable.Description));
                     break;
             }
         }
@@ -39,7 +44,7 @@ namespace Remaster.HUD
         /// </summary>
         protected override void OnReady()
         {
-            TextBox = GetNode<RichTextLabel>(TextBoxPath);
+            TextBox = GetNode<TextboxPrinter>(TextBoxPath);
         }
     }
 }

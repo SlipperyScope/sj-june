@@ -39,5 +39,7 @@ namespace Remaster.Items
             ItemID.Seaweed => new Seaweed(),
             _ => null
         };
+
+        protected ItemDescription Default_Description => new ItemDescription(new PrintBlock(Name));
     }
 }
