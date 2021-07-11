@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 namespace Remaster
 {
@@ -10,6 +11,9 @@ namespace Remaster
     {
         public delegate void ClickableMouseEventHandler(object sender, ClickableMouseEventArgs e);
         public event ClickableMouseEventHandler MouseEvent;
+
+        [Export]
+        private List<NodePath> Listeners;
 
         /// <summary>
         /// Current state of the mouse click
@@ -41,12 +45,25 @@ namespace Remaster
         public sealed override void _EnterTree()
         {
             InputPickable = _Active;
+            Monitorable = false;
+            Monitoring = false;
             Connect("mouse_entered", this, nameof(MouseEntered));
             Connect("mouse_exited", this, nameof(MouseExited));
             OnEnterTree();
         }
 
         protected virtual void OnEnterTree() { }
+
+        /// <summary>
+        /// Ready
+        /// </summary>
+        public sealed override void _Ready()
+        {
+            Listeners?.ForEach(path => GetNodeOrNull<IRegisterClickables>(path)?.Register(this));
+            OnReady();
+        }
+
+        protected virtual void OnReady() { }
 
         /// <summary>
         /// Input Event
@@ -95,22 +112,22 @@ namespace Remaster
         /// <summary>
         /// Called when the mouse clicks in the clickable area
         /// </summary>
-        public virtual void OnMouseDown() { }
+        protected virtual void OnMouseDown() { }
 
         /// <summary>
         /// Called when the mouse releases
         /// </summary>
-        public virtual void OnMouseUp() { }
+        protected virtual void OnMouseUp() { }
 
         /// <summary>
         /// Called when the mouse moves over the clickable area
         /// </summary>
-        public virtual void OnMouseOver() { }
+        protected virtual void OnMouseOver() { }
 
         /// <summary>
         /// Called when the mouse leaves the clickable area
         /// </summary>
-        public virtual void OnMouseOut() { }
+        protected virtual void OnMouseOut() { }
     }
 
     public class ClickableMouseEventArgs

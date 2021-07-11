@@ -1,25 +1,32 @@
 using Godot;
 using System;
+using Remaster.Items;
+using GameItem = Remaster.Items.Item;
 
 namespace Remaster.HUD
 {
     public class ItemWindow : Clickable
     {
+        [Export]
+        private ItemID _Item = ItemID.None;
+
+        public GameItem Item { get; private set; }
+
         /// <summary>
         /// Item texture
         /// </summary>
         [Export]
         public Texture Texture
         {
-            get => Item?.Texture ?? _Texture;
+            get => AnimatedItem?.Texture ?? _Texture;
             set
             {
-                Item?.StopAnimation();
+                AnimatedItem?.StopAnimation();
                 _Texture = value;
-                if (Item != null)
+                if (AnimatedItem != null)
                 {
-                    Item.Texture = value;
-                    Item.StartAnimation();
+                    AnimatedItem.Texture = value;
+                    AnimatedItem.StartAnimation();
                 }
             }
         }
@@ -31,15 +38,15 @@ namespace Remaster.HUD
         [Export]
         public Int32 Frames 
         {
-            get => Item?.Hframes ?? _Frames;
+            get => AnimatedItem?.Hframes ?? _Frames;
             set
             {
-                Item?.StopAnimation();
+                AnimatedItem?.StopAnimation();
                 _Frames = value;
-                if (Item != null)
+                if (AnimatedItem != null)
                 {
-                    Item.Hframes = value;
-                    Item.StartAnimation();
+                    AnimatedItem.Hframes = value;
+                    AnimatedItem.StartAnimation();
                 }
             }
         }
@@ -53,7 +60,7 @@ namespace Remaster.HUD
         /// <summary>
         /// Item sprite reference
         /// </summary>
-        private SpriteAnimator Item;
+        private SpriteAnimator AnimatedItem;
 
         /// <summary>
         /// Tween for animations
@@ -72,9 +79,10 @@ namespace Remaster.HUD
         /// <summary>
         /// Ready
         /// </summary>
-        public override void _Ready()
+        protected override void OnReady()
         {
-            Item = GetNode<SpriteAnimator>(ItemPath);
+            Item = GameItem.GetItem(_Item);
+            AnimatedItem = GetNode<SpriteAnimator>(ItemPath);
             Frames = _Frames;
             Texture = _Texture;
         }

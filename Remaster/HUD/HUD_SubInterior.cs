@@ -7,14 +7,9 @@ using Godot;
 
 namespace Remaster.HUD
 {
-    public class HUD_SubInterior : HUDBase
+    public class HUD_SubInterior : HUDBase, IRegisterClickables
     {
-        [Export]
-        private List<NodePath> ItemButtonPaths = new List<NodePath>();
         private List<SubInteriorItemButton> ItemButtons = new List<SubInteriorItemButton>();
-
-        [Export]
-        private List<NodePath> ToolButtonPaths = new List<NodePath>();
         private List<SubInteriorItemButton> ToolButtons = new List<SubInteriorItemButton>();
 
         /// <summary>
@@ -22,25 +17,7 @@ namespace Remaster.HUD
         /// </summary>
         public override void _Ready()
         {
-            foreach (var path in ItemButtonPaths)
-            {
-                var button = GetNodeOrNull<SubInteriorItemButton>(path);
-                if (button != null)
-                {
-                    ItemButtons.Add(button);
-                    button.ButtonPress += ItemButtonPressed;
-                }
-            }
-
-            foreach (var path in ToolButtonPaths)
-            {
-                var button = GetNodeOrNull<SubInteriorItemButton>(path);
-                if (button != null)
-                {
-                    ToolButtons.Add(button);
-                    button.ButtonPress += ToolButtonPressed;
-                }
-            }
+            
         }
 
         public override void _Input(InputEvent @event)
@@ -48,20 +25,44 @@ namespace Remaster.HUD
             
         }
 
-        /// <summary>
-        /// Equips item
-        /// </summary>
-        private void ItemButtonPressed(object sender, ButtonEventArgs e)
+        private void HUDButtonPressed(object sender, ButtonEventArgs e)
         {
-
+            switch (e.Type)
+            {
+                case HUDButtonType.None:
+                    break;
+                case HUDButtonType.Item:
+                    break;
+                case HUDButtonType.Tool:
+                    break;
+                default:
+                    break;
+            }
         }
 
-        /// <summary>
-        /// Equips tool
-        /// </summary>
-        private void ToolButtonPressed(object sender, ButtonEventArgs e)
+        #region IRegisterClickables
+        public void Register(Clickable clickable)
         {
+            switch (clickable)
+            {
+                case SubInteriorItemButton itemButton:
+                    itemButton.ButtonPress += HUDButtonPressed;
+                    break;
+                case ItemWindow itemWindow:
+                    itemWindow.MouseEvent += ItemWindow_MouseEvent;
+                    break;
+                default:
+                    break;
+            }
+        } 
+        #endregion
 
+        private void ItemWindow_MouseEvent(object sender, ClickableMouseEventArgs e)
+        {
+            if (e.MouseState == MouseEventType.Down)
+            {
+                GD.Print($"Clicked {sender as ItemWindow}");
+            }
         }
     }
 }

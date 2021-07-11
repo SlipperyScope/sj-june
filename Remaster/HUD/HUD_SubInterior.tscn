@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Remaster/Assets/SubHUD/Interior.png" type="Texture" id=1]
 [ext_resource path="res://Remaster/HUD/HUD_SubInterior.cs" type="Script" id=2]
@@ -8,12 +8,11 @@
 [ext_resource path="res://Remaster/HUD/SubInterior/ItemWindow.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Remaster/Assets/Items/Pipe.png" type="Texture" id=7]
 [ext_resource path="res://Remaster/Assets/Items/Seaweed.png" type="Texture" id=8]
+[ext_resource path="res://Remaster/HUD/SubInterior/SubConsole.tscn" type="PackedScene" id=9]
 
 [node name="HUD_SubInterior" type="Node2D"]
 position = Vector2( 0, 1 )
 script = ExtResource( 2 )
-ItemButtonPaths = [ NodePath("ItemButtons/0"), NodePath("ItemButtons/1"), NodePath("ItemButtons/2"), NodePath("ItemButtons/3"), NodePath("ItemButtons/4"), NodePath("ItemButtons/5") ]
-ToolButtonPaths = [ NodePath("ToolButtons/0"), NodePath("ToolButtons/1"), NodePath("ToolButtons/2"), NodePath("ToolButtons/3"), NodePath("ToolButtons/4"), NodePath("ToolButtons/5") ]
 
 [node name="TEMP" type="Sprite" parent="."]
 texture = ExtResource( 5 )
@@ -103,11 +102,18 @@ ConsoleCameraRange = Rect2( 200, 10, 200, 10 )
 [node name="ItemWindow" parent="." instance=ExtResource( 6 )]
 position = Vector2( 419.205, 587.041 )
 scale = Vector2( 3, 3 )
+Listeners = [ NodePath("../Console") ]
 Texture = ExtResource( 7 )
+_Item = 1
 
 [node name="ItemWindow2" parent="." instance=ExtResource( 6 )]
 position = Vector2( 511.19, 601.518 )
 rotation = 0.107119
 scale = Vector2( 3, 3 )
+Listeners = [ NodePath("../Console") ]
 Texture = ExtResource( 8 )
 Frames = 8
+_Item = 2
+
+[node name="Console" parent="." instance=ExtResource( 9 )]
+position = Vector2( 4.2923, 417.697 )

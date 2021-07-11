@@ -51,7 +51,15 @@ namespace Remaster
     /// </summary>
     public enum ItemID
     {
+        None,
         Pipe,
         Seaweed
+    }
+
+    public enum HUDButtonType
+    {
+        None,
+        Item,
+        Tool
     }
 }

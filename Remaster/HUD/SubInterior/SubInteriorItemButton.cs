@@ -28,14 +28,9 @@ namespace Remaster.HUD
         [Export]
         private Boolean _Enabled = true;
 
-        [Export]
-        private NodePath RingLightPath;
-
-        [Export]
-        private NodePath DomePath;
-
-        [Export]
-        private NodePath LightPath;
+        private String RingLightPath = "LightRing";
+        private String DomePath = "Bulb";
+        private String LightPath = "Light";
 
         private Sprite RingLight;
         private Sprite Dome;
@@ -46,7 +41,7 @@ namespace Remaster.HUD
         /// <summary>
         /// Ready
         /// </summary>
-        protected override void Ready()
+        protected override void OnReady()
         {
             RingLight = GetNode<Sprite>(RingLightPath);
             Dome = GetNode<Sprite>(DomePath);
@@ -85,8 +80,8 @@ namespace Remaster.HUD
             }
         }
 
-        public override void OnMouseDown() => Animate(Dome, 0.25f);
-        public override void OnMouseUp() => Animate(Dome, 0.25f, true);
+        protected override void OnMouseDown() => Animate(Dome, 0.25f);
+        protected override void OnMouseUp() => Animate(Dome, 0.25f, true);
 
         /// <summary>
         /// Starts button animations
@@ -96,6 +91,8 @@ namespace Remaster.HUD
         /// <param name="reverse">Play in reverse from end</param>
         private void Animate(Sprite sprite, Single duration, Boolean reverse = false)
         {
+            if (sprite is null) return;
+
             var total = sprite.Hframes;
             var start = sprite.Frame;
             var end = reverse is true ? 0 : (total - 1);                

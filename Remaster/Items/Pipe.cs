@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Remaster.HUD;
 
 namespace Remaster.Items
 {
@@ -12,9 +13,14 @@ namespace Remaster.Items
         public override string Name => "Pipe";
         public override ItemDescription Description(String querier) => querier switch
         {
-            "SubConsole"    => new ItemDescription { Text = SubConsole_desc},
-            _               => new ItemDescription { Text = Name }
+            nameof(SubConsole) => new ItemDescription { Text = SubConsole_desc},
+            _                  => new ItemDescription { Text = Name }
         };
+
+        public override ItemAnimationData Animation(string querier)
+        {
+            throw new NotImplementedException();
+        }
 
         #region Descriptions
         private String SubConsole_desc => $"A pipe:\n{Ps}Good for beating off{Ps}.{Ps}.{Ps}.{Pl} barnicles."; 

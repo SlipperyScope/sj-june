@@ -17,6 +17,11 @@ namespace Remaster.Items
             _ => new ItemDescription { Text = Name }
         };
 
+        public override ItemAnimationData Animation(string querier)
+        {
+            throw new NotImplementedException();
+        }
+
         #region Descriptions
         private String SubConDesc => $"Seaweed:\n{Ps}It's like lettuce, but salty.";
         #endregion

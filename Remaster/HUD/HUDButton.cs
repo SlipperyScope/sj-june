@@ -14,6 +14,9 @@ namespace Remaster.HUD
     {
         const String ButtonSpritePath = "./ButtonSprite";
 
+        [Export]
+        public HUDButtonType Type { get; private set; } = HUDButtonType.Item;
+
         public delegate void OnButtonPressEventHandler(object sender, ButtonEventArgs e);
         public event OnButtonPressEventHandler ButtonPress;
 
@@ -26,14 +29,6 @@ namespace Remaster.HUD
 
         protected Sprite ButtonSprite;
 
-        /// <summary>
-        /// Ready
-        /// </summary>
-        public sealed override void _Ready()
-        {
-            Ready();
-        }
-        protected virtual void Ready() { }
         /// <summary>
         /// Initiailze Sprites
         /// </summary>
@@ -54,6 +49,11 @@ namespace Remaster.HUD
 
     public class ButtonEventArgs
     {
+        public HUDButtonType Type { get; private set; }
 
+        public ButtonEventArgs(HUDButtonType type = HUDButtonType.None)
+        {
+            Type = type;
+        }
     }
 }
