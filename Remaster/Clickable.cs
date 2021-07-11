@@ -12,8 +12,17 @@ namespace Remaster
         public delegate void ClickableMouseEventHandler(object sender, ClickableMouseEventArgs e);
         public event ClickableMouseEventHandler MouseEvent;
 
+        /// <summary>
+        /// Nodes to register with
+        /// </summary>
         [Export]
         private List<NodePath> Listeners;
+
+        /// <summary>
+        /// Simple description of the clickable
+        /// </summary>
+        [Export(PropertyHint.MultilineText)]
+        public String Description { get; private set; } = "";
 
         /// <summary>
         /// Current state of the mouse click

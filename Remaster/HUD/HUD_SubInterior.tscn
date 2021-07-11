@@ -62,31 +62,37 @@ _Enabled = false
 [node name="0" parent="ToolButtons" instance=ExtResource( 3 )]
 position = Vector2( -392.862, 685.592 )
 scale = Vector2( 0.495683, 0.505604 )
+Type = 2
 _Enabled = false
 
 [node name="1" parent="ToolButtons" instance=ExtResource( 3 )]
 position = Vector2( -464.781, 700.575 )
 scale = Vector2( 0.495683, 0.505604 )
+Type = 2
 _Enabled = false
 
 [node name="2" parent="ToolButtons" instance=ExtResource( 3 )]
 position = Vector2( -537.95, 728.28 )
 scale = Vector2( 0.495683, 0.505604 )
+Type = 2
 _Enabled = false
 
 [node name="3" parent="ToolButtons" instance=ExtResource( 3 )]
 position = Vector2( -607.374, 760.741 )
 scale = Vector2( 0.495683, 0.505604 )
+Type = 2
 _Enabled = false
 
 [node name="4" parent="ToolButtons" instance=ExtResource( 3 )]
 position = Vector2( -665.805, 811.693 )
 scale = Vector2( 0.495683, 0.505604 )
+Type = 2
 _Enabled = false
 
 [node name="5" parent="ToolButtons" instance=ExtResource( 3 )]
 position = Vector2( -717.995, 872.131 )
 scale = Vector2( 0.495683, 0.505604 )
+Type = 2
 _Enabled = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -117,3 +123,6 @@ _Item = 2
 
 [node name="Console" parent="." instance=ExtResource( 9 )]
 position = Vector2( 4.2923, 417.697 )
+Description = "Computer console:
+Latest and greatest"
+Listeners = [ NodePath(".") ]

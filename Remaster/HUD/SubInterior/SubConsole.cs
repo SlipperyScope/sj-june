@@ -10,17 +10,27 @@ namespace Remaster.HUD
 
         public void Register(Clickable clickable)
         {
-            if (clickable is ItemWindow window)
+            switch (clickable)
             {
-                window.MouseEvent += Window_MouseEvent;
+                case ItemWindow window:
+                    window.MouseEvent += OnRegisteredMouseEvent;
+                    break;
+                case SubConsole console:
+                    console.MouseEvent += OnRegisteredMouseEvent;
+                    break;
             }
         }
 
-        private void Window_MouseEvent(object sender, ClickableMouseEventArgs e)
+        private void OnRegisteredMouseEvent(object sender, ClickableMouseEventArgs e)
         {
-            if (sender is ItemWindow window && e.MouseState == MouseEventType.Down)
+            switch (sender)
             {
-                TextBox.Text += $"\n{window.Item.Description(nameof(SubConsole)).Text}";
+                case ItemWindow window when e.MouseState == MouseEventType.Down:
+                    TextBox.Text += $"{window.Item.Description(nameof(SubConsole)).Text}\n";
+                    break;
+                case Clickable clickable when e.MouseState == MouseEventType.Down:
+                    TextBox.Text += $"{clickable.Description}\n";
+                    break;
             }
         }
 
