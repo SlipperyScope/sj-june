@@ -3,7 +3,7 @@ using System;
 
 namespace Remaster.HUD
 {
-    public class ItemWindow : Node2D
+    public class ItemWindow : Clickable
     {
         /// <summary>
         /// Item texture
@@ -63,7 +63,7 @@ namespace Remaster.HUD
         /// <summary>
         /// Enter Tree
         /// </summary>
-        public override void _EnterTree()
+        protected override void OnEnterTree()
         {
             Animator = new Tween();
             AddChild(Animator);

@@ -7,7 +7,8 @@ using Godot;
 
 namespace Remaster
 {
-    public class PlayerData : Node
+    public class PlayerData
     {
+
     }
 }

@@ -45,4 +45,13 @@ namespace Remaster
         Over,
         Out
     }
+
+    /// <summary>
+    /// List of game items
+    /// </summary>
+    public enum ItemID
+    {
+        Pipe,
+        Seaweed
+    }
 }
