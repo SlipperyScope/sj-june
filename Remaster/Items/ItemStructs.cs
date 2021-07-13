@@ -67,9 +67,16 @@ namespace Remaster.Items
         /// <para>Text: String of text
         /// <br />Pause: Length of pause
         /// <br />Image: Path to texture resource
+        /// <br />Clear: N/A
         /// </para></param>
         /// <param name="token">Block type</param>
         public PrintBlock(String text, PrintToken token = PrintToken.Text)
+        {
+            Token = token;
+            Text = text;
+        }
+
+        public PrintBlock(PrintToken token, String text = "")
         {
             Token = token;
             Text = text;

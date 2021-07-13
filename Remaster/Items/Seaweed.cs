@@ -28,8 +28,9 @@ namespace Remaster.Items
         #region Descriptions
         private ItemDescription SubConsole_Description => new ItemDescription
         (
+            new PrintBlock(PrintToken.Clear),
             new PrintBlock("Seaweed:\n"),
-            new PrintBlock("1", PrintToken.Pause),
+            new PrintBlock(PrintToken.Pause, "1"),
             new PrintBlock("It's like lettuce, but salty.")
         );
         #endregion

@@ -84,85 +84,81 @@ namespace Remaster.Utilities
                 var snacc = Meal[0];
                 switch (snacc.Token)
                 {
-                    case PrintToken.Text:
-                        if (snacc.Text.Length == 0)
-                        {
-                            Meal.RemoveAt(0);
-                            PrintNext();
-                        }
-                        else
-                        {
-                            switch (Method)
-                            {
-                                case PrintMethod.All:
-                                    Text += snacc.Text;
-                                    Meal.RemoveAt(0);
-                                    PrintNext();
-                                    break;
-                                case PrintMethod.Section:
-                                    Text += snacc.Text;
-                                    Meal.RemoveAt(0);
-                                    PrintTimer.Start();
-                                    break;
-                                case PrintMethod.Word:
-                                    var separator = snacc.Text.IndexOfAny(WordSperators);
-                                    if (separator == -1) // No more seperators
-                                    {
-                                        Text += snacc.Text;
-                                        Meal.RemoveAt(0);
-                                        PrintTimer.Start();
-                                    }
-                                    else if (separator == 0) // First item is seperator
-                                    {
-                                        Text += snacc.Text[0];
-                                        snacc.Text = snacc.Text.Remove(0, 1);
-                                        Meal[0] = snacc;
-                                        PrintNext();
-                                    }
-                                    else
-                                    {
-                                        Text += snacc.Text.Substring(0, separator);
-                                        snacc.Text = snacc.Text.Remove(0, separator);
-                                        Meal[0] = snacc;
-                                        PrintTimer.Start();
-                                    }
-                                    break;
-                                case PrintMethod.Character:
-                                    Text += snacc.Text[0];
-                                    snacc.Text = snacc.Text.Remove(0, 1);
-                                    Meal[0] = snacc;
-                                    PrintTimer.Start();
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
+                    case PrintToken.Text when snacc.Text.Length == 0:
+                        Meal.RemoveAt(0);
+                        PrintNext();
                         break;
-                    case PrintToken.Pause:
-                        if (Method != PrintMethod.All)
-                        {
-                            PauseTimer.WaitTime = snacc.Text.ToFloat();
-                            Meal.RemoveAt(0);
-                            PauseTimer.Start();
-                        }
-                        else
-                        {
-                            Meal.RemoveAt(0);
-                            PrintNext();
-                        }
+
+                    case PrintToken.Text when Method == PrintMethod.All:
+                        Text += snacc.Text;
+                        Meal.RemoveAt(0);
+                        PrintNext();
                         break;
-                    case PrintToken.Image:
-                        // display image
-                        if (Method != PrintMethod.All)
+
+                    case PrintToken.Text when Method == PrintMethod.Section:
+                        Text += snacc.Text;
+                        Meal.RemoveAt(0);
+                        PrintTimer.Start();
+                        break;
+
+                    case PrintToken.Text when Method == PrintMethod.Word:
+                        var separator = snacc.Text.IndexOfAny(WordSperators);
+                        if (separator == -1) // No more seperators
                         {
+                            Text += snacc.Text;
+                            Meal.RemoveAt(0);
                             PrintTimer.Start();
                         }
-                        else
+                        else if (separator == 0) // First item is seperator
                         {
-                            Meal.RemoveAt(0);
+                            Text += snacc.Text[0];
+                            snacc.Text = snacc.Text.Remove(0, 1);
+                            Meal[0] = snacc;
                             PrintNext();
                         }
+                        else
+                        {
+                            Text += snacc.Text.Substring(0, separator);
+                            snacc.Text = snacc.Text.Remove(0, separator);
+                            Meal[0] = snacc;
+                            PrintTimer.Start();
+                        }
                         break;
+
+                    case PrintToken.Text when Method == PrintMethod.Character:
+                        Text += snacc.Text[0];
+                        snacc.Text = snacc.Text.Remove(0, 1);
+                        Meal[0] = snacc;
+                        PrintTimer.Start();
+                        break;
+
+                    case PrintToken.Pause when Method != PrintMethod.All:
+                        PauseTimer.WaitTime = snacc.Text.ToFloat();
+                        Meal.RemoveAt(0);
+                        PauseTimer.Start();
+                        break;
+
+                    case PrintToken.Pause:
+                        Meal.RemoveAt(0);
+                        PrintNext();
+                        break;
+
+                    case PrintToken.Image when Method != PrintMethod.All:
+                            PrintTimer.Start();
+                        break;
+
+                    case PrintToken.Image:
+                            Meal.RemoveAt(0);
+                            PrintNext();
+                        break;
+
+                    case PrintToken.Clear:
+                        // Clear image?
+                        Text = "\n";
+                        Meal.RemoveAt(0);
+                        PrintNext();
+                        break;
+
                     default:
                         break;
                 }

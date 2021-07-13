@@ -75,6 +75,7 @@ namespace Remaster
     {
         Text,
         Pause,
-        Image
+        Image,
+        Clear
     }
 }
