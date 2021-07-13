@@ -49,39 +49,67 @@ namespace Remaster.HUD
 
             AddChild(Tweener = new Tween());
 
-            MouseEvent += OnMouseEvent;
+            //MouseEvent += OnMouseEvent;
 
             Light.Frame = Enabled is true ? 0 : 4;
             Dome.Frame = 0;
             RingLight.Frame = 0;
         }
 
-        /// <summary>
-        /// Plays appropriate animation on a mouse event
-        /// </summary>
-        private void OnMouseEvent(object sender, ClickableMouseEventArgs e)
-        {
-            if (Enabled is true)
-            {
-                if (e.MouseState == MouseEventType.Over)
-                {
-                    Animate(RingLight, 0.25f);
-                }
-                else if (e.MouseState == MouseEventType.Out)
-                {
-                    Animate(RingLight, 0.25f, true);
-                    Animate(Dome, 0.25f, true);
-                }
-            }
+        ///// <summary>
+        ///// Plays appropriate animation on a mouse event
+        ///// </summary>
+        //private void OnMouseEvent(object sender, ClickableMouseEventArgs e)
+        //{
+        //    if (Enabled is true)
+        //    {
+        //        if (e.MouseState == MouseEventType.Over)
+        //        {
+        //            Animate(RingLight, 0.25f);
+        //        }
+        //        else if (e.MouseState == MouseEventType.Out)
+        //        {
+        //            Animate(RingLight, 0.25f, true);
+        //            Animate(Dome, 0.25f, true);
+        //        }
+        //    }
 
-            if (Enabled is true && e.MouseState == MouseEventType.Up)
+        //    if (Enabled is true && e.MouseState == MouseEventType.Up)
+        //    {
+        //        PressButton();
+        //    }
+        //}
+
+        protected override void OnMouseDown() => Animate(Dome, 0.25f);
+        protected override void OnMouseUp()
+        {
+            Animate(Dome, 0.25f, true);
+
+            if (Enabled is true)
             {
                 PressButton();
             }
         }
 
-        protected override void OnMouseDown() => Animate(Dome, 0.25f);
-        protected override void OnMouseUp() => Animate(Dome, 0.25f, true);
+        private Int32 Debug = 0;
+
+        protected override void OnMouseOver()
+        {
+            if (Enabled is true)
+            {
+                Animate(RingLight, 0.25f);
+            }
+        }
+
+        protected override void OnMouseOut()
+        {
+            if (Enabled is true)
+            {
+                GD.Print($"{Debug++} out");
+                Animate(RingLight, 0.25f, true);
+                Animate(Dome, 0.25f, true);
+            }
+        }
 
         /// <summary>
         /// Starts button animations
@@ -95,14 +123,14 @@ namespace Remaster.HUD
 
             var total = sprite.Hframes;
             var start = sprite.Frame;
-            var end = reverse is true ? 0 : (total - 1);                
+            var end = reverse is true ? 0 : (total - 1);
 
+            Tweener.Remove(sprite, FRAME_PROPERTY);
             if (start == end) return;
             
             var frames = Math.Abs(end - start);
             var time = duration * frames / total;
-
-            Tweener.Remove(sprite, FRAME_PROPERTY);
+            
             Tweener.InterpolateProperty(sprite, FRAME_PROPERTY, start, end, time);
             Tweener.Start();
         }

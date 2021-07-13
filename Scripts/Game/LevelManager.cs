@@ -110,7 +110,24 @@ public class LevelManager : Node
         MusicManager = GetNode<MusicManager>("/root/MusicManager");
         PlayerData = GetNode<PlayerData>("/root/PlayerData");
         PlayerScene = GD.Load<PackedScene>(SteveScenePath);
-        MusicManager.ChangeSong(Scenes[SceneID.MainMenu].Song);
+        //MusicManager.ChangeSong(Scenes[SceneID.MainMenu].Song);
+
+        var currentScenePath = GetTree().CurrentScene._ImportPath;
+        foreach (var scene in Scenes.Values)
+        {
+            if (currentScenePath == scene.Path)
+            {
+                MusicManager.ChangeSong(scene.Song);
+            }
+        }
+
+        // "Debug" scene
+        if (MusicManager.NowPlaying.Name == Song.None.Name)
+        {
+            var ran = new Random();
+            var next = ran.Next(1, 5);
+            MusicManager.ChangeSong((SongID)next);
+        }
 
         //Debug scene buttons
         foreach (var child in GetTree().CurrentScene.GetChildren())

@@ -58,6 +58,7 @@ namespace Remaster
             Monitoring = false;
             Connect("mouse_entered", this, nameof(MouseEntered));
             Connect("mouse_exited", this, nameof(MouseExited));
+            Connect("input_event", this, nameof(InputEvent));
             OnEnterTree();
         }
 
@@ -76,25 +77,15 @@ namespace Remaster
 
         protected virtual void OnReady() { }
 
-        /// <summary>
-        /// Input Event
-        /// </summary>
-        public sealed override void _InputEvent(Godot.Object viewport, InputEvent e, Int32 shapeIdx)
-        {
-            if (Input.IsActionJustPressed("click") && Active is true)
-            {
-                _ClickState = MouseButtonState.Down;
-                OnMouseDown();
-                MouseEvent?.Invoke(this, new ClickableMouseEventArgs(MouseEventType.Down, "Down"));
+        private Int32 DebugCounter = 0;
 
-            }
-            if (Input.IsActionJustReleased("click") && Active is true)
-            {
-                _ClickState = MouseButtonState.Up;
-                OnMouseUp();
-                MouseEvent?.Invoke(this, new ClickableMouseEventArgs(MouseEventType.Up, "Up"));
-            }
+        public sealed override void _Process(Single delta)
+        {
+            
+            OnProcess(delta);
         }
+
+        protected virtual void OnProcess(Single delta) { }
 
         /// <summary>
         /// Mouse entered signal emitted
@@ -102,6 +93,15 @@ namespace Remaster
         private void MouseEntered()
         {
             if (Active is false) return;
+
+            if (_ClickState == MouseButtonState.Up && Input.IsActionPressed("click"))
+            {
+                _ClickState = MouseButtonState.Down;
+            }
+            else if (_ClickState == MouseButtonState.Down && Input.IsActionPressed("click") is false)
+            {
+                _ClickState = MouseButtonState.Up;
+            }
 
             _HoverState = MouseHoverState.Over;
             OnMouseOver();
@@ -121,12 +121,36 @@ namespace Remaster
         }
 
         /// <summary>
+        /// Input event signal emitted
+        /// </summary>
+        private void InputEvent(Node viewport, InputEvent e, Int32 ShapeIndex)
+        {
+            if (Active is false) return;
+
+            if (e.IsActionPressed("click") && ClickState != MouseButtonState.Down)
+            {
+                _ClickState = MouseButtonState.Down;
+                OnMouseDown();
+                MouseEvent?.Invoke(this, new ClickableMouseEventArgs(MouseEventType.Down, "Down"));
+                GD.Print($"{DebugCounter++} Clicka clicka boom boom");
+            }
+
+            if (e.IsActionReleased("click") && ClickState != MouseButtonState.Up)
+            {
+                DebugCounter = 0;
+                _ClickState = MouseButtonState.Up;
+                OnMouseUp();
+                MouseEvent?.Invoke(this, new ClickableMouseEventArgs(MouseEventType.Up, "Up"));
+            }
+        }
+
+        /// <summary>
         /// Called when the mouse clicks in the clickable area
         /// </summary>
         protected virtual void OnMouseDown() { }
 
         /// <summary>
-        /// Called when the mouse releases
+        /// Called when the mouse releases in the clickable area
         /// </summary>
         protected virtual void OnMouseUp() { }
 

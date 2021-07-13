@@ -11,9 +11,6 @@ namespace Remaster.Items
     /// </summary>
     public abstract class Item
     {
-        public static String Ps = "`pause`";
-        public static String Pl = "`pause_long`";
-
         /// <summary>
         /// Items ID
         /// </summary>

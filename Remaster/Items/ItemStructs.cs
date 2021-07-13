@@ -44,11 +44,12 @@ namespace Remaster.Items
     public struct ItemAnimationData
     {
         public String TexturePath;
-        public Texture Texture => GD.Load<Texture>(TexturePath);
-
         public String SoundEffectPath;
         public Int32 AnimationRow;
         public (Int32 start, Int32 end) AnimationFrames;
+        public Boolean Repeat;
+        public Texture Texture => GD.Load<Texture>(TexturePath);
+        public AudioStreamMP3 SoundEffect => GD.Load<AudioStreamMP3>(SoundEffectPath);
     }
 
     /// <summary>
