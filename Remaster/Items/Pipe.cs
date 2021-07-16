@@ -19,7 +19,16 @@ namespace Remaster.Items
 
         public override ItemAnimationData Animation(string querier)
         {
-            throw new NotImplementedException();
+            return new ItemAnimationData
+            {
+                TexturePath = "res://Remaster/Assets/Items/Pipe.png",
+                SoundEffectPath = String.Empty,
+                AnimationRow = 0,
+                AnimationFrames = (0, 0),
+                Repeat = false,
+                Time = .1f,
+                GridSize = (1, 1)
+            };
         }
 
         #region Descriptions

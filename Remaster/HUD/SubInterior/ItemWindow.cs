@@ -1,61 +1,15 @@
 using Godot;
 using System;
 using Remaster.Items;
-using GameItem = Remaster.Items.Item;
+using rItem = Remaster.Items.Item;
 
 namespace Remaster.HUD
 {
     public class ItemWindow : Clickable
     {
-        [Export]
-        private ItemID _Item = ItemID.None;
+        const String ItemSpritePath = "Item";
 
-        public GameItem Item { get; private set; }
-
-        /// <summary>
-        /// Item texture
-        /// </summary>
-        [Export]
-        public Texture Texture
-        {
-            get => AnimatedItem?.Texture ?? _Texture;
-            set
-            {
-                AnimatedItem?.StopAnimation();
-                _Texture = value;
-                if (AnimatedItem != null)
-                {
-                    AnimatedItem.Texture = value;
-                    AnimatedItem.StartAnimation();
-                }
-            }
-        }
-        private Texture _Texture;
-
-        /// <summary>
-        /// Item animation frames
-        /// </summary>
-        [Export]
-        public Int32 Frames 
-        {
-            get => AnimatedItem?.Hframes ?? _Frames;
-            set
-            {
-                AnimatedItem?.StopAnimation();
-                _Frames = value;
-                if (AnimatedItem != null)
-                {
-                    AnimatedItem.Hframes = value;
-                    AnimatedItem.StartAnimation();
-                }
-            }
-        }
-        private Int32 _Frames = 1;
-
-        /// <summary>
-        /// Path to item sprite
-        /// </summary>
-        private NodePath ItemPath = new NodePath("Item");
+        public rItem Item { get; private set; }
 
         /// <summary>
         /// Item sprite reference
@@ -63,28 +17,47 @@ namespace Remaster.HUD
         private SpriteAnimator AnimatedItem;
 
         /// <summary>
-        /// Tween for animations
-        /// </summary>
-        private Tween Animator;
-
-        /// <summary>
-        /// Enter Tree
-        /// </summary>
-        protected override void OnEnterTree()
-        {
-            Animator = new Tween();
-            AddChild(Animator);
-        }
-
-        /// <summary>
         /// Ready
         /// </summary>
         protected override void OnReady()
         {
-            Item = GameItem.GetItem(_Item);
-            AnimatedItem = GetNode<SpriteAnimator>(ItemPath);
-            Frames = _Frames;
-            Texture = _Texture;
+            AnimatedItem = GetNode<SpriteAnimator>(ItemSpritePath);
         }
-    } 
+
+        public void ChangeItem(rItem item, Boolean AnimateIn = false, Boolean AnimateOut = false)
+        {
+
+            if (AnimateOut is true)
+            {
+                AnimatedItem.AnimationComplete += OnAnimateOutComplete;
+                AnimatedItem.AnimationData = Item.Animation("HudWindowOut");
+                Item = item; 
+                return;
+            }
+
+            Item = item;
+
+            if (AnimateIn is true)
+            {
+                AnimatedItem.AnimationComplete += OnAnimateInComplete;
+                AnimatedItem.AnimationData = Item.Animation("HudWindowIn");
+                return;
+            }
+
+            AnimatedItem.AnimationData = Item.Animation("HudWindowIdle");
+        }
+
+        private void OnAnimateOutComplete(object sender, EventArgs e)
+        {
+            AnimatedItem.AnimationComplete -= OnAnimateOutComplete;
+            AnimatedItem.AnimationComplete += OnAnimateInComplete;
+            AnimatedItem.AnimationData = Item.Animation("HudWindowIn");
+        }
+
+        private void OnAnimateInComplete(object sender, EventArgs e)
+        {
+            AnimatedItem.AnimationComplete -= OnAnimateInComplete;
+            AnimatedItem.AnimationData = Item.Animation("HudWindowIdle");
+        }
+    }
 }

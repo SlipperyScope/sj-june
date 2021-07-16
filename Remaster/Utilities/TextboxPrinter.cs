@@ -79,7 +79,7 @@ namespace Remaster.Utilities
         /// </summary>
         private void PrintNext()
         {
-            if ((Meal?.Count ?? 0) > 0)
+            if (Meal?.Count > 0)
             {
                 var snacc = Meal[0];
                 switch (snacc.Token)

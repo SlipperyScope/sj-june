@@ -9,7 +9,10 @@ namespace Remaster.Items
 {
     public class Seaweed : Item
     {
-        public const String HUDWINDOW = "HUDWINDOW";
+        public const String HudWindowIdle = "HudWindowIdle";
+        public const String HudWindowIn = "HudWindowIn";
+        public const String HudWindowOut = "HudWindowOut";
+
         public override ItemID ID => ItemID.Seaweed;
         public override string Name => "Seaweed";
 
@@ -19,11 +22,7 @@ namespace Remaster.Items
             _ => Default_Description
         };
 
-        public override ItemAnimationData Animation(String key) => key switch
-        {
-            HUDWINDOW => Animations[key],
-            _ => throw new KeyNotFoundException($"No animation specified for {key}")
-        };
+        public override ItemAnimationData Animation(String key) => Animations[key];
 
         #region Descriptions
         private ItemDescription SubConsole_Description => new ItemDescription
@@ -39,13 +38,39 @@ namespace Remaster.Items
         private Dictionary<String, ItemAnimationData> Animations = new Dictionary<String, ItemAnimationData>
         {
             {
-                HUDWINDOW, new ItemAnimationData
+                HudWindowIdle, new ItemAnimationData
                 {
-                    TexturePath = "res://Remaster/Assets/Items/Seaweed.png",
+                    TexturePath = "res://Remaster/Assets/Items/SeaweedItem_SubWindow_Idle.png",
                     SoundEffectPath = String.Empty,
                     AnimationRow = 0,
                     AnimationFrames = (0 , 7),
-                    Repeat = true
+                    Repeat = true,
+                    Time = 1f,
+                    GridSize = (1, 8)
+                }
+            },
+            {
+                HudWindowIn, new ItemAnimationData
+                {
+                    TexturePath = "res://Remaster/Assets/Items/SeaweedItem_SubWindow_InOut.png",
+                    SoundEffectPath = String.Empty,
+                    AnimationRow = 0,
+                    AnimationFrames = (0 , 4),
+                    Repeat = false,
+                    Time = 0.2f,
+                    GridSize = (1, 5)
+                }
+            },
+            {
+                HudWindowOut, new ItemAnimationData
+                {
+                    TexturePath = "res://Remaster/Assets/Items/SeaweedItem_SubWindow_InOut.png",
+                    SoundEffectPath = String.Empty,
+                    AnimationRow = 0,
+                    AnimationFrames = (4 , 0),
+                    Repeat = false,
+                    Time = 0.2f,
+                    GridSize = (1, 5)
                 }
             }
         };

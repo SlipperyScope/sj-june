@@ -34,7 +34,7 @@ namespace Remaster.Items
         {
             ItemID.Pipe => new Pipe(),
             ItemID.Seaweed => new Seaweed(),
-            _ => null
+            _ => new NoneItem()
         };
 
         protected ItemDescription Default_Description => new ItemDescription(new PrintBlock(Name));

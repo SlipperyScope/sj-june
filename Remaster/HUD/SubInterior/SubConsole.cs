@@ -13,7 +13,7 @@ namespace Remaster.HUD
 
         public void Register(Clickable clickable)
         {
-            //GD.Print($"{this}={Name} registering {clickable.Name}");
+            GD.Print($"{this}={Name} registering {clickable.Name}");
             clickable.MouseEvent += OnRegisteredMouseEvent;
             //switch (clickable)
             //{
@@ -28,6 +28,7 @@ namespace Remaster.HUD
 
         private void OnRegisteredMouseEvent(object sender, ClickableMouseEventArgs e)
         {
+            //GD.Print($"sender: {sender} state: {e.MouseState}");
             switch (sender)
             {
                 case ItemWindow window when e.MouseState == MouseEventType.Down:

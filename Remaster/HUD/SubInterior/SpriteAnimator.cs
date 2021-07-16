@@ -1,19 +1,40 @@
 using Godot;
+using Remaster.Items;
 using System;
 
 namespace Remaster.HUD
 {
     public class SpriteAnimator : Sprite
     {
+        public delegate void AnimationCompleteHandler(object sender, EventArgs e);
+        public event AnimationCompleteHandler AnimationComplete;
+
         /// <summary>
         /// Frame parameter name
         /// </summary>
         const String FRAME = "frame";
 
+        //[Export]
+        //public Boolean AutoStart { get; set; } = true;
+
         /// <summary>
         /// Animation tween reference
         /// </summary>
         private Tween Animator = new Tween();
+
+        /// <summary>
+        /// Data about the animation
+        /// </summary>
+        public ItemAnimationData AnimationData
+        {
+            get => _AnimationData;
+            set
+            {
+                _AnimationData = value;
+                ChangeAnimation();
+            }
+        }
+        private ItemAnimationData _AnimationData;
 
         /// <summary>
         /// Enter Tree
@@ -27,24 +48,18 @@ namespace Remaster.HUD
         /// <summary>
         /// Start Animation
         /// </summary>
-        public void StartAnimation()
-        {
-            Animator.Stop(this, FRAME);
+        public void StartAnimation() => ChangeAnimation();
 
-            if (Hframes == 1)
-            {
-                Frame = 0;
-                return;
-            }
-
-            Animator.InterpolateProperty(this, FRAME, 0, Hframes - 1, 1f);
-            Animator.Repeat = true;
-            Animator.Start();
-        }
-
+        /// <summary>
+        /// Called when animation is complete
+        /// </summary>
         private void OnAnimationComplete(object obj, NodePath property)
         {
-            StartAnimation();
+            AnimationComplete?.Invoke(this, new EventArgs());
+            if (Animator.Repeat is true)
+            {
+                ChangeAnimation();
+            }
         }
 
         /// <summary>
@@ -53,6 +68,22 @@ namespace Remaster.HUD
         public void StopAnimation()
         {
             Animator.Stop(this, FRAME);
+        }
+
+        /// <summary>
+        /// Changes an animation
+        /// </summary>
+        private void ChangeAnimation()
+        {
+            Texture = AnimationData.Texture;
+            Hframes = AnimationData.GridSize.Columns;
+            Vframes = AnimationData.GridSize.Rows;
+            FrameCoords = new Vector2(AnimationData.AnimationFrames.start, AnimationData.AnimationRow);
+            Animator.Stop(this, FRAME);
+            Animator.Repeat = AnimationData.Repeat;
+            Animator.InterpolateProperty(this, FRAME, AnimationData.AnimationFrames.start, AnimationData.AnimationFrames.end, AnimationData.Time);
+            Animator.Start();
+            GD.Print($"HF {Hframes}, VF {Vframes}, coord {FrameCoords}, start {AnimationData.AnimationFrames.start}, end {AnimationData.AnimationFrames.end}");
         }
     } 
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Godot;
 
-namespace Remaster
+namespace Remaster.Player
 {
     public class PlayerData
     {

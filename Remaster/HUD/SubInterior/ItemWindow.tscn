@@ -6,7 +6,7 @@
 [ext_resource path="res://Remaster/Assets/SubHUD/ItemWindow_under.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 11.3514, 9.03399 )
+extents = Vector2( 34.9538, 29.2301 )
 
 [node name="ItemWindow" type="Area2D"]
 script = ExtResource( 2 )

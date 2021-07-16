@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Remaster/Assets/SubHUD/Interior.png" type="Texture" id=1]
 [ext_resource path="res://Remaster/HUD/HUD_SubInterior.cs" type="Script" id=2]
@@ -6,13 +6,13 @@
 [ext_resource path="res://Remaster/HUD/InteriorCamera.cs" type="Script" id=4]
 [ext_resource path="res://Art/s1-submarine.png" type="Texture" id=5]
 [ext_resource path="res://Remaster/HUD/SubInterior/ItemWindow.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Remaster/Assets/Items/Pipe.png" type="Texture" id=7]
-[ext_resource path="res://Remaster/Assets/Items/Seaweed.png" type="Texture" id=8]
 [ext_resource path="res://Remaster/HUD/SubInterior/SubConsole.tscn" type="PackedScene" id=9]
 
 [node name="HUD_SubInterior" type="Node2D"]
 position = Vector2( 0, 1 )
 script = ExtResource( 2 )
+ItemButtonPaths = [ NodePath("ItemButtons/0"), NodePath("ItemButtons/1"), NodePath("ItemButtons/2"), NodePath("ItemButtons/3"), NodePath("ItemButtons/4"), NodePath("ItemButtons/5") ]
+ItemWindowPaths = [ NodePath("ItemWindows/0"), NodePath("ItemWindows/1"), NodePath("ItemWindows/2"), NodePath("ItemWindows/3"), NodePath("ItemWindows/4"), NodePath("ItemWindows/5") ]
 
 [node name="TEMP" type="Sprite" parent="."]
 texture = ExtResource( 5 )
@@ -30,7 +30,7 @@ position = Vector2( -112.253, 7.1272 )
 scale = Vector2( 0.991365, 1.01121 )
 
 [node name="0" parent="ItemButtons" instance=ExtResource( 3 )]
-position = Vector2( 508.143, 664.277 )
+position = Vector2( 508.143, 663.229 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="1" parent="ItemButtons" instance=ExtResource( 3 )]
@@ -40,59 +40,49 @@ scale = Vector2( 0.5, 0.5 )
 [node name="2" parent="ItemButtons" instance=ExtResource( 3 )]
 position = Vector2( 668.069, 710.343 )
 scale = Vector2( 0.5, 0.5 )
-_Enabled = false
 
 [node name="3" parent="ItemButtons" instance=ExtResource( 3 )]
 position = Vector2( 741.815, 749.325 )
 scale = Vector2( 0.5, 0.5 )
-_Enabled = false
 
 [node name="4" parent="ItemButtons" instance=ExtResource( 3 )]
 position = Vector2( 805.233, 802.232 )
 scale = Vector2( 0.5, 0.5 )
-_Enabled = false
 
 [node name="5" parent="ItemButtons" instance=ExtResource( 3 )]
 position = Vector2( 860.099, 867.236 )
 scale = Vector2( 0.5, 0.5 )
-_Enabled = false
 
 [node name="ToolButtons" type="Node2D" parent="."]
 
 [node name="0" parent="ToolButtons" instance=ExtResource( 3 )]
 position = Vector2( -392.862, 685.592 )
 scale = Vector2( 0.495683, 0.505604 )
-Type = 2
 _Enabled = false
 
 [node name="1" parent="ToolButtons" instance=ExtResource( 3 )]
 position = Vector2( -464.781, 700.575 )
 scale = Vector2( 0.495683, 0.505604 )
-Type = 2
 _Enabled = false
 
 [node name="2" parent="ToolButtons" instance=ExtResource( 3 )]
 position = Vector2( -537.95, 728.28 )
 scale = Vector2( 0.495683, 0.505604 )
-Type = 2
 _Enabled = false
 
 [node name="3" parent="ToolButtons" instance=ExtResource( 3 )]
 position = Vector2( -607.374, 760.741 )
 scale = Vector2( 0.495683, 0.505604 )
-Type = 2
 _Enabled = false
 
 [node name="4" parent="ToolButtons" instance=ExtResource( 3 )]
 position = Vector2( -665.805, 811.693 )
 scale = Vector2( 0.495683, 0.505604 )
-Type = 2
 _Enabled = false
 
 [node name="5" parent="ToolButtons" instance=ExtResource( 3 )]
 position = Vector2( -717.995, 872.131 )
 scale = Vector2( 0.495683, 0.505604 )
-Type = 2
 _Enabled = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -105,24 +95,45 @@ ConsoleCameraPosition = Vector2( 0, 450 )
 WindowCameraRange = Rect2( 225, 200, 130, 100 )
 ConsoleCameraRange = Rect2( 200, 10, 200, 10 )
 
-[node name="ItemWindow" parent="." instance=ExtResource( 6 )]
-position = Vector2( 419.205, 587.041 )
-scale = Vector2( 3, 3 )
-Listeners = [ NodePath("../Console") ]
-Texture = ExtResource( 7 )
-_Item = 1
-
-[node name="ItemWindow2" parent="." instance=ExtResource( 6 )]
-position = Vector2( 511.19, 601.518 )
-rotation = 0.107119
-scale = Vector2( 3, 3 )
-Listeners = [ NodePath("../Console") ]
-Texture = ExtResource( 8 )
-Frames = 8
-_Item = 2
-
 [node name="Console" parent="." instance=ExtResource( 9 )]
 position = Vector2( 4.2923, 419.111 )
 Description = "Computer console:
 Latest and greatest"
 Listeners = [ NodePath(".") ]
+
+[node name="ItemWindows" type="Node" parent="."]
+
+[node name="0" parent="ItemWindows" instance=ExtResource( 6 )]
+position = Vector2( 419.205, 588.041 )
+Description = "0th Window"
+Listeners = [ NodePath("../../Console") ]
+
+[node name="1" parent="ItemWindows" instance=ExtResource( 6 )]
+position = Vector2( 511.19, 602.518 )
+rotation = 0.107119
+Description = "1th Window"
+Listeners = [ NodePath("../../Console") ]
+
+[node name="2" parent="ItemWindows" instance=ExtResource( 6 )]
+position = Vector2( 599.654, 639.436 )
+rotation = 0.325214
+Description = "2th Window"
+Listeners = [ NodePath("../../Console") ]
+
+[node name="3" parent="ItemWindows" instance=ExtResource( 6 )]
+position = Vector2( 687.853, 692 )
+rotation = 0.524947
+Description = "3th Window"
+Listeners = [ NodePath("../../Console") ]
+
+[node name="4" parent="ItemWindows" instance=ExtResource( 6 )]
+position = Vector2( 761.352, 754.362 )
+rotation = 0.699415
+Description = "4rd Window"
+Listeners = [ NodePath("../../Console") ]
+
+[node name="5" parent="ItemWindows" instance=ExtResource( 6 )]
+position = Vector2( 824.606, 830.534 )
+rotation = 0.847528
+Description = "5st Window"
+Listeners = [ NodePath("../../Console") ]

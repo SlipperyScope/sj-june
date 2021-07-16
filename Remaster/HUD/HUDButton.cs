@@ -14,18 +14,15 @@ namespace Remaster.HUD
     {
         const String ButtonSpritePath = "./ButtonSprite";
 
-        [Export]
-        public HUDButtonType Type { get; private set; } = HUDButtonType.Item;
-
         public delegate void OnButtonPressEventHandler(object sender, ButtonEventArgs e);
         public event OnButtonPressEventHandler ButtonPress;
 
         /// <summary>
         /// Path to animation node
         /// </summary>
-        [Export]
-        public NodePath AnimatorPath { get; private set; }
-        protected AnimationPlayer Animator;
+        //[Export]
+        //public NodePath AnimatorPath { get; private set; }
+        //protected AnimationPlayer Animator;
 
         protected Sprite ButtonSprite;
 
@@ -35,7 +32,7 @@ namespace Remaster.HUD
         private void GetNodes()
         {
             ButtonSprite = GetNode<Sprite>(ButtonSpritePath);
-            Animator = GetNode<AnimationPlayer>(AnimatorPath);
+            //Animator = GetNode<AnimationPlayer>(AnimatorPath);
         }
 
         /// <summary>
@@ -49,11 +46,6 @@ namespace Remaster.HUD
 
     public class ButtonEventArgs
     {
-        public HUDButtonType Type { get; private set; }
-
-        public ButtonEventArgs(HUDButtonType type = HUDButtonType.None)
-        {
-            Type = type;
-        }
+        
     }
 }

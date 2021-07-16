@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Godot;
+using rPlayerData = Remaster.Player.PlayerData;
 
 namespace Remaster
 {
@@ -22,18 +23,28 @@ namespace Remaster
         }
         private static Globals _Global = null;
 
-        public static PlayerData PlayerData
-        {
-            get
-            {
-                if (Global._PlayerData is null)
-                {
-                    Global._PlayerData = Global.GetNodeOrNull<PlayerData>("/root/PlayerData");
-                }
+        private Dictionary<String, rPlayerData> _PlayerData = new Dictionary<string, rPlayerData>();
 
-                return Global._PlayerData;
+        public rPlayerData GetPlayerData(String key) => _PlayerData.ContainsKey(key) ? _PlayerData[key] : null;
+        public Boolean AddPlayerData(String key, rPlayerData data)
+        {
+            if (data is null) return false;
+
+            var unique = _PlayerData.ContainsKey(key) is false;
+            if (unique is true)
+            {
+                _PlayerData.Add(key, data);
             }
+            return unique;
         }
-        private PlayerData _PlayerData;
+        public rPlayerData RemovePlayerData(String key)
+        {
+            var data = _PlayerData.ContainsKey(key) ? _PlayerData[key] : null;
+            if (data != null)
+            {
+                _PlayerData.Remove(key);
+            }
+            return data;
+        }
     }
 }

@@ -69,6 +69,7 @@ namespace Remaster
         /// </summary>
         public sealed override void _Ready()
         {
+            //GD.Print($"Listeners: {Listeners}");
             //Listeners?.ForEach(path => GD.Print($"{this}={Name} {GetNodeOrNull<IRegisterClickables>(path)}"));
 
             Listeners?.ForEach(path => GetNodeOrNull<IRegisterClickables>(path)?.Register(this));
@@ -132,7 +133,7 @@ namespace Remaster
                 _ClickState = MouseButtonState.Down;
                 OnMouseDown();
                 MouseEvent?.Invoke(this, new ClickableMouseEventArgs(MouseEventType.Down, "Down"));
-                GD.Print($"{DebugCounter++} Clicka clicka boom boom");
+                //GD.Print($"{DebugCounter++} Clicka clicka boom boom");
             }
 
             if (e.IsActionReleased("click") && ClickState != MouseButtonState.Up)

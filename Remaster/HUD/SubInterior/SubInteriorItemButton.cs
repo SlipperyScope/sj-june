@@ -5,7 +5,14 @@ namespace Remaster.HUD
 {
     public class SubInteriorItemButton : HUDButton
     {
-        const String FRAME_PROPERTY = "frame";
+        const String Frame = "frame";
+        const Single LightTime = 0.1f;
+        const Single RingLightTime = 0.6f;
+        const Single DomeTime = 0.3f;
+
+        const String RingLightPath = "LightRing";
+        const String DomePath = "Bulb";
+        const String LightPath = "Light";
 
         /// <summary>
         /// Whether the button is enabled, functionally and visibly
@@ -19,18 +26,14 @@ namespace Remaster.HUD
                 {
                     _Enabled = value;
                     //Animator?.Play(value is true ? "Rollout" : "Disable");
-                    Animate(Light, 0.1f, value);
-                    Animate(RingLight, 0.25f, true);
+                    Animate(Light, LightTime, value);
+                    Animate(RingLight, RingLightTime, true);
                 }
             }
         }
 
         [Export]
         private Boolean _Enabled = true;
-
-        private String RingLightPath = "LightRing";
-        private String DomePath = "Bulb";
-        private String LightPath = "Light";
 
         private Sprite RingLight;
         private Sprite Dome;
@@ -49,41 +52,22 @@ namespace Remaster.HUD
 
             AddChild(Tweener = new Tween());
 
-            //MouseEvent += OnMouseEvent;
-
             Light.Frame = Enabled is true ? 0 : 4;
             Dome.Frame = 0;
             RingLight.Frame = 0;
         }
 
-        ///// <summary>
-        ///// Plays appropriate animation on a mouse event
-        ///// </summary>
-        //private void OnMouseEvent(object sender, ClickableMouseEventArgs e)
-        //{
-        //    if (Enabled is true)
-        //    {
-        //        if (e.MouseState == MouseEventType.Over)
-        //        {
-        //            Animate(RingLight, 0.25f);
-        //        }
-        //        else if (e.MouseState == MouseEventType.Out)
-        //        {
-        //            Animate(RingLight, 0.25f, true);
-        //            Animate(Dome, 0.25f, true);
-        //        }
-        //    }
+        /// <summary>
+        /// Mouse click
+        /// </summary>
+        protected override void OnMouseDown() => Animate(Dome, DomeTime);
 
-        //    if (Enabled is true && e.MouseState == MouseEventType.Up)
-        //    {
-        //        PressButton();
-        //    }
-        //}
-
-        protected override void OnMouseDown() => Animate(Dome, 0.25f);
+        /// <summary>
+        /// Mouse unclick
+        /// </summary>
         protected override void OnMouseUp()
         {
-            Animate(Dome, 0.25f, true);
+            Animate(Dome, DomeTime, true);
 
             if (Enabled is true)
             {
@@ -91,23 +75,26 @@ namespace Remaster.HUD
             }
         }
 
-        private Int32 Debug = 0;
-
+        /// <summary>
+        /// Mouse over
+        /// </summary>
         protected override void OnMouseOver()
         {
             if (Enabled is true)
             {
-                Animate(RingLight, 0.25f);
+                Animate(RingLight, RingLightTime);
             }
         }
 
+        /// <summary>
+        /// Mouse out
+        /// </summary>
         protected override void OnMouseOut()
         {
             if (Enabled is true)
             {
-                GD.Print($"{Debug++} out");
-                Animate(RingLight, 0.25f, true);
-                Animate(Dome, 0.25f, true);
+                Animate(RingLight, RingLightTime, true);
+                Animate(Dome, DomeTime, true);
             }
         }
 
@@ -125,13 +112,13 @@ namespace Remaster.HUD
             var start = sprite.Frame;
             var end = reverse is true ? 0 : (total - 1);
 
-            Tweener.Remove(sprite, FRAME_PROPERTY);
+            Tweener.Remove(sprite, Frame);
             if (start == end) return;
             
             var frames = Math.Abs(end - start);
             var time = duration * frames / total;
             
-            Tweener.InterpolateProperty(sprite, FRAME_PROPERTY, start, end, time);
+            Tweener.InterpolateProperty(sprite, Frame, start, end, time);
             Tweener.Start();
         }
     }
