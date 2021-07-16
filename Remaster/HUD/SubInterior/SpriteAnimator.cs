@@ -83,7 +83,7 @@ namespace Remaster.HUD
             Animator.Repeat = AnimationData.Repeat;
             Animator.InterpolateProperty(this, FRAME, AnimationData.AnimationFrames.start, AnimationData.AnimationFrames.end, AnimationData.Time);
             Animator.Start();
-            GD.Print($"HF {Hframes}, VF {Vframes}, coord {FrameCoords}, start {AnimationData.AnimationFrames.start}, end {AnimationData.AnimationFrames.end}");
+            //GD.Print($"HF {Hframes}, VF {Vframes}, coord {FrameCoords}, start {AnimationData.AnimationFrames.start}, end {AnimationData.AnimationFrames.end}");
         }
     } 
 }

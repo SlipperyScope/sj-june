@@ -19,6 +19,8 @@ namespace Remaster.Utilities
         Text,
         Pause,
         Image,
-        Clear
+        Clear,
+        Method,
+        Speed
     }
 }

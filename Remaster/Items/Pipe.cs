@@ -38,14 +38,20 @@ namespace Remaster.Items
             "A pipe:\n",
             (PrintToken.Pause, "1"),
             "Good for beating off",
+            (PrintToken.Speed, "0.2"),
+            "... ",
+            (PrintToken.Pause, "1"),
+            (PrintToken.Speed, "0.05"),
+            "barnicles.",
+            (PrintToken.Pause, "1"),
+            (PrintToken.Speed, "0.02"),
+            "\nHAHAHAHAHAHAHA ",
             (PrintToken.Pause, "0.5"),
-            ".",
-            (PrintToken.Pause, "0.5"),
-            ".",
-            (PrintToken.Pause, "0.5"),
-            ".",
-            (PrintToken.Pause, "1.5"),
-            "barnicles."
+            (PrintToken.Method, nameof(PrintMethod.Word)),
+            (PrintToken.Speed, "0.5"),
+            "GET IT LOL",
+            (PrintToken.Speed, "0.05"),
+            (PrintToken.Method, nameof(PrintMethod.Character))
         );
         #endregion
     }

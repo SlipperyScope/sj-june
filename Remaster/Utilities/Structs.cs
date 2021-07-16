@@ -22,6 +22,8 @@ namespace Remaster.Utilities
         /// <br />Pause: Length of pause
         /// <br />Image: Path to texture resource
         /// <br />Clear: N/A
+        /// <br />Method: Print method ("all", "section", "word", "character")
+        /// <br />Speed: Speed of printing
         /// </para></param>
         /// <param name="token">Block type</param>
         public PrintBlock(String text, PrintToken token = PrintToken.Text)
@@ -30,11 +32,29 @@ namespace Remaster.Utilities
             Text = text;
         }
 
+        /// <summary>
+        /// Creates a block of printable data
+        /// </summary>
+        /// <param name="token">Block type</param>
+        /// <param name="text">
+        /// <para>Text: String of text
+        /// <br />Pause: Length of pause
+        /// <br />Image: Path to texture resource
+        /// <br />Clear: N/A
+        /// <br />Method: Print method ("all", "section", "word", "character")
+        /// <br />Speed: Speed of printing
+        /// </para></param>
         public PrintBlock(PrintToken token, String text = "")
         {
             Token = token;
             Text = text;
         }
+
+        //TODO: Infer data from token
+        //public PrintBlock(PrintToken token, object data)
+        //{
+               
+        //}
 
         public static implicit operator PrintBlock(String s) => new PrintBlock(s);
         public static implicit operator PrintBlock((String Text, PrintToken Token) block) => new PrintBlock(block.Text, block.Token);

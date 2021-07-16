@@ -57,7 +57,7 @@ Index = 4
 Groups = [ "HUD_Clickable", "HUD_ItemButtons" ]
 
 [node name="5" parent="ItemButtons" instance=ExtResource( 3 )]
-position = Vector2( 860.099, 867.236 )
+position = Vector2( 861.108, 867.236 )
 scale = Vector2( 0.5, 0.5 )
 Index = 5
 Description = "Button 6:

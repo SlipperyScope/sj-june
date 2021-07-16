@@ -31,9 +31,19 @@ namespace Remaster.Utilities
         /// Length of pause after a print unit is printed
         /// </summary>
         [Export]
-        public Single PrintSpeed { get; set; }
-
-        private Single PrintSpeedOffset = 0;
+        public Single PrintSpeed
+        {
+            get => _PrintSpeed;
+            set
+            {
+                _PrintSpeed = value;
+                if (PrintTimer != null)
+                {
+                    PrintTimer.WaitTime = value;
+                }
+            }
+        }
+        private Single _PrintSpeed;
 
         private Timer PrintTimer;
         private Timer PauseTimer;
@@ -94,19 +104,19 @@ namespace Remaster.Utilities
                 switch (snacc.Token)
                 {
                     case PrintToken.Text when snacc.Text.Length == 0:
-                        Meal.RemoveAt(0);
+                        Consume();
                         PrintNext();
                         break;
 
                     case PrintToken.Text when Method == PrintMethod.All:
                         Text += snacc.Text;
-                        Meal.RemoveAt(0);
+                        Consume();
                         PrintNext();
                         break;
 
                     case PrintToken.Text when Method == PrintMethod.Section:
                         Text += snacc.Text;
-                        Meal.RemoveAt(0);
+                        Consume();
                         PrintTimer.Start();
                         break;
 
@@ -115,7 +125,7 @@ namespace Remaster.Utilities
                         if (separator == -1) // No more seperators
                         {
                             Text += snacc.Text;
-                            Meal.RemoveAt(0);
+                            Consume();
                             PrintTimer.Start();
                         }
                         else if (separator == 0) // First item is seperator
@@ -143,28 +153,41 @@ namespace Remaster.Utilities
 
                     case PrintToken.Pause when Method != PrintMethod.All:
                         PauseTimer.WaitTime = snacc.Text.ToFloat();
-                        Meal.RemoveAt(0);
+                        Consume();
                         PauseTimer.Start();
                         break;
 
                     case PrintToken.Pause:
-                        Meal.RemoveAt(0);
+                        Consume();
                         PrintNext();
                         break;
 
                     case PrintToken.Image when Method != PrintMethod.All:
-                            PrintTimer.Start();
+                        PrintTimer.Start();
+                        Consume();
                         break;
 
                     case PrintToken.Image:
-                            Meal.RemoveAt(0);
-                            PrintNext();
+                        Consume();
+                        PrintNext();
                         break;
 
                     case PrintToken.Clear:
                         // Clear image?
                         Text = "\n";
-                        Meal.RemoveAt(0);
+                        Consume();
+                        PrintNext();
+                        break;
+
+                    case PrintToken.Speed:
+                        PrintSpeed = Single.Parse(snacc.Text);
+                        Consume();
+                        PrintNext();
+                        break;
+
+                    case PrintToken.Method:
+                        Method = (PrintMethod)Enum.Parse(typeof(PrintMethod), snacc.Text);
+                        Consume();
                         PrintNext();
                         break;
 
@@ -173,5 +196,7 @@ namespace Remaster.Utilities
                 }
             }
         }
+
+        private void Consume() => Meal.RemoveAt(0);
     }
 }
