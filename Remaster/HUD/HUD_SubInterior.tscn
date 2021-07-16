@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Remaster/Assets/SubHUD/Interior.png" type="Texture" id=1]
 [ext_resource path="res://Remaster/HUD/HUD_SubInterior.cs" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Remaster/HUD/InteriorCamera.cs" type="Script" id=4]
 [ext_resource path="res://Art/s1-submarine.png" type="Texture" id=5]
 [ext_resource path="res://Remaster/HUD/SubInterior/ItemWindow.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Remaster/HUD/SubInterior/Arms.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Remaster/HUD/SubInterior/SubConsole.tscn" type="PackedScene" id=9]
 
 [node name="HUD_SubInterior" type="Node2D"]
@@ -18,10 +19,15 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="Arms" parent="." instance=ExtResource( 7 )]
+
 [node name="Interior" type="Sprite" parent="."]
 position = Vector2( 17.9795, 129.435 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ItemButtons" type="Node2D" parent="."]
 position = Vector2( -112.253, 7.1272 )
@@ -171,3 +177,11 @@ Index = 5
 Description = "5st Window"
 Groups = [ "HUD_Clickable", "HUD_ItemWindows" ]
 Listeners = [ NodePath("../../Console") ]
+
+[node name="LeftArmButton" parent="." instance=ExtResource( 3 )]
+position = Vector2( -218.738, 680.828 )
+Groups = [ "Sub_ArmButtons", "HUD_Clickable" ]
+
+[node name="RightArmButton" parent="." instance=ExtResource( 3 )]
+position = Vector2( 284.468, 669.716 )
+Groups = [ "Sub_ArmButtons", "HUD_Clickable" ]

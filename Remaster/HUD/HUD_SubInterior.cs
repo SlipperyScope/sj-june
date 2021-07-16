@@ -41,6 +41,7 @@ namespace Remaster.HUD
         private List<Clickable> Clickables;
 
         private SubConsole Console;
+        private SubInteriorArms Arms;
 
         /// <summary>
         /// Ready
@@ -64,6 +65,25 @@ namespace Remaster.HUD
 
             // Tool Buttons
             // Tool Windows
+
+            // Arm Buttons
+            Arms = GetNode<SubInteriorArms>("Arms");
+            Clickables.Where(clickable => clickable.IsInGroup("Sub_ArmButtons")).Cast<SubInteriorItemButton>().ToList().ForEach(button => button.ButtonPress += OnArmButtonPressed);
+        }
+
+        private void OnArmButtonPressed(System.Object sender, ButtonEventArgs e)
+        {
+            GD.Print($"armbutton: {sender}{(sender as Node).Name}");
+
+            var button = sender as SubInteriorItemButton;
+            if (button.Name == "LeftArmButton")
+            {
+                Arms.QueueAction(ArmAction.LeftExtend, ArmAction.LeftPark);
+            }
+            else if (button.Name == "RightArmButton")
+            {
+                Arms.QueueAction(ArmAction.RightExtend, ArmAction.RightPark);
+            }
         }
 
         private void OnClickableMouseEvent(object sender, ClickableMouseEventArgs e)
