@@ -11,8 +11,6 @@
 [node name="HUD_SubInterior" type="Node2D"]
 position = Vector2( 0, 1 )
 script = ExtResource( 2 )
-ItemButtonPaths = [ NodePath("ItemButtons/0"), NodePath("ItemButtons/1"), NodePath("ItemButtons/2"), NodePath("ItemButtons/3"), NodePath("ItemButtons/4"), NodePath("ItemButtons/5") ]
-ItemWindowPaths = [ NodePath("ItemWindows/0"), NodePath("ItemWindows/1"), NodePath("ItemWindows/2"), NodePath("ItemWindows/3"), NodePath("ItemWindows/4"), NodePath("ItemWindows/5") ]
 
 [node name="TEMP" type="Sprite" parent="."]
 texture = ExtResource( 5 )
@@ -32,57 +30,81 @@ scale = Vector2( 0.991365, 1.01121 )
 [node name="0" parent="ItemButtons" instance=ExtResource( 3 )]
 position = Vector2( 508.143, 663.229 )
 scale = Vector2( 0.5, 0.5 )
+Groups = [ "HUD_Clickable", "HUD_ItemButtons" ]
 
 [node name="1" parent="ItemButtons" instance=ExtResource( 3 )]
 position = Vector2( 593.687, 683.28 )
 scale = Vector2( 0.5, 0.5 )
+Index = 1
+Groups = [ "HUD_Clickable", "HUD_ItemButtons" ]
 
 [node name="2" parent="ItemButtons" instance=ExtResource( 3 )]
 position = Vector2( 668.069, 710.343 )
 scale = Vector2( 0.5, 0.5 )
+Index = 2
+Groups = [ "HUD_Clickable", "HUD_ItemButtons" ]
 
 [node name="3" parent="ItemButtons" instance=ExtResource( 3 )]
 position = Vector2( 741.815, 749.325 )
 scale = Vector2( 0.5, 0.5 )
+Index = 3
+Groups = [ "HUD_Clickable", "HUD_ItemButtons" ]
 
 [node name="4" parent="ItemButtons" instance=ExtResource( 3 )]
 position = Vector2( 805.233, 802.232 )
 scale = Vector2( 0.5, 0.5 )
+Index = 4
+Groups = [ "HUD_Clickable", "HUD_ItemButtons" ]
 
 [node name="5" parent="ItemButtons" instance=ExtResource( 3 )]
 position = Vector2( 860.099, 867.236 )
 scale = Vector2( 0.5, 0.5 )
+Index = 5
+Description = "Button 6:
+Believes it's button 3."
+Groups = [ "HUD_Clickable", "HUD_ItemButtons" ]
 
 [node name="ToolButtons" type="Node2D" parent="."]
 
 [node name="0" parent="ToolButtons" instance=ExtResource( 3 )]
 position = Vector2( -392.862, 685.592 )
 scale = Vector2( 0.495683, 0.505604 )
+Groups = [ "HUD_Clickable", "HUD_ToolButtons" ]
 _Enabled = false
 
 [node name="1" parent="ToolButtons" instance=ExtResource( 3 )]
 position = Vector2( -464.781, 700.575 )
 scale = Vector2( 0.495683, 0.505604 )
+Index = 1
+Groups = [ "HUD_Clickable", "HUD_ToolButtons" ]
 _Enabled = false
 
 [node name="2" parent="ToolButtons" instance=ExtResource( 3 )]
 position = Vector2( -537.95, 728.28 )
 scale = Vector2( 0.495683, 0.505604 )
+Index = 2
+Groups = [ "HUD_Clickable", "HUD_ToolButtons" ]
 _Enabled = false
 
 [node name="3" parent="ToolButtons" instance=ExtResource( 3 )]
 position = Vector2( -607.374, 760.741 )
 scale = Vector2( 0.495683, 0.505604 )
+Index = 3
+Groups = [ "HUD_Clickable", "HUD_ToolButtons" ]
 _Enabled = false
 
 [node name="4" parent="ToolButtons" instance=ExtResource( 3 )]
 position = Vector2( -665.805, 811.693 )
 scale = Vector2( 0.495683, 0.505604 )
+Index = 4
+Groups = [ "HUD_Clickable", "HUD_ToolButtons" ]
 _Enabled = false
 
 [node name="5" parent="ToolButtons" instance=ExtResource( 3 )]
 position = Vector2( -717.995, 872.131 )
 scale = Vector2( 0.495683, 0.505604 )
+Index = 5
+Groups = [ "HUD_Clickable", "HUD_ToolButtons" ]
 _Enabled = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -99,6 +121,7 @@ ConsoleCameraRange = Rect2( 200, 10, 200, 10 )
 position = Vector2( 4.2923, 419.111 )
 Description = "Computer console:
 Latest and greatest"
+Groups = [ "HUD_Clickable" ]
 Listeners = [ NodePath(".") ]
 
 [node name="ItemWindows" type="Node" parent="."]
@@ -106,34 +129,45 @@ Listeners = [ NodePath(".") ]
 [node name="0" parent="ItemWindows" instance=ExtResource( 6 )]
 position = Vector2( 419.205, 588.041 )
 Description = "0th Window"
+Groups = [ "HUD_Clickable", "HUD_ItemWindows" ]
 Listeners = [ NodePath("../../Console") ]
 
 [node name="1" parent="ItemWindows" instance=ExtResource( 6 )]
-position = Vector2( 511.19, 602.518 )
+position = Vector2( 511.19, 601.518 )
 rotation = 0.107119
+Index = 1
 Description = "1th Window"
+Groups = [ "HUD_Clickable", "HUD_ItemWindows" ]
 Listeners = [ NodePath("../../Console") ]
 
 [node name="2" parent="ItemWindows" instance=ExtResource( 6 )]
-position = Vector2( 599.654, 639.436 )
+position = Vector2( 598.71, 639.436 )
 rotation = 0.325214
+Index = 2
 Description = "2th Window"
+Groups = [ "HUD_Clickable", "HUD_ItemWindows" ]
 Listeners = [ NodePath("../../Console") ]
 
 [node name="3" parent="ItemWindows" instance=ExtResource( 6 )]
 position = Vector2( 687.853, 692 )
 rotation = 0.524947
+Index = 3
 Description = "3th Window"
+Groups = [ "HUD_Clickable", "HUD_ItemWindows" ]
 Listeners = [ NodePath("../../Console") ]
 
 [node name="4" parent="ItemWindows" instance=ExtResource( 6 )]
-position = Vector2( 761.352, 754.362 )
+position = Vector2( 760.352, 754.362 )
 rotation = 0.699415
+Index = 4
 Description = "4rd Window"
+Groups = [ "HUD_Clickable", "HUD_ItemWindows" ]
 Listeners = [ NodePath("../../Console") ]
 
 [node name="5" parent="ItemWindows" instance=ExtResource( 6 )]
 position = Vector2( 824.606, 830.534 )
 rotation = 0.847528
+Index = 5
 Description = "5st Window"
+Groups = [ "HUD_Clickable", "HUD_ItemWindows" ]
 Listeners = [ NodePath("../../Console") ]

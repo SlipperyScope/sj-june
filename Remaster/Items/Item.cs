@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Remaster.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace Remaster.Items
     /// <summary>
     /// Base class for items
     /// </summary>
-    public abstract class Item
+    public abstract class Item : IPrintable
     {
         /// <summary>
         /// Items ID
@@ -37,6 +38,8 @@ namespace Remaster.Items
             _ => new NoneItem()
         };
 
-        protected ItemDescription Default_Description => new ItemDescription(new PrintBlock(Name));
+        protected ItemDescription Default_Description => new ItemDescription(Name);
+
+        public List<PrintBlock> PrintBlocks => Description(String.Empty).Blocks;
     }
 }

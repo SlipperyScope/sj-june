@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Remaster.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ namespace Remaster.Items
 
         public override ItemDescription Description(String querier) => querier switch
         {
-            _ => new ItemDescription(new PrintBlock("There is no item."))
+            _ => new ItemDescription("There is no item.")
         };
 
         #region Animations

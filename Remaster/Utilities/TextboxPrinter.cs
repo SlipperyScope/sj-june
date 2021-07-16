@@ -58,21 +58,30 @@ namespace Remaster.Utilities
         }
 
         /// <summary>
-        /// Start printing
+        /// Start printing printblocks
         /// </summary>
         public void GoBrrr(List<PrintBlock> blocks)
         {
-            Meal = blocks.Select(b => b).ToList();
-            Text += '\n';
-            PrintTimer.Stop();
-            PauseTimer.Stop();
-            PrintNext();
+            if (blocks?.Count > 0)
+            {
+                Meal = blocks.Select(b => b).ToList();
+                Text += '\n';
+                PrintTimer.Stop();
+                PauseTimer.Stop();
+                PrintNext();
+            }
         }
 
         /// <summary>
-        /// Start printing
+        /// Start printing printblocks
         /// </summary>
         public void GoBrrr(PrintBlock block, params PrintBlock[] args) => GoBrrr(args.Prepend(block).ToList());
+
+        /// <summary>
+        /// Start printing printable
+        /// </summary>
+        /// <param name="printable">Printable to print</param>
+        public void GoBrrr(IPrintable printable) => GoBrrr(printable.PrintBlocks);
 
         /// <summary>
         /// Prints the next thing, taking into account method and type

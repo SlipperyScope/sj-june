@@ -1,4 +1,6 @@
 using Godot;
+using Remaster.Items;
+using Remaster.Utilities;
 using System;
 using System.Collections.Generic;
 
@@ -7,11 +9,21 @@ namespace Remaster
     /// <summary>
     /// Base class for clickable areas
     /// </summary>
-    public class Clickable : Area2D
+    public class Clickable : Area2D, IPrintable
     {
         public delegate void ClickableMouseEventHandler(object sender, ClickableMouseEventArgs e);
         public event ClickableMouseEventHandler MouseEvent;
 
+        /// <summary>
+        /// Names of groups to be added to
+        /// </summary>
+        [Export]
+        private List<String> Groups;
+
+        [Export]
+        public Int32 Index { get; private set; }
+
+        //TODO: Remove this? 
         /// <summary>
         /// Nodes to register with
         /// </summary>
@@ -46,6 +58,11 @@ namespace Remaster
                 InputPickable = value;
             }
         }
+
+        #region IPrintable
+        public virtual List<PrintBlock> PrintBlocks => Description.Length > 0 ? new List<PrintBlock> { Description } : null;
+        #endregion
+
         protected Boolean _Active = true;
 
         /// <summary>
@@ -53,6 +70,11 @@ namespace Remaster
         /// </summary>
         public sealed override void _EnterTree()
         {
+            if (Groups?.Count > 0)
+            {
+                Groups.ForEach(name => AddToGroup(name));
+            }
+
             InputPickable = _Active;
             Monitorable = false;
             Monitoring = false;

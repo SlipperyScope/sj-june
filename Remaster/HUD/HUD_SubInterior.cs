@@ -6,73 +6,85 @@ using System.Threading.Tasks;
 using Godot;
 using Remaster.Items;
 using Remaster.Player;
+using rItem = Remaster.Items.Item;
 
 namespace Remaster.HUD
 {
-    public class HUD_SubInterior : HUDBase, IRegisterClickables
+    public class HUD_SubInterior : HUDBase
     {
         [Export]
         private String DataKey = "Submarine Data";
 
-        private SubmarineData Data
+        /// <summary>
+        /// Player data
+        /// </summary>
+        private SubmarineData PlayerData
         {
             get
             {
-                var data = Globals.Global.GetPlayerData(DataKey);
+                var data = Globals.GetPlayerData(DataKey);
                 if (data is null)
                 {
-                    Globals.Global.AddPlayerData(DataKey, new SubmarineData());
-                    data = Globals.Global.GetPlayerData(DataKey);
+                    Globals.AddPlayerData(DataKey, new SubmarineData());
+                    data = Globals.GetPlayerData(DataKey);
                 }
                 return data as SubmarineData;
             }
         }
 
-        [Export]
-        private List<NodePath> ItemButtonPaths = new List<NodePath>();
-        [Export]
-        private List<NodePath> ItemWindowPaths = new List<NodePath>();
-
         private List<SubInteriorItemButton> ItemButtons = new List<SubInteriorItemButton>();
         private List<ItemWindow> ItemWindows = new List<ItemWindow>();
+
+        private List<SubInteriorItemButton> ToolButtons = new List<SubInteriorItemButton>();
+        private List<ItemWindow> ToolWindows = new List<ItemWindow>();
+
+        private List<Clickable> Clickables;
+
+        private SubConsole Console;
 
         /// <summary>
         /// Ready
         /// </summary>
         public override void _Ready()
         {
-            ItemButtonPaths.ForEach(p => ItemButtons.Add(GetNode<SubInteriorItemButton>(p)));
-            ItemWindowPaths.ForEach(p => ItemWindows.Add(GetNode<ItemWindow>(p)));
+            Clickables = GetTree().GetNodesInGroup("HUD_Clickable").Cast<Clickable>().ToList();
+            Clickables.ForEach(c => c.MouseEvent += OnClickableMouseEvent);
 
-            ItemButtons.ForEach(b => b.ButtonPress += OnItemButtonPressed); 
+            // Console
+            Console = Clickables.First(c => c is SubConsole) as SubConsole;
+            
+            // Item Buttons
+            Clickables.Where(clickable => clickable.IsInGroup("HUD_ItemButtons")).Cast<SubInteriorItemButton>().ToList().ForEach(button => button.ButtonPress += OnItemButtonPressed);
 
-            for (var i = 0; i < Data.Items.Count; i++)
+            // Item Windows
+            foreach (var window in Clickables.Where(clickable => clickable.IsInGroup("HUD_ItemWindows")).Cast<ItemWindow>())
             {
-                ItemWindows[i].ChangeItem(Data.Items[i]);
-                //ItemButtons[i].Enabled = Data.Items[i].ID != ItemID.None;
+                window.ChangeItem(PlayerData.Items[window.Index]);
+            }
+
+            // Tool Buttons
+            // Tool Windows
+        }
+
+        private void OnClickableMouseEvent(object sender, ClickableMouseEventArgs e)
+        {
+            if (e.MouseState == MouseEventType.Down)
+            {
+                switch (sender)
+                {
+                    case ItemWindow window:
+                        Console.Print(window.Item);
+                        break;
+                    default:
+                        Console.Print(sender);
+                        break;
+                }
             }
         }
 
         private void OnItemButtonPressed(object sender, ButtonEventArgs e)
         {
-            ItemWindows[ItemButtons.IndexOf(sender as SubInteriorItemButton)].ChangeItem(new Seaweed(), true, true);
+            //ItemWindows[ItemButtons.IndexOf(sender as SubInteriorItemButton)].ChangeItem(new Seaweed(), true, true);
         }
-
-        #region IRegisterClickables
-        public void Register(Clickable clickable)
-        {
-            //switch (clickable)
-            //{
-            //    case SubInteriorItemButton itemButton:
-            //        itemButton.ButtonPress += ItemButtonPressed;
-            //        break;
-            //    case ItemWindow itemWindow:
-            //        itemWindow.MouseEvent += ItemWindow_MouseEvent;
-            //        break;
-            //    default:
-            //        break;
-            //}
-        } 
-        #endregion
     }
 }

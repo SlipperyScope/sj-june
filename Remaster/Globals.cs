@@ -10,6 +10,7 @@ namespace Remaster
 {
     public class Globals : Node
     {
+        [Obsolete]
         public static Globals Global
         {
             get
@@ -23,10 +24,12 @@ namespace Remaster
         }
         private static Globals _Global = null;
 
-        private Dictionary<String, rPlayerData> _PlayerData = new Dictionary<string, rPlayerData>();
+        private static Dictionary<String, rPlayerData> _PlayerData = new Dictionary<string, rPlayerData>();
 
-        public rPlayerData GetPlayerData(String key) => _PlayerData.ContainsKey(key) ? _PlayerData[key] : null;
-        public Boolean AddPlayerData(String key, rPlayerData data)
+        //private Dictionary<String, rPlayerData> _PlayerData = new Dictionary<string, rPlayerData>();
+
+        public static rPlayerData GetPlayerData(String key) => _PlayerData.ContainsKey(key) ? _PlayerData[key] : null;
+        public static Boolean AddPlayerData(String key, rPlayerData data)
         {
             if (data is null) return false;
 
@@ -37,7 +40,7 @@ namespace Remaster
             }
             return unique;
         }
-        public rPlayerData RemovePlayerData(String key)
+        public static rPlayerData RemovePlayerData(String key)
         {
             var data = _PlayerData.ContainsKey(key) ? _PlayerData[key] : null;
             if (data != null)

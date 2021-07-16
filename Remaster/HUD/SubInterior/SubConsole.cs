@@ -3,42 +3,14 @@ using Remaster.Items;
 using Remaster.Utilities;
 using System.Collections.Generic;
 using System;
+using rItem = Remaster.Items.Item;
 
 namespace Remaster.HUD
 {
-    public class SubConsole : Clickable, IRegisterClickables
+    public class SubConsole : Clickable
     {
         private const String TextBoxPath = "Textbox";
         private TextboxPrinter TextBox;
-
-        public void Register(Clickable clickable)
-        {
-            GD.Print($"{this}={Name} registering {clickable.Name}");
-            clickable.MouseEvent += OnRegisteredMouseEvent;
-            //switch (clickable)
-            //{
-                //case ItemWindow window:
-                //    window.MouseEvent += OnRegisteredMouseEvent;
-                //    break;
-                //case SubConsole console:
-                //    console.MouseEvent += OnRegisteredMouseEvent;
-                //    break;
-            //}
-        }
-
-        private void OnRegisteredMouseEvent(object sender, ClickableMouseEventArgs e)
-        {
-            //GD.Print($"sender: {sender} state: {e.MouseState}");
-            switch (sender)
-            {
-                case ItemWindow window when e.MouseState == MouseEventType.Down:
-                    TextBox.GoBrrr(window.Item?.Description(nameof(SubConsole)).Blocks ?? new List<PrintBlock> { new PrintBlock(window.Description) });
-                    break;
-                case Clickable clickable when e.MouseState == MouseEventType.Down:
-                    TextBox.GoBrrr(new PrintBlock(clickable.Description));
-                    break;
-            }
-        }
 
         /// <summary>
         /// Ready
@@ -47,6 +19,20 @@ namespace Remaster.HUD
         {
             TextBox = GetNode<TextboxPrinter>(TextBoxPath);
         }
+
+        public void Print(object obj) => TextBox.GoBrrr(obj switch
+        {
+            rItem item => item.Description(nameof(SubConsole)).PrintBlocks,
+            IPrintable printable => printable.PrintBlocks,
+            _ => new List<PrintBlock> { obj.ToString() }
+        });
+
+        public override List<PrintBlock> PrintBlocks => new List<PrintBlock>()
+        {
+            new PrintBlock("Computer console:\n"),
+            new PrintBlock(PrintToken.Pause, "0.2"),
+            new PrintBlock("The latest and greatest!")
+        };
     }
 }
 

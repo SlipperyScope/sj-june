@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Godot;
+using Remaster.Utilities;
 
 namespace Remaster.Items
 {
@@ -11,10 +12,8 @@ namespace Remaster.Items
     /// Container for item description information
     /// TODO: Audio? 
     /// </summary>
-    public struct ItemDescription
+    public struct ItemDescription : IPrintable
     {
-        [Obsolete]
-        public String Text;
         public List<PrintBlock> Blocks;
 
         /// <summary>
@@ -22,7 +21,6 @@ namespace Remaster.Items
         /// </summary>
         public ItemDescription(List<PrintBlock> blocks)
         {
-            Text = String.Empty;
             Blocks = blocks ?? new List<PrintBlock>();
         }
 
@@ -31,7 +29,6 @@ namespace Remaster.Items
         /// </summary>
         public ItemDescription(PrintBlock block, params PrintBlock[] args)
         {
-            Text = String.Empty;
             Blocks = new List<PrintBlock>();
             Blocks.Add(block);
             foreach (var printblock in args)
@@ -39,6 +36,8 @@ namespace Remaster.Items
                 Blocks.Add(printblock);
             }
         }
+
+        public List<PrintBlock> PrintBlocks => Blocks;
     }
 
     public struct ItemAnimationData
@@ -52,36 +51,5 @@ namespace Remaster.Items
         public Texture Texture => GD.Load<Texture>(TexturePath);
         public AudioStreamMP3 SoundEffect => GD.Load<AudioStreamMP3>(SoundEffectPath);
         public Single Time;
-    }
-
-    /// <summary>
-    /// Block of printable data
-    /// </summary>
-    public struct PrintBlock
-    {
-        public PrintToken Token;
-        public String Text;
-
-        /// <summary>
-        /// Creates a block of printable data
-        /// </summary>
-        /// <param name="text">
-        /// <para>Text: String of text
-        /// <br />Pause: Length of pause
-        /// <br />Image: Path to texture resource
-        /// <br />Clear: N/A
-        /// </para></param>
-        /// <param name="token">Block type</param>
-        public PrintBlock(String text, PrintToken token = PrintToken.Text)
-        {
-            Token = token;
-            Text = text;
-        }
-
-        public PrintBlock(PrintToken token, String text = "")
-        {
-            Token = token;
-            Text = text;
-        }
     }
 }

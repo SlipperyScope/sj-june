@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Remaster.HUD;
+using Remaster.Utilities;
 
 namespace Remaster.Items
 {
@@ -34,17 +35,17 @@ namespace Remaster.Items
         #region Descriptions
         private ItemDescription SubConsole_Description => new ItemDescription
         (
-            new PrintBlock("A pipe:\n"),
-            new PrintBlock("1", PrintToken.Pause),
-            new PrintBlock("Good for beating off"),
-            new PrintBlock("0.5", PrintToken.Pause),
-            new PrintBlock("."),
-            new PrintBlock("0.5", PrintToken.Pause),
-            new PrintBlock("."),
-            new PrintBlock("0.5", PrintToken.Pause),
-            new PrintBlock("."),
-            new PrintBlock("2", PrintToken.Pause),
-            new PrintBlock("barnicles.")
+            "A pipe:\n",
+            (PrintToken.Pause, "1"),
+            "Good for beating off",
+            (PrintToken.Pause, "0.5"),
+            ".",
+            (PrintToken.Pause, "0.5"),
+            ".",
+            (PrintToken.Pause, "0.5"),
+            ".",
+            (PrintToken.Pause, "1.5"),
+            "barnicles."
         );
         #endregion
     }
