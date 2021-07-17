@@ -6,9 +6,19 @@ using System.Threading.Tasks;
 
 namespace Remaster.HUD
 {
-    public enum SubArmState
+    public enum ArmID
     {
-        Parked,
-        Extended
+        Tool,
+        Item
+    }
+
+    public enum SubArmAction
+    {
+        Extend,
+        Park,
+        Open,
+        Close,
+        Eject,
+        Take
     }
 }

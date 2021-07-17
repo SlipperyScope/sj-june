@@ -40,12 +40,16 @@ namespace Remaster.HUD
         /// </summary>
         public void PressButton()
         {
-            ButtonPress?.Invoke(this, new ButtonEventArgs());
+            ButtonPress?.Invoke(this, new ButtonEventArgs(Index));
         }
     }
 
     public class ButtonEventArgs
     {
-        
+        public readonly Int32 ButtonIndex;
+        public ButtonEventArgs(Int32 index)
+        {
+            ButtonIndex = index;
+        }
     }
 }

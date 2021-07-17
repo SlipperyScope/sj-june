@@ -10,9 +10,6 @@ namespace Remaster.Items
 {
     public class Seaweed : Item
     {
-        public const String HudWindowIdle = "HudWindowIdle";
-        public const String HudWindowIn = "HudWindowIn";
-        public const String HudWindowOut = "HudWindowOut";
 
         public override ItemID ID => ItemID.Seaweed;
         public override string Name => "Seaweed";

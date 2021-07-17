@@ -12,6 +12,11 @@ namespace Remaster.Items
     /// </summary>
     public abstract class Item : IPrintable
     {
+
+        public const String HudWindowIdle = "HudWindowIdle";
+        public const String HudWindowIn = "HudWindowIn";
+        public const String HudWindowOut = "HudWindowOut";
+
         /// <summary>
         /// Items ID
         /// </summary>
