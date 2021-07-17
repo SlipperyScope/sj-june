@@ -53,9 +53,17 @@ namespace Remaster.HUD
 
             // Console
             Console = Clickables.First(c => c is SubConsole) as SubConsole;
-            
+
             // Item Buttons
-            Clickables.Where(clickable => clickable.IsInGroup("HUD_ItemButtons")).Cast<SubInteriorItemButton>().ToList().ForEach(button => button.ButtonPress += OnItemButtonPressed);
+            Clickables.Where(clickable => clickable.IsInGroup("HUD_ItemButtons")).Cast<SubInteriorItemButton>().ToList().ForEach(button =>
+                {
+                    button.ButtonPress += OnItemButtonPressed;
+                    button.Enabled = PlayerData.Items[button.Index] is NoneItem is false;
+                });
+
+            foreach(var button in Clickables.Where(clickable => clickable.IsInGroup("HUD_ItemButtons")).Cast<SubInteriorItemButton>())
+            {
+            }
 
             // Item Windows
             foreach (var window in Clickables.Where(clickable => clickable.IsInGroup("HUD_ItemWindows")).Cast<ItemWindow>())
