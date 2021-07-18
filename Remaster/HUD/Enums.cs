@@ -12,13 +12,27 @@ namespace Remaster.HUD
         Item
     }
 
+    public enum SubArmSide
+    {
+        Left,
+        Right
+    }
+
     public enum SubArmAction
     {
+        None,
         Extend,
         Park,
         Open,
         Close,
-        Eject,
-        Take
+        Push,
+        Pull
+    }
+
+    public enum ArmOperationEvent
+    {
+        Started,
+        Stopped,
+        Aborted
     }
 }

@@ -9,6 +9,9 @@ namespace Remaster.HUD
     {
         const String ItemSpritePath = "Item";
 
+        public delegate void ItemChangedHandler(System.Object sender, ItemChangedEventArgs e);
+        public event ItemChangedHandler ItemChanged;
+
         public rItem Item { get; private set; }
 
         /// <summary>
@@ -37,6 +40,7 @@ namespace Remaster.HUD
 
             Item = item;
 
+            ItemChanged?.Invoke(this, new ItemChangedEventArgs(Item));
             if (AnimateIn is true)
             {
                 AnimatedItem.AnimationComplete += OnAnimateInComplete;
@@ -53,12 +57,23 @@ namespace Remaster.HUD
             AnimatedItem.AnimationComplete -= OnAnimateOutComplete;
             AnimatedItem.AnimationComplete += OnAnimateInComplete;
             AnimatedItem.AnimationData = Item.Animation(rItem.HudWindowIn);
+            ItemChanged?.Invoke(this, new ItemChangedEventArgs(Item));
         }
 
         private void OnAnimateInComplete(object sender, EventArgs e)
         {
             AnimatedItem.AnimationComplete -= OnAnimateInComplete;
             AnimatedItem.AnimationData = Item.Animation(rItem.HudWindowIdle);
+        }
+    }
+    
+    public class ItemChangedEventArgs : EventArgs
+    {
+        public readonly rItem Item;
+
+        public ItemChangedEventArgs(rItem item)
+        {
+            Item = item;
         }
     }
 }
