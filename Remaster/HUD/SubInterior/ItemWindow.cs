@@ -7,73 +7,151 @@ namespace Remaster.HUD
 {
     public class ItemWindow : Clickable
     {
-        const String ItemSpritePath = "Item";
+        private const String ItemSpritePath = "Item";
 
-        public delegate void ItemChangedHandler(System.Object sender, ItemChangedEventArgs e);
-        public event ItemChangedHandler ItemChanged;
+        public delegate void ItemWindowEventHandler(System.Object sender, ItemWindowEventArgs e);
+        public event ItemWindowEventHandler ItemWindowEvent;
 
-        public rItem Item { get; private set; }
+        /// <summary>
+        /// True if the item window is busy
+        /// </summary>
+        public Boolean Busy { get; private set; }
+
+        /// <summary>
+        /// Item currently in the window
+        /// </summary>
+        public rItem Item { get; private set; } 
 
         /// <summary>
         /// Item sprite reference
         /// </summary>
-        private SpriteAnimator AnimatedItem;
+        private SpriteAnimator Sprite;
 
         /// <summary>
         /// Ready
         /// </summary>
         protected override void OnReady()
         {
-            AnimatedItem = GetNode<SpriteAnimator>(ItemSpritePath);
+            Sprite = GetNode<SpriteAnimator>(ItemSpritePath);
         }
 
-        public rItem ChangeItem(rItem item, Boolean AnimateIn = false, Boolean AnimateOut = false)
+        /// <summary>
+        /// Expels and item from the bay
+        /// </summary>
+        /// <returns>True if expel is possible</returns>
+        public Boolean Output()
         {
-            var currentItem = Item;
-            if (AnimateOut is true)
+            if (Busy is false)
             {
-                AnimatedItem.AnimationComplete += OnAnimateOutComplete;
-                AnimatedItem.AnimationData = Item.Animation(rItem.HudWindowOut);
-                Item = item; 
-                return currentItem;
+                Busy = true;
+
+                Sprite.AnimationComplete += OnAnimateOutComplete;
+                Sprite.AnimationData = Item.Animation(rItem.HudWindowOut);
+
+                return true;
             }
-
-            Item = item;
-
-            ItemChanged?.Invoke(this, new ItemChangedEventArgs(Item));
-            if (AnimateIn is true)
+            else
             {
-                AnimatedItem.AnimationComplete += OnAnimateInComplete;
-                AnimatedItem.AnimationData = Item.Animation(rItem.HudWindowIn);
-                return currentItem;
+                return false;
             }
-
-            AnimatedItem.AnimationData = Item.Animation(rItem.HudWindowIdle);
-            return currentItem;
         }
 
+        /// <summary>
+        /// Intakes an item
+        /// </summary>
+        /// <param name="item">Item to intake</param>
+        /// <returns>True if intake is possible</returns>
+        public Boolean Intake(rItem item)
+        {
+            if (Busy is false)
+            {
+                Busy = true;
+
+                Item = item;
+                Sprite.AnimationData = item.Animation(rItem.HudWindowIn);
+                Sprite.AnimationComplete += OnAnimateInComplete;
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Forces an item change without animations
+        /// </summary>
+        /// <param name="item">Item to change to</param>
+        /// <returns>Item currently in bay</returns>
+        public rItem ForceChangeItem(rItem item)
+        {
+            var oldItem = Item;
+            Item = item;
+            Sprite.AnimationData = item.Animation(rItem.HudWindowIdle);
+            return oldItem;
+        }
+
+        /// <summary>
+        /// Window is clicked
+        /// </summary>
+        protected override void OnMouseDown() => ItemWindowEvent?.Invoke(this, new ItemWindowEventArgs(Item, ItemWindowEventType.Click, Index));
+
+        /// <summary>
+        /// On Animate Out Complete
+        /// </summary>
         private void OnAnimateOutComplete(object sender, EventArgs e)
         {
-            AnimatedItem.AnimationComplete -= OnAnimateOutComplete;
-            AnimatedItem.AnimationComplete += OnAnimateInComplete;
-            AnimatedItem.AnimationData = Item.Animation(rItem.HudWindowIn);
-            ItemChanged?.Invoke(this, new ItemChangedEventArgs(Item));
+            Busy = false;
+
+            Sprite.AnimationComplete -= OnAnimateOutComplete;
+            ItemWindowEvent?.Invoke(this, new ItemWindowEventArgs(Item, ItemWindowEventType.Expel, Index));
         }
 
+        /// <summary>
+        /// On Animate In Complete
+        /// </summary>
         private void OnAnimateInComplete(object sender, EventArgs e)
         {
-            AnimatedItem.AnimationComplete -= OnAnimateInComplete;
-            AnimatedItem.AnimationData = Item.Animation(rItem.HudWindowIdle);
+            Busy = false;
+
+            Sprite.AnimationComplete -= OnAnimateInComplete;
+            Sprite.AnimationData = Item.Animation(rItem.HudWindowIdle);
+            ItemWindowEvent?.Invoke(this, new ItemWindowEventArgs(Item, ItemWindowEventType.Intake, Index));
         }
     }
     
-    public class ItemChangedEventArgs : EventArgs
+    /// <summary>
+    /// Item window event args
+    /// </summary>
+    public class ItemWindowEventArgs : EventArgs
     {
+        /// <summary>
+        /// Item relevent to event
+        /// </summary>
         public readonly rItem Item;
 
-        public ItemChangedEventArgs(rItem item)
+        /// <summary>
+        /// Type of event
+        /// </summary>
+        public readonly ItemWindowEventType Type;
+
+        /// <summary>
+        /// Index of item window
+        /// </summary>
+        public readonly Int32 Index;
+
+        /// <summary>
+        /// Creates a new item window event arg
+        /// </summary>
+        /// <param name="item">Item relevent to event</param>
+        /// <param name="type">Type of event</param>
+        /// <param name="index">Index of item window</param>
+        public ItemWindowEventArgs(rItem item, ItemWindowEventType type, Int32 index)
         {
             Item = item;
+            Type = type;
+            Index = index;
         }
     }
 }

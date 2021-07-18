@@ -27,19 +27,19 @@ namespace Remaster.Items
         private Dictionary<String, ItemAnimationData> Animations = new Dictionary<string, ItemAnimationData>
         {
             {
-                "HudWindowIdle", new ItemAnimationData
+                HudWindowIdle, new ItemAnimationData
                 {
                     TexturePath = "res://Remaster/Assets/Items/None_SubWindow_InOut.png",
                     SoundEffectPath = String.Empty,
                     AnimationRow = 0,
                     AnimationFrames = (0, 0),
-                    Repeat = false,
+                    Repeat = true,
                     Time = 0.1f,
                     GridSize = (1, 5)
                 }
             },
             {
-                "HudWindowIn", new ItemAnimationData
+                HudWindowIn, new ItemAnimationData
                 {
                     TexturePath = "res://Remaster/Assets/Items/None_SubWindow_InOut.png",
                     SoundEffectPath = String.Empty,
@@ -51,7 +51,7 @@ namespace Remaster.Items
                 }
             },
             {
-                "HudWindowOut", new ItemAnimationData
+                HudWindowOut, new ItemAnimationData
                 {
                     TexturePath = "res://Remaster/Assets/Items/None_SubWindow_InOut.png",
                     SoundEffectPath = String.Empty,

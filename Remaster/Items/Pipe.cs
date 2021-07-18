@@ -18,9 +18,19 @@ namespace Remaster.Items
             _                  => Default_Description
         };
 
-        public override ItemAnimationData Animation(string querier)
+        public override ItemAnimationData Animation(string querier) => querier switch
         {
-            return new ItemAnimationData
+            HudWindowIdle => new ItemAnimationData
+            {
+                TexturePath = "res://Remaster/Assets/Items/Pipe.png",
+                SoundEffectPath = String.Empty,
+                AnimationRow = 0,
+                AnimationFrames = (0, 0),
+                Repeat = true,
+                Time = .1f,
+                GridSize = (1, 1)
+            },
+            _ => new ItemAnimationData
             {
                 TexturePath = "res://Remaster/Assets/Items/Pipe.png",
                 SoundEffectPath = String.Empty,
@@ -29,8 +39,8 @@ namespace Remaster.Items
                 Repeat = false,
                 Time = .1f,
                 GridSize = (1, 1)
-            };
-        }
+            }
+        };
 
         #region Descriptions
         private ItemDescription SubConsole_Description => new ItemDescription

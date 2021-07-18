@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Remaster/Assets/SubHUD/Interior.png" type="Texture" id=1]
 [ext_resource path="res://Remaster/HUD/HUD_SubInterior.cs" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Remaster/HUD/SubInterior/Arms.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Remaster/HUD/SubInterior/ArmButton.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Remaster/HUD/SubInterior/SubConsole.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Remaster/HUD/SubInterior/SubArm.tscn" type="PackedScene" id=10]
 
 [node name="HUD_SubInterior" type="Node2D"]
 position = Vector2( 0, 1 )
@@ -21,6 +22,10 @@ __meta__ = {
 }
 
 [node name="Arms" parent="." instance=ExtResource( 7 )]
+visible = false
+
+[node name="ItemArm" parent="." instance=ExtResource( 10 )]
+position = Vector2( 374.627, 233.348 )
 
 [node name="Interior" type="Sprite" parent="."]
 position = Vector2( 17.9795, 129.435 )

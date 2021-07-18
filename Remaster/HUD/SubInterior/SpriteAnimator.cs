@@ -55,10 +55,13 @@ namespace Remaster.HUD
         /// </summary>
         private void OnAnimationComplete(object obj, NodePath property)
         {
-            AnimationComplete?.Invoke(this, new EventArgs());
             if (Animator.Repeat is true)
             {
                 ChangeAnimation();
+            }
+            else
+            {
+                AnimationComplete?.Invoke(this, new EventArgs());
             }
         }
 
@@ -68,6 +71,7 @@ namespace Remaster.HUD
         public void StopAnimation()
         {
             Animator.Stop(this, FRAME);
+            AnimationComplete?.Invoke(this, new EventArgs());
         }
 
         /// <summary>
@@ -83,7 +87,6 @@ namespace Remaster.HUD
             Animator.Repeat = AnimationData.Repeat;
             Animator.InterpolateProperty(this, FRAME, AnimationData.AnimationFrames.start, AnimationData.AnimationFrames.end, AnimationData.Time);
             Animator.Start();
-            //GD.Print($"HF {Hframes}, VF {Vframes}, coord {FrameCoords}, start {AnimationData.AnimationFrames.start}, end {AnimationData.AnimationFrames.end}");
         }
     } 
 }

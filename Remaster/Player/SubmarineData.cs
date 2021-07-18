@@ -25,5 +25,7 @@ namespace Remaster.Player
         {
             new NoneItem(), new NoneItem(), new NoneItem(), new NoneItem(), new NoneItem(), new NoneItem()
         };
+
+        public rItem ItemArm { get; set; } = new Seaweed();
     }
 }

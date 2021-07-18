@@ -106,7 +106,7 @@ namespace Remaster.HUD
 
     public class ArmOperationEventArgs : EventArgs
     {
-        public readonly ArmOperationEvent State;
+        public readonly ArmOperationEventType State;
         public readonly SubArmSide Side;
     }
 }

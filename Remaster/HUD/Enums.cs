@@ -25,14 +25,21 @@ namespace Remaster.HUD
         Park,
         Open,
         Close,
-        Push,
-        Pull
+        Output,
+        Intake
     }
 
-    public enum ArmOperationEvent
+    public enum ArmOperationEventType
     {
         Started,
         Stopped,
         Aborted
+    }
+
+    public enum ItemWindowEventType
+    {
+        Expel,
+        Intake,
+        Click
     }
 }
