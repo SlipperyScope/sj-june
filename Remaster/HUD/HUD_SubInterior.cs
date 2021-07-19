@@ -238,6 +238,7 @@ namespace Remaster.HUD
 
         public void Deposit(SubArm arm, rItem item)
         {
+            GD.Print($"[{OS.GetTicksMsec() / 1000f}] Itembay: Arm deposited");
             LastArm = arm;
             ArmItem = item;
 
@@ -249,6 +250,7 @@ namespace Remaster.HUD
 
         public void Deposit(ItemWindow window, rItem item)
         {
+            GD.Print($"[{OS.GetTicksMsec() / 1000f}] Itembay: Window deposited");
             LastBay = window;
             BayItem = item;
 
@@ -270,8 +272,9 @@ namespace Remaster.HUD
 
         private void PushItems()
         {
-            LastArm.Output(BayItem);
+            GD.Print($"[{OS.GetTicksMsec() / 1000f}] Itembay: pushing items");
             LastBay.Intake(ArmItem);
+            LastArm.Output(BayItem);
             BayItem = null;
             LastBay = null;
             LastArm = null;

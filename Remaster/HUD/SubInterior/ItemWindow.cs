@@ -45,13 +45,17 @@ namespace Remaster.HUD
             {
                 Busy = true;
 
+                GD.Print($"[{OS.GetTicksMsec() / 1000f}] WinOutput: starting output animation");
+
+                Sprite.ChangeAnimationAndStop(Item.Animation(rItem.HudWindowOut));
                 Sprite.AnimationComplete += OnAnimateOutComplete;
-                Sprite.AnimationData = Item.Animation(rItem.HudWindowOut);
+                Sprite.StartAnimation();
 
                 return true;
             }
             else
             {
+                GD.PushWarning($"{this}={Name} tried to output but was busy");
                 return false;
             }
         }
@@ -67,14 +71,18 @@ namespace Remaster.HUD
             {
                 Busy = true;
 
+                GD.Print($"[{OS.GetTicksMsec() / 1000f}] WinIntake: Staring intake animation");
+
                 Item = item;
-                Sprite.AnimationData = item.Animation(rItem.HudWindowIn);
+                Sprite.ChangeAnimationAndStop(item.Animation(rItem.HudWindowIn));
                 Sprite.AnimationComplete += OnAnimateInComplete;
+                Sprite.StartAnimation();
 
                 return true;
             }
             else
             {
+                GD.PushWarning($"{this}={Name} Tried to intake but was busy");
                 return false;
             }
         }
@@ -102,9 +110,9 @@ namespace Remaster.HUD
         /// </summary>
         private void OnAnimateOutComplete(object sender, EventArgs e)
         {
-            Busy = false;
-
             Sprite.AnimationComplete -= OnAnimateOutComplete;
+            Busy = false;
+            GD.Print($"[{OS.GetTicksMsec() / 1000f}] WinOutput: Animation complete");
             ItemWindowEvent?.Invoke(this, new ItemWindowEventArgs(Item, ItemWindowEventType.Expel, Index));
         }
 
@@ -113,10 +121,10 @@ namespace Remaster.HUD
         /// </summary>
         private void OnAnimateInComplete(object sender, EventArgs e)
         {
-            Busy = false;
-
             Sprite.AnimationComplete -= OnAnimateInComplete;
             Sprite.AnimationData = Item.Animation(rItem.HudWindowIdle);
+            Busy = false;
+            GD.Print($"[{OS.GetTicksMsec() / 1000f}] WindIntake: Animation complete");
             ItemWindowEvent?.Invoke(this, new ItemWindowEventArgs(Item, ItemWindowEventType.Intake, Index));
         }
     }

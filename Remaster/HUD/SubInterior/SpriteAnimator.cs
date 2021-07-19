@@ -36,6 +36,12 @@ namespace Remaster.HUD
         }
         private ItemAnimationData _AnimationData;
 
+        public void ChangeAnimationAndStop(ItemAnimationData animationData)
+        {
+            _AnimationData = animationData;
+            ChangeAnimation(false);
+        }
+
         /// <summary>
         /// Enter Tree
         /// </summary>
@@ -68,25 +74,35 @@ namespace Remaster.HUD
         /// <summary>
         /// Stops the animation
         /// </summary>
-        public void StopAnimation()
+        public void StopAnimation(Boolean silent)
         {
+            //Animator.StopAll();
             Animator.Stop(this, FRAME);
-            AnimationComplete?.Invoke(this, new EventArgs());
+            if (silent is false)
+            {
+                AnimationComplete?.Invoke(this, new EventArgs());
+            }
         }
 
         /// <summary>
         /// Changes an animation
         /// </summary>
-        private void ChangeAnimation()
+        private void ChangeAnimation(Boolean autoStart = true)
         {
+            Animator.Stop(this, FRAME);
+            //Animator.StopAll();
+
             Texture = AnimationData.Texture;
             Hframes = AnimationData.GridSize.Columns;
             Vframes = AnimationData.GridSize.Rows;
             FrameCoords = new Vector2(AnimationData.AnimationFrames.start, AnimationData.AnimationRow);
-            Animator.Stop(this, FRAME);
             Animator.Repeat = AnimationData.Repeat;
-            Animator.InterpolateProperty(this, FRAME, AnimationData.AnimationFrames.start, AnimationData.AnimationFrames.end, AnimationData.Time);
-            Animator.Start();
+            
+            if (autoStart is true)
+            {
+                Animator.InterpolateProperty(this, FRAME, AnimationData.AnimationFrames.start, AnimationData.AnimationFrames.end, AnimationData.Time);
+                Animator.Start();
+            }
         }
     } 
 }

@@ -61,53 +61,52 @@ namespace Remaster.HUD
         /// </summary>
         public override void _Ready()
         {
-            AddChild(TransitTimer = new Timer());
-            TransitTimer.WaitTime = TransitTime;
-            TransitTimer.Connect("timeout", this, nameof(OnTransitComplete));
-
             Animator = GetNode<AnimationPlayer>("AnimationPlayer");
-            Animator.Connect("animation_finished", this, nameof(OnAnimationFinished));
+            Animator.Connect("animation_finished", this, nameof(OnArmAnimationFinished));
             ItemSprite = GetNode<SpriteAnimator>("Claw/Item");
-            ItemSprite.AnimationComplete += OnItemAnimationComplete;
+            ItemSprite.AnimationComplete += OnItemAnimationFinished;
             Item = new NoneItem();
         }
-
 
         /// <summary>
         /// Processes the animation queue
         /// </summary>
         private void ProcessQueue()
         {
+            GD.Print($"[{OS.GetTicksMsec() / 1000f}] Processing {(AnimationQueue.Count > 0 ? AnimationQueue.Peek() : "EMPTY")}");
             if (AnimationQueue.Count == 0)
             {
                 if (CurrentOperation == SubArmAction.Output)
-                { 
-                    ItemSprite.AnimationData = Item.Animation(rItem.HudWindowIdle);
+                {
+                    GD.Print($"[{OS.GetTicksMsec() / 1000f}] Changing animation to idle");
+                    ItemSprite.ChangeAnimationAndStop(Item.Animation(rItem.HudWindowIdle));
+                    ItemSprite.StartAnimation();
                 }
 
                 Busy = false;
                 var operation = CurrentOperation;
                 CurrentOperation = SubArmAction.None;
+                GD.Print($"[{OS.GetTicksMsec() / 1000f}] Dispatching operation complete");
                 OperationComplete?.Invoke(this, new ArmOperationCompleteEventArgs(operation, Item, Extended, ClawOpen));
                 return;
             }
 
             var animation = AnimationQueue.Dequeue();
-
+            
             switch (animation)
             {
                 case ItemInTakeAnimation:
-                    ItemSprite.AnimationData = Item.Animation(rItem.HudWindowOut);
-                    Busy = true;
+                    ItemSprite.ChangeAnimationAndStop(Item.Animation(rItem.HudWindowOut));
+                    ItemSprite.StartAnimation();
                     break;
                 case ItemOutPutAnimation:
-                    ItemSprite.AnimationData = Item.Animation(rItem.HudWindowIn);
-                    Busy = true;
+                    GD.Print($"[{OS.GetTicksMsec() / 1000f}] Starting timer before output");
+                    NewTimer();
                     break;
                 case ClawOpenAnimation when ClawOpen is true:
                 case ClawCloseAnimation when ClawOpen is false:
                 case ArmExtendAnimation when Extended is true:
-                case ArmParkAnimation when Extended is false:
+                case ArmParkAnimation when Extended is false: 
                     ProcessQueue();
                     break;
                 default:
@@ -177,7 +176,12 @@ namespace Remaster.HUD
         /// </summary>
         public void Intake()
         {
-            if (Busy is true) return;
+            if (Busy is true)
+            {
+                GD.PushWarning($"[{OS.GetTicksMsec() / 1000f}] INTAKE: Tried to intake but was busy");
+                return;
+            }
+            GD.Print($"[{OS.GetTicksMsec() / 1000f}]  INTAKE: Taking in item; queueing animations");
             CurrentOperation = SubArmAction.Intake;
             QueueAnimation(ClawOpenAnimation, ItemInTakeAnimation);
         }
@@ -189,11 +193,20 @@ namespace Remaster.HUD
         /// <returns>True if push is possible</returns>
         public Boolean Output(rItem item)
         {
-            if (Busy is true) return false;
+            if (Busy is true)
+            {
+                GD.PushWarning($"[{OS.GetTicksMsec() / 1000f}] OUTPUT: Tried to output {Item} but was busy");
+                return false;
+            }
 
+            GD.Print($"[{OS.GetTicksMsec() / 1000f}] OUTPUT: Changing item to {item}");
+
+            ItemSprite.ChangeAnimationAndStop(item.Animation(rItem.HudWindowIn));
             Item = item;
             CurrentOperation = SubArmAction.Output;
-            QueueAnimation(ClawOpenAnimation, ItemOutPutAnimation);//, ClawCloseAnimation);
+
+            GD.Print($"[{OS.GetTicksMsec() / 1000f}] OUTPUT: Queing animation");
+            QueueAnimation(ClawOpenAnimation, ItemOutPutAnimation);
 
             return true;
         }
@@ -202,13 +215,8 @@ namespace Remaster.HUD
         {
             var oldItem = Item;
             Item = item;
-            ItemSprite.AnimationData = item.Animation(rItem.HudWindowIdle);
+            ItemSprite.AnimationData = Item.Animation(rItem.HudWindowIdle);
             return oldItem;
-        }
-
-        private void OnPullAnimationComplete(System.Object sender, EventArgs e)
-        {
-            QueueAnimation(ClawCloseAnimation);
         }
 
         private Boolean StartAnimation(String animationName)
@@ -225,7 +233,7 @@ namespace Remaster.HUD
             return animated;
         }
 
-        private void OnAnimationFinished(String animationName)
+        private void OnArmAnimationFinished(String animationName)
         {
             switch (animationName)
             {
@@ -248,22 +256,66 @@ namespace Remaster.HUD
             ProcessQueue();
         }
 
-        private void OnItemAnimationComplete(System.Object sender, EventArgs e)
+        private void OnItemAnimationFinished(System.Object sender, EventArgs e)
         {
-            if (CurrentOperation == SubArmAction.Output || CurrentOperation == SubArmAction.Intake)
+            if (CurrentOperation == SubArmAction.Intake)
             {
-                TransitTimer.Start();
-                //ProcessQueue();
+                GD.Print($"[{OS.GetTicksMsec() / 1000f}] INTAKE: Starting timer");
+                NewTimer();
+            }
+
+            if (CurrentOperation == SubArmAction.Output)
+            {
+                GD.Print($"[{OS.GetTicksMsec() / 1000f}] OUTPUT: Animation complete, processing remaining queue");
+                ProcessQueue();
             }
         }
 
         private void OnTransitComplete()
         {
-            if (CurrentOperation == SubArmAction.Output || CurrentOperation == SubArmAction.Intake)
+            GD.Print($"TIMEOUT");
+
+            if (CurrentOperation == SubArmAction.Intake)
             {
+                GD.Print($"[{OS.GetTicksMsec() / 1000f}] INTAKE: Timer complete, processing remaining queue");
                 ProcessQueue();
             }
+            else if (CurrentOperation == SubArmAction.Output)
+            {
+                GD.Print($"[{OS.GetTicksMsec() / 1000f}] OUTPUT: Timer complete, starting animation");
+                ItemSprite.ChangeAnimationAndStop(Item.Animation(rItem.HudWindowIn));
+                ItemSprite.StartAnimation();
+            }
         }
+
+        /// <summary>
+        /// Dumb workaround hack for timer not working the second time
+        /// </summary>
+        private void NewTimer(Boolean start = true)
+        {
+            if (TransitTimer != null)
+            {
+                RemoveChild(TransitTimer);
+            }
+            TransitTimer = new Timer();
+            AddChild(TransitTimer);
+            TransitTimer.WaitTime = TransitTime;
+            TransitTimer.OneShot = true;
+            TransitTimer.Connect("timeout", this, nameof(OnTransitComplete));
+            if (start is true)
+            {
+                TransitTimer.Start();
+            }
+        }
+
+
+        //public override void _Process(Single delta)
+        //{
+        //    if (TransitTimer != null && TransitTimer.TimeLeft > 0)
+        //    {
+        //        GD.Print($"Time left {TransitTimer.TimeLeft}");
+        //    }
+        //}
     }
 
     public class ArmOperationCompleteEventArgs
