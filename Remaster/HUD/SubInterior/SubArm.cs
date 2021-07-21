@@ -61,6 +61,12 @@ namespace Remaster.HUD
         /// </summary>
         public override void _Ready()
         {
+            TransitTimer = new Timer();
+            AddChild(TransitTimer);
+            TransitTimer.WaitTime = TransitTime;
+            TransitTimer.OneShot = true;
+            TransitTimer.Connect("timeout", this, nameof(OnTransitComplete));
+
             Animator = GetNode<AnimationPlayer>("AnimationPlayer");
             Animator.Connect("animation_finished", this, nameof(OnArmAnimationFinished));
             ItemSprite = GetNode<SpriteAnimator>("Claw/Item");
@@ -73,20 +79,16 @@ namespace Remaster.HUD
         /// </summary>
         private void ProcessQueue()
         {
-            GD.Print($"[{OS.GetTicksMsec() / 1000f}] Processing {(AnimationQueue.Count > 0 ? AnimationQueue.Peek() : "EMPTY")}");
             if (AnimationQueue.Count == 0)
             {
                 if (CurrentOperation == SubArmAction.Output)
                 {
-                    GD.Print($"[{OS.GetTicksMsec() / 1000f}] Changing animation to idle");
-                    ItemSprite.ChangeAnimationAndStop(Item.Animation(rItem.HudWindowIdle));
-                    ItemSprite.StartAnimation();
+                    ItemSprite.AnimationData = Item.Animation(rItem.HudWindowIdle);
                 }
 
                 Busy = false;
                 var operation = CurrentOperation;
                 CurrentOperation = SubArmAction.None;
-                GD.Print($"[{OS.GetTicksMsec() / 1000f}] Dispatching operation complete");
                 OperationComplete?.Invoke(this, new ArmOperationCompleteEventArgs(operation, Item, Extended, ClawOpen));
                 return;
             }
@@ -96,12 +98,10 @@ namespace Remaster.HUD
             switch (animation)
             {
                 case ItemInTakeAnimation:
-                    ItemSprite.ChangeAnimationAndStop(Item.Animation(rItem.HudWindowOut));
-                    ItemSprite.StartAnimation();
+                    ItemSprite.AnimationData = Item.Animation(rItem.HudWindowOut);
                     break;
                 case ItemOutPutAnimation:
-                    GD.Print($"[{OS.GetTicksMsec() / 1000f}] Starting timer before output");
-                    NewTimer();
+                    TransitTimer.Start();
                     break;
                 case ClawOpenAnimation when ClawOpen is true:
                 case ClawCloseAnimation when ClawOpen is false:
@@ -178,10 +178,9 @@ namespace Remaster.HUD
         {
             if (Busy is true)
             {
-                GD.PushWarning($"[{OS.GetTicksMsec() / 1000f}] INTAKE: Tried to intake but was busy");
+                GD.PushWarning($"{this}={Name} Tried to intake item but arm is busy");
                 return;
             }
-            GD.Print($"[{OS.GetTicksMsec() / 1000f}]  INTAKE: Taking in item; queueing animations");
             CurrentOperation = SubArmAction.Intake;
             QueueAnimation(ClawOpenAnimation, ItemInTakeAnimation);
         }
@@ -195,17 +194,14 @@ namespace Remaster.HUD
         {
             if (Busy is true)
             {
-                GD.PushWarning($"[{OS.GetTicksMsec() / 1000f}] OUTPUT: Tried to output {Item} but was busy");
+                GD.PushWarning($"{this}={Name} Tried to output {item} but arm is busy");
                 return false;
             }
 
-            GD.Print($"[{OS.GetTicksMsec() / 1000f}] OUTPUT: Changing item to {item}");
-
-            ItemSprite.ChangeAnimationAndStop(item.Animation(rItem.HudWindowIn));
             Item = item;
+            ItemSprite.ChangeAnimationAndStop(item.Animation(rItem.HudWindowIn));
             CurrentOperation = SubArmAction.Output;
 
-            GD.Print($"[{OS.GetTicksMsec() / 1000f}] OUTPUT: Queing animation");
             QueueAnimation(ClawOpenAnimation, ItemOutPutAnimation);
 
             return true;
@@ -260,62 +256,26 @@ namespace Remaster.HUD
         {
             if (CurrentOperation == SubArmAction.Intake)
             {
-                GD.Print($"[{OS.GetTicksMsec() / 1000f}] INTAKE: Starting timer");
-                NewTimer();
+                TransitTimer.Start();
             }
 
             if (CurrentOperation == SubArmAction.Output)
             {
-                GD.Print($"[{OS.GetTicksMsec() / 1000f}] OUTPUT: Animation complete, processing remaining queue");
                 ProcessQueue();
             }
         }
 
         private void OnTransitComplete()
         {
-            GD.Print($"TIMEOUT");
-
             if (CurrentOperation == SubArmAction.Intake)
             {
-                GD.Print($"[{OS.GetTicksMsec() / 1000f}] INTAKE: Timer complete, processing remaining queue");
                 ProcessQueue();
             }
             else if (CurrentOperation == SubArmAction.Output)
             {
-                GD.Print($"[{OS.GetTicksMsec() / 1000f}] OUTPUT: Timer complete, starting animation");
-                ItemSprite.ChangeAnimationAndStop(Item.Animation(rItem.HudWindowIn));
-                ItemSprite.StartAnimation();
+                ItemSprite.AnimationData = Item.Animation(rItem.HudWindowIn);
             }
         }
-
-        /// <summary>
-        /// Dumb workaround hack for timer not working the second time
-        /// </summary>
-        private void NewTimer(Boolean start = true)
-        {
-            if (TransitTimer != null)
-            {
-                RemoveChild(TransitTimer);
-            }
-            TransitTimer = new Timer();
-            AddChild(TransitTimer);
-            TransitTimer.WaitTime = TransitTime;
-            TransitTimer.OneShot = true;
-            TransitTimer.Connect("timeout", this, nameof(OnTransitComplete));
-            if (start is true)
-            {
-                TransitTimer.Start();
-            }
-        }
-
-
-        //public override void _Process(Single delta)
-        //{
-        //    if (TransitTimer != null && TransitTimer.TimeLeft > 0)
-        //    {
-        //        GD.Print($"Time left {TransitTimer.TimeLeft}");
-        //    }
-        //}
     }
 
     public class ArmOperationCompleteEventArgs
