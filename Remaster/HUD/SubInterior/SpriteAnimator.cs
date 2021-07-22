@@ -36,10 +36,9 @@ namespace Remaster.HUD
         }
         private ItemAnimationData _AnimationData;
 
-        public void ChangeAnimationAndStop(ItemAnimationData animationData)
+        public void SetAnimationData(ItemAnimationData animationData)
         {
             _AnimationData = animationData;
-            ChangeAnimation(false);
         }
 
         /// <summary>
@@ -91,16 +90,18 @@ namespace Remaster.HUD
         {
             Animator.Stop(this, FRAME);
             //Animator.StopAll();
-
-            Texture = AnimationData.Texture;
+            if (AnimationData.TexturePath != Texture?.ResourcePath)
+            {
+                Texture = AnimationData.Texture;
+            }
             Hframes = AnimationData.GridSize.Columns;
             Vframes = AnimationData.GridSize.Rows;
             FrameCoords = new Vector2(AnimationData.AnimationFrames.start, AnimationData.AnimationRow);
             Animator.Repeat = AnimationData.Repeat;
-            
+            var Offset = FrameCoords.y * Hframes;
             if (autoStart is true)
             {
-                Animator.InterpolateProperty(this, FRAME, AnimationData.AnimationFrames.start, AnimationData.AnimationFrames.end, AnimationData.Time);
+                Animator.InterpolateProperty(this, FRAME, Offset + AnimationData.AnimationFrames.start, Offset + AnimationData.AnimationFrames.end, AnimationData.Time);
                 Animator.Start();
             }
         }

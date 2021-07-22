@@ -16,6 +16,8 @@ namespace Remaster.Items
         public const String HudWindowIdle = "HudWindowIdle";
         public const String HudWindowIn = "HudWindowIn";
         public const String HudWindowOut = "HudWindowOut";
+        public const String ItemClawOutPut = "ItemClawOutput";
+        public const String ItemClawIdle = "ItemClawIdle";
 
         /// <summary>
         /// Items ID

@@ -83,7 +83,7 @@ namespace Remaster.HUD
             {
                 if (CurrentOperation == SubArmAction.Output)
                 {
-                    ItemSprite.AnimationData = Item.Animation(rItem.HudWindowIdle);
+                    ItemSprite.AnimationData = Item.Animation(rItem.ItemClawIdle);
                 }
 
                 Busy = false;
@@ -199,10 +199,9 @@ namespace Remaster.HUD
             }
 
             Item = item;
-            ItemSprite.ChangeAnimationAndStop(item.Animation(rItem.HudWindowIn));
+            ItemSprite.SetAnimationData(item.Animation(item is Seaweed ? rItem.ItemClawOutPut : rItem.HudWindowIn));
             CurrentOperation = SubArmAction.Output;
-
-            QueueAnimation(ClawOpenAnimation, ItemOutPutAnimation);
+            QueueAnimation(ClawOpenAnimation, ItemOutPutAnimation, ClawCloseAnimation);
 
             return true;
         }
@@ -273,7 +272,8 @@ namespace Remaster.HUD
             }
             else if (CurrentOperation == SubArmAction.Output)
             {
-                ItemSprite.AnimationData = Item.Animation(rItem.HudWindowIn);
+                //ItemSprite.AnimationData = Item.Animation(rItem.HudWindowIn);
+                ItemSprite.StartAnimation();
             }
         }
     }

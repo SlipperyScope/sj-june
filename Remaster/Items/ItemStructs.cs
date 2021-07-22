@@ -51,5 +51,7 @@ namespace Remaster.Items
         public Texture Texture => GD.Load<Texture>(TexturePath);
         public AudioStreamMP3 SoundEffect => GD.Load<AudioStreamMP3>(SoundEffectPath);
         public Single Time;
+
+        public override String ToString() => $"{TexturePath}\nRow {AnimationRow} frames {AnimationFrames} from sheetsize [{GridSize}] in {Time} seconds\nAudio: {SoundEffectPath}"; 
     }
 }

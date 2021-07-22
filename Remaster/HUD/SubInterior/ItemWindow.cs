@@ -44,7 +44,7 @@ namespace Remaster.HUD
             if (Busy is false)
             {
                 Busy = true;
-                GD.Print($"[{ OS.GetTicksMsec() / 1000f}] OUTPUT: Will this");
+                //GD.Print($"[{ OS.GetTicksMsec() / 1000f}] OUTPUT: Will this");
 
                 Sprite.AnimationData = Item.Animation(rItem.HudWindowOut);
                 Sprite.AnimationComplete += OnAnimateOutComplete;
@@ -70,7 +70,7 @@ namespace Remaster.HUD
                 Busy = true;
 
                 Item = item;
-                GD.Print($"[{ OS.GetTicksMsec() / 1000f}] INTAKE: Will this");
+                //GD.Print($"[{ OS.GetTicksMsec() / 1000f}] INTAKE: Will this");
                 Sprite.AnimationData = item.Animation(rItem.HudWindowIn);
                 Sprite.AnimationComplete += OnAnimateInComplete;
 
@@ -106,7 +106,7 @@ namespace Remaster.HUD
         /// </summary>
         private void OnAnimateOutComplete(object sender, EventArgs e)
         {
-            GD.Print($"[{ OS.GetTicksMsec() / 1000f}] OUTPUT: Cause problems");
+            //GD.Print($"[{ OS.GetTicksMsec() / 1000f}] OUTPUT: Cause problems");
             Sprite.AnimationComplete -= OnAnimateOutComplete;
             Busy = false;
             ItemWindowEvent?.Invoke(this, new ItemWindowEventArgs(Item, ItemWindowEventType.Expel, Index));
@@ -117,7 +117,7 @@ namespace Remaster.HUD
         /// </summary>
         private void OnAnimateInComplete(object sender, EventArgs e)
         {
-            GD.Print($"[{ OS.GetTicksMsec() / 1000f}] INTAKE: Cause problems");
+            //GD.Print($"[{ OS.GetTicksMsec() / 1000f}] INTAKE: Cause problems");
             Sprite.AnimationComplete -= OnAnimateInComplete;
             Sprite.AnimationData = Item.Animation(rItem.HudWindowIdle);
             Busy = false;

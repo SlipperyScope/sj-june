@@ -20,7 +20,67 @@ namespace Remaster.Items
             _ => Default_Description
         };
 
-        public override ItemAnimationData Animation(String key) => Animations[key];
+        public override ItemAnimationData Animation(String key) => key switch
+        {
+            HudWindowIdle => new ItemAnimationData
+            {
+                TexturePath = "res://Remaster/Assets/Items/SeaweedItem_SubWindow_Idle.png",
+                SoundEffectPath = String.Empty,
+                AnimationRow = 0,
+                AnimationFrames = (0, 7),
+                Repeat = true,
+                Time = 1f,
+                GridSize = (1, 8)
+            },
+            HudWindowIn => new ItemAnimationData
+            {
+                TexturePath = "res://Remaster/Assets/Items/SeaweedItem_SubWindow_InOut.png",
+                SoundEffectPath = String.Empty,
+                AnimationRow = 0,
+                AnimationFrames = (0, 4),
+                Repeat = false,
+                Time = 0.2f,
+                GridSize = (1, 5)
+            },
+            HudWindowOut => new ItemAnimationData
+            {
+                TexturePath = "res://Remaster/Assets/Items/SeaweedItem_SubWindow_InOut.png",
+                SoundEffectPath = String.Empty,
+                AnimationRow = 0,
+                AnimationFrames = (4, 0),
+                Repeat = false,
+                Time = 0.2f,
+                GridSize = (1, 5)
+            },
+            ItemClawOutPut => new ItemAnimationData
+            {
+                TexturePath = "res://Remaster/Assets/Items/Sub_ItemArm_Seaweed.png",
+                AnimationRow = 0,
+                AnimationFrames = (0, 7),
+                Repeat = false,
+                Time = 1f,
+                GridSize = (5, 8)
+            },
+            ItemClawIdle => new ItemAnimationData
+            {
+                TexturePath = "res://Remaster/Assets/Items/Sub_ItemArm_Seaweed.png",
+                AnimationRow = 4,
+                AnimationFrames = (0, 3),
+                Repeat = true,
+                Time = .5f,
+                GridSize = (5, 8)
+            },
+            _ => new ItemAnimationData
+            {
+                TexturePath = "res://Remaster/Assets/Items/SeaweedItem_SubWindow_Idle.png",
+                SoundEffectPath = String.Empty,
+                AnimationRow = 0,
+                AnimationFrames = (0, 7),
+                Repeat = true,
+                Time = 1f,
+                GridSize = (1, 8)
+            }
+        };
 
         #region Descriptions
         private ItemDescription SubConsole_Description => new ItemDescription
@@ -69,6 +129,17 @@ namespace Remaster.Items
                     Repeat = false,
                     Time = 0.2f,
                     GridSize = (1, 5)
+                }
+            },
+            {
+                ItemClawOutPut, new ItemAnimationData
+                {
+                    TexturePath = "res://Remaster/Assets/Items/Sub_ItemArm_Seaweed.png",
+                    AnimationRow = 0,
+                    AnimationFrames = (0, 7),
+                    Repeat = false,
+                    Time = 1f,
+                    GridSize = (5, 8)
                 }
             }
         };
