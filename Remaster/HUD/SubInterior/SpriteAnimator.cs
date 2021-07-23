@@ -75,7 +75,6 @@ namespace Remaster.HUD
         /// </summary>
         public void StopAnimation(Boolean silent)
         {
-            //Animator.StopAll();
             Animator.Stop(this, FRAME);
             if (silent is false)
             {
@@ -89,7 +88,6 @@ namespace Remaster.HUD
         private void ChangeAnimation(Boolean autoStart = true)
         {
             Animator.Stop(this, FRAME);
-            //Animator.StopAll();
             if (AnimationData.TexturePath != Texture?.ResourcePath)
             {
                 Texture = AnimationData.Texture;
@@ -105,5 +103,5 @@ namespace Remaster.HUD
                 Animator.Start();
             }
         }
-    } 
+    }
 }

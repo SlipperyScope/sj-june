@@ -81,10 +81,10 @@ namespace Remaster.HUD
         {
             if (AnimationQueue.Count == 0)
             {
-                if (CurrentOperation == SubArmAction.Output)
-                {
-                    ItemSprite.AnimationData = Item.Animation(rItem.ItemClawIdle);
-                }
+                //if (CurrentOperation == SubArmAction.Output)
+                //{
+                //    ItemSprite.AnimationData = Item.Animation(rItem.ItemClawIdle);
+                //}
 
                 Busy = false;
                 var operation = CurrentOperation;
@@ -98,7 +98,7 @@ namespace Remaster.HUD
             switch (animation)
             {
                 case ItemInTakeAnimation:
-                    ItemSprite.AnimationData = Item.Animation(rItem.HudWindowOut);
+                    ItemSprite.AnimationData = Item.Animation(rItem.ItemClaw_Intake);
                     break;
                 case ItemOutPutAnimation:
                     TransitTimer.Start();
@@ -106,7 +106,7 @@ namespace Remaster.HUD
                 case ClawOpenAnimation when ClawOpen is true:
                 case ClawCloseAnimation when ClawOpen is false:
                 case ArmExtendAnimation when Extended is true:
-                case ArmParkAnimation when Extended is false: 
+                case ArmParkAnimation when Extended is false:
                     ProcessQueue();
                     break;
                 default:
@@ -199,7 +199,7 @@ namespace Remaster.HUD
             }
 
             Item = item;
-            ItemSprite.SetAnimationData(item.Animation(item is Seaweed ? rItem.ItemClawOutPut : rItem.HudWindowIn));
+            ItemSprite.SetAnimationData(item.Animation(rItem.ItemClaw_Output));
             CurrentOperation = SubArmAction.Output;
             QueueAnimation(ClawOpenAnimation, ItemOutPutAnimation, ClawCloseAnimation);
 
@@ -210,7 +210,7 @@ namespace Remaster.HUD
         {
             var oldItem = Item;
             Item = item;
-            ItemSprite.AnimationData = Item.Animation(rItem.HudWindowIdle);
+            ItemSprite.AnimationData = Item.Animation(rItem.ItemClaw_Idle);
             return oldItem;
         }
 
@@ -260,6 +260,8 @@ namespace Remaster.HUD
 
             if (CurrentOperation == SubArmAction.Output)
             {
+                //This is going to cause problems if the idle animation doesn't loop
+                ItemSprite.AnimationData = Item.Animation(rItem.ItemClaw_Idle);
                 ProcessQueue();
             }
         }

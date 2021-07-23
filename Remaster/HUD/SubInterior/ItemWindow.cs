@@ -46,7 +46,7 @@ namespace Remaster.HUD
                 Busy = true;
                 //GD.Print($"[{ OS.GetTicksMsec() / 1000f}] OUTPUT: Will this");
 
-                Sprite.AnimationData = Item.Animation(rItem.HudWindowOut);
+                Sprite.AnimationData = Item.Animation(rItem.HudWindow_Out);
                 Sprite.AnimationComplete += OnAnimateOutComplete;
 
                 return true;
@@ -71,7 +71,7 @@ namespace Remaster.HUD
 
                 Item = item;
                 //GD.Print($"[{ OS.GetTicksMsec() / 1000f}] INTAKE: Will this");
-                Sprite.AnimationData = item.Animation(rItem.HudWindowIn);
+                Sprite.AnimationData = item.Animation(rItem.HudWindow_In);
                 Sprite.AnimationComplete += OnAnimateInComplete;
 
                 return true;
@@ -92,7 +92,7 @@ namespace Remaster.HUD
         {
             var oldItem = Item;
             Item = item;
-            Sprite.AnimationData = item.Animation(rItem.HudWindowIdle);
+            Sprite.AnimationData = item.Animation(rItem.HudWindow_Idle);
             return oldItem;
         }
 
@@ -119,7 +119,7 @@ namespace Remaster.HUD
         {
             //GD.Print($"[{ OS.GetTicksMsec() / 1000f}] INTAKE: Cause problems");
             Sprite.AnimationComplete -= OnAnimateInComplete;
-            Sprite.AnimationData = Item.Animation(rItem.HudWindowIdle);
+            Sprite.AnimationData = Item.Animation(rItem.HudWindow_Idle);
             Busy = false;
             ItemWindowEvent?.Invoke(this, new ItemWindowEventArgs(Item, ItemWindowEventType.Intake, Index));
         }

@@ -22,7 +22,7 @@ namespace Remaster.Items
 
         public override ItemAnimationData Animation(String key) => key switch
         {
-            HudWindowIdle => new ItemAnimationData
+            HudWindow_Idle => new ItemAnimationData
             {
                 TexturePath = "res://Remaster/Assets/Items/SeaweedItem_SubWindow_Idle.png",
                 SoundEffectPath = String.Empty,
@@ -32,7 +32,7 @@ namespace Remaster.Items
                 Time = 1f,
                 GridSize = (1, 8)
             },
-            HudWindowIn => new ItemAnimationData
+            HudWindow_In => new ItemAnimationData
             {
                 TexturePath = "res://Remaster/Assets/Items/SeaweedItem_SubWindow_InOut.png",
                 SoundEffectPath = String.Empty,
@@ -42,7 +42,7 @@ namespace Remaster.Items
                 Time = 0.2f,
                 GridSize = (1, 5)
             },
-            HudWindowOut => new ItemAnimationData
+            HudWindow_Out => new ItemAnimationData
             {
                 TexturePath = "res://Remaster/Assets/Items/SeaweedItem_SubWindow_InOut.png",
                 SoundEffectPath = String.Empty,
@@ -52,7 +52,7 @@ namespace Remaster.Items
                 Time = 0.2f,
                 GridSize = (1, 5)
             },
-            ItemClawOutPut => new ItemAnimationData
+            ItemClaw_Output => new ItemAnimationData
             {
                 TexturePath = "res://Remaster/Assets/Items/Sub_ItemArm_Seaweed.png",
                 AnimationRow = 0,
@@ -61,7 +61,16 @@ namespace Remaster.Items
                 Time = 1f,
                 GridSize = (5, 8)
             },
-            ItemClawIdle => new ItemAnimationData
+            ItemClaw_Intake => new ItemAnimationData
+            {
+                TexturePath = "res://Remaster/Assets/Items/Sub_ItemArm_Seaweed.png",
+                AnimationRow = 0,
+                AnimationFrames = (7, 0),
+                Repeat = false, 
+                Time = 1f,
+                GridSize = (5, 8)
+            },
+            ItemClaw_Idle => new ItemAnimationData
             {
                 TexturePath = "res://Remaster/Assets/Items/Sub_ItemArm_Seaweed.png",
                 AnimationRow = 4,
@@ -85,64 +94,11 @@ namespace Remaster.Items
         #region Descriptions
         private ItemDescription SubConsole_Description => new ItemDescription
         (
-            new PrintBlock(PrintToken.Clear),
+            //new PrintBlock(PrintToken.Clear),
             new PrintBlock("Seaweed:\n"),
             new PrintBlock(PrintToken.Pause, "1"),
             new PrintBlock("It's like lettuce, but salty.")
         );
-        #endregion
-
-        #region Animations
-        private Dictionary<String, ItemAnimationData> Animations = new Dictionary<String, ItemAnimationData>
-        {
-            {
-                HudWindowIdle, new ItemAnimationData
-                {
-                    TexturePath = "res://Remaster/Assets/Items/SeaweedItem_SubWindow_Idle.png",
-                    SoundEffectPath = String.Empty,
-                    AnimationRow = 0,
-                    AnimationFrames = (0 , 7),
-                    Repeat = true,
-                    Time = 1f,
-                    GridSize = (1, 8)
-                }
-            },
-            {
-                HudWindowIn, new ItemAnimationData
-                {
-                    TexturePath = "res://Remaster/Assets/Items/SeaweedItem_SubWindow_InOut.png",
-                    SoundEffectPath = String.Empty,
-                    AnimationRow = 0,
-                    AnimationFrames = (0 , 4),
-                    Repeat = false,
-                    Time = 0.2f,
-                    GridSize = (1, 5)
-                }
-            },
-            {
-                HudWindowOut, new ItemAnimationData
-                {
-                    TexturePath = "res://Remaster/Assets/Items/SeaweedItem_SubWindow_InOut.png",
-                    SoundEffectPath = String.Empty,
-                    AnimationRow = 0,
-                    AnimationFrames = (4 , 0),
-                    Repeat = false,
-                    Time = 0.2f,
-                    GridSize = (1, 5)
-                }
-            },
-            {
-                ItemClawOutPut, new ItemAnimationData
-                {
-                    TexturePath = "res://Remaster/Assets/Items/Sub_ItemArm_Seaweed.png",
-                    AnimationRow = 0,
-                    AnimationFrames = (0, 7),
-                    Repeat = false,
-                    Time = 1f,
-                    GridSize = (5, 8)
-                }
-            }
-        };
         #endregion
     }
 }

@@ -20,7 +20,7 @@ namespace Remaster.Items
 
         public override ItemAnimationData Animation(string querier) => querier switch
         {
-            HudWindowIdle => new ItemAnimationData
+            HudWindow_Idle => new ItemAnimationData
             {
                 TexturePath = "res://Remaster/Assets/Items/Pipe.png",
                 SoundEffectPath = String.Empty,
