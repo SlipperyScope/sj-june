@@ -58,6 +58,8 @@ namespace Remaster.Utilities
 
         public static implicit operator PrintBlock(String s) => new PrintBlock(s);
         public static implicit operator PrintBlock((String Text, PrintToken Token) block) => new PrintBlock(block.Text, block.Token);
+        public static implicit operator PrintBlock((Object Text, PrintToken Token) block) => new PrintBlock(block.Text.ToString(), block.Token);
         public static implicit operator PrintBlock((PrintToken Token, String Text) block) => new PrintBlock(block.Text, block.Token);
+        public static implicit operator PrintBlock((PrintToken Token, Object Text) block) => new PrintBlock(block.Text.ToString(), block.Token);
     }
 }

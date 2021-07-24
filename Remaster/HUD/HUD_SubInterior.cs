@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Godot;
 using Remaster.Items;
 using Remaster.Player;
-using rItem = Remaster.Items.Item;
+using Remaster.Utilities;
 
 namespace Remaster.HUD
 {
@@ -22,6 +22,7 @@ namespace Remaster.HUD
         private SubInteriorItemButton ItemArmButton;
         private HUDToggle ItemArmToggle;
         private ItemTransitionBay ItemTransitionBay = new ItemTransitionBay();
+        private IHostItems SubTarget;
 
         /// <summary>
         /// Gets all the HUD elements and adds them to the Elements dictionary
@@ -51,6 +52,9 @@ namespace Remaster.HUD
                         break;
                     case HUDToggle toggle when toggle.Name == "RightArmButton":
                         ItemArmToggle = toggle;
+                        break;
+                    case IHostItems itemHost when SubTarget is null:
+                        SubTarget = itemHost;
                         break;
                     default:
                         GD.PushWarning($"{this}={Name} unknown clickable {clickable.GetPath()}");
@@ -100,27 +104,42 @@ namespace Remaster.HUD
         {
             GetHUDElements();
 
+            //Item windows
             PlayerData.Items.Select((item, index) => (item, index)).ToList().ForEach(d => ItemWindows[d.index].ForceChangeItem(d.item));
-            ItemArm.ForceChangeItem(PlayerData.ItemArm);
-            //ItemArm.Bay = ItemTransitionBay;
-
-            foreach (var button in ItemButtons)
-            {
-                button.ButtonPress += OnItemButtonPressed;
-            }
 
             foreach (var window in ItemWindows)
             {
                 window.ItemWindowEvent += OnItemWindowEvent;
             }
 
+            //Item arm
+            ItemArm.ForceChangeItem(PlayerData.ItemArm);
             ItemArm.OperationComplete += OnItemArmOperationComplete;
             ItemArmButton.ButtonPress += OnRightArmButtonPressed;
             ItemArmToggle.Toggled += OnItemArmToggle;
+
+            //Item buttons
+            foreach (var button in ItemButtons)
+            {
+                button.ButtonPress += OnItemButtonPressed;
+            }
+
+            //Sub target
+            if (SubTarget is Clickable clickableTarget && SubTarget is IPrintable)
+            {
+                clickableTarget.MouseEvent += OnSubTargetClick;
+            }
+        }
+
+        private void OnSubTargetClick(System.Object sender, ClickableMouseEventArgs e)
+        {
+            if (e.MouseState == MouseEventType.Down)
+            {
+                Console.Print(sender);
+            }
         }
 
         #region Item Arm
-
         /// <summary>
         /// Handles Item Arm operation complete events
         /// </summary>
@@ -160,7 +179,13 @@ namespace Remaster.HUD
         /// <summary>
         /// Handles Item Arm Button events
         /// </summary>
-        private void OnRightArmButtonPressed(System.Object sender, ButtonEventArgs e) => UseItemArm();
+        private void OnRightArmButtonPressed(System.Object sender, ButtonEventArgs e)
+        {
+            if (ItemArm.Extended is true)
+            {
+                Console.Print(SubTarget.Response(ItemArm.Item));
+            }
+        }
 
         //TODO: 'use item' parsing/animation triggers
         /// <summary>
@@ -227,55 +252,5 @@ namespace Remaster.HUD
             }
         }
         #endregion
-    }
-
-    public class ItemTransitionBay
-    {
-        public rItem BayItem { get; private set; }
-        public ItemWindow LastBay { get; private set; }
-        public SubArm LastArm { get; private set; }
-        public rItem ArmItem { get; private set; }
-
-        public void Deposit(SubArm arm, rItem item)
-        {
-            LastArm = arm;
-            ArmItem = item;
-
-            if (BayItem != null)
-            {
-                PushItems();
-            }
-        }
-
-        public void Deposit(ItemWindow window, rItem item)
-        {
-            LastBay = window;
-            BayItem = item;
-
-            if (ArmItem != null)
-            {
-                PushItems();
-            }
-        }
-
-        /// <summary>
-        /// True if the bay is empty
-        /// </summary>
-        public Boolean Empty => BayItem is null && ArmItem is null;
-
-        /// <summary>
-        /// Index of last item bay
-        /// </summary>
-        public Int32 BayIndex => LastBay?.Index ?? -1;
-
-        private void PushItems()
-        {
-            LastBay.Intake(ArmItem);
-            LastArm.Output(BayItem);
-            BayItem = null;
-            LastBay = null;
-            LastArm = null;
-            ArmItem = null;
-        }
     }
 }

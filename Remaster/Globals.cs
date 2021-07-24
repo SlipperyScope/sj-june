@@ -28,7 +28,19 @@ namespace Remaster
 
         //private Dictionary<String, rPlayerData> _PlayerData = new Dictionary<string, rPlayerData>();
 
+        /// <summary>
+        /// Gets player data
+        /// </summary>
+        /// <param name="key">Record key</param>
+        /// <returns>Player data matching key or null</returns>
         public static rPlayerData GetPlayerData(String key) => _PlayerData.ContainsKey(key) ? _PlayerData[key] : null;
+        
+        /// <summary>
+        /// Adds player data record
+        /// </summary>
+        /// <param name="key">Record key</param>
+        /// <param name="data">Player data</param>
+        /// <returns>True if it was added</returns>
         public static Boolean AddPlayerData(String key, rPlayerData data)
         {
             if (data is null) return false;
@@ -40,6 +52,12 @@ namespace Remaster
             }
             return unique;
         }
+
+        /// <summary>
+        /// Removes player data record
+        /// </summary>
+        /// <param name="key">Key</param>
+        /// <returns>player data that was removed</returns>
         public static rPlayerData RemovePlayerData(String key)
         {
             var data = _PlayerData.ContainsKey(key) ? _PlayerData[key] : null;

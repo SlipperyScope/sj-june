@@ -37,7 +37,7 @@ namespace Remaster.Characters
         {
             if (Character.Position != TargetLocation)
             {
-                Character.MoveAndSlide((TargetLocation - Character.Position).Normalized() * MoveSpeed);
+                //Character.MoveAndSlide((TargetLocation - Character.Position).Normalized() * MoveSpeed);
             }
         }
 

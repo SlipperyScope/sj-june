@@ -12,13 +12,14 @@ namespace Remaster.Items
     /// </summary>
     public abstract class Item : IPrintable
     {
-
+        #region Animation constants
         public const String HudWindow_Idle = nameof(HudWindow_Idle);
         public const String HudWindow_In = nameof(HudWindow_In);
         public const String HudWindow_Out = nameof(HudWindow_Out);
         public const String ItemClaw_Output = nameof(ItemClaw_Output);
         public const String ItemClaw_Intake = nameof(ItemClaw_Intake);
-        public const String ItemClaw_Idle = nameof(ItemClaw_Idle);
+        public const String ItemClaw_Idle = nameof(ItemClaw_Idle); 
+        #endregion
 
         /// <summary>
         /// Items ID

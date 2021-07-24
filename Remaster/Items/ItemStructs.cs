@@ -37,6 +37,8 @@ namespace Remaster.Items
             }
         }
 
+        public void Add(PrintBlock block) => Blocks.Add(block);
+
         public List<PrintBlock> PrintBlocks => Blocks;
     }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Remaster
 {
+    [Obsolete]
     /// <summary>
     /// Registers clickables
     /// </summary>
