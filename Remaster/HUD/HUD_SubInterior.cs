@@ -183,7 +183,12 @@ namespace Remaster.HUD
         {
             if (ItemArm.Extended is true)
             {
-                Console.Print(SubTarget.Response(ItemArm.Item));
+                var response = SubTarget.Response(ItemArm.Item);
+                Console.Print(response);
+                if (response.Willing is true)
+                {
+                    ItemArm.ForceChangeItem(SubTarget.Trade(ItemArm.Item));
+                }
             }
         }
 

@@ -19,24 +19,16 @@ namespace Remaster.Items
         /// <summary>
         /// Creates a description from a printblock list
         /// </summary>
-        public ItemDescription(List<PrintBlock> blocks)
-        {
-            Blocks = blocks ?? new List<PrintBlock>();
-        }
+        public ItemDescription(List<PrintBlock> blocks) => Blocks = blocks ?? new List<PrintBlock>();
 
         /// <summary>
         /// Creates a description from printblocks
         /// </summary>
-        public ItemDescription(PrintBlock block, params PrintBlock[] args)
-        {
-            Blocks = new List<PrintBlock>();
-            Blocks.Add(block);
-            foreach (var printblock in args)
-            {
-                Blocks.Add(printblock);
-            }
-        }
+        public ItemDescription(PrintBlock block, params PrintBlock[] args) => Blocks = args.Prepend(block).ToList();
 
+        /// <summary>
+        /// Adds a new print block
+        /// </summary>
         public void Add(PrintBlock block) => Blocks.Add(block);
 
         public List<PrintBlock> PrintBlocks => Blocks;

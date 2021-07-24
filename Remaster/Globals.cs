@@ -24,6 +24,7 @@ namespace Remaster
         }
         private static Globals _Global = null;
 
+        #region Player Data
         private static Dictionary<String, rPlayerData> _PlayerData = new Dictionary<string, rPlayerData>();
 
         //private Dictionary<String, rPlayerData> _PlayerData = new Dictionary<string, rPlayerData>();
@@ -34,7 +35,7 @@ namespace Remaster
         /// <param name="key">Record key</param>
         /// <returns>Player data matching key or null</returns>
         public static rPlayerData GetPlayerData(String key) => _PlayerData.ContainsKey(key) ? _PlayerData[key] : null;
-        
+
         /// <summary>
         /// Adds player data record
         /// </summary>
@@ -67,5 +68,8 @@ namespace Remaster
             }
             return data;
         }
+        #endregion
+
+        public static Random Random { get; } = new Random();
     }
 }
